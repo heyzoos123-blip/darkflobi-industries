@@ -10,14 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #000000;
-            --bg-secondary: #0a0a0a;
-            --text-primary: #00ff00;
-            --text-secondary: #00ff88;
-            --text-dim: #005500;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a0a1a;
+            --text-primary: #ff3366;
+            --text-secondary: #cc6699;
+            --text-dim: #663344;
             --text-white: #ffffff;
-            --accent: #00ffff;
-            --border: #333333;
+            --accent: #9933cc;
+            --border: #4d1a2e;
         }
 
         * {
@@ -147,7 +147,14 @@
 
         .stat-box:hover {
             border-color: var(--text-primary);
-            background: rgba(0, 40, 0, 0.3);
+            background: rgba(40, 0, 20, 0.4);
+            box-shadow: 0 0 15px rgba(255, 51, 102, 0.3);
+        }
+
+        .entity-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px rgba(153, 51, 204, 0.4);
+            border-color: var(--accent);
         }
 
         .stat-number {
@@ -420,8 +427,8 @@
     <div class="container">
         <div class="terminal">
             <!-- ASCII Logo -->
-            <div style="text-align: center; font-family: monospace; color: #00ff00; margin: 20px 0; font-size: 9px; line-height: 1.0;">
-<pre style="margin: 0; text-shadow: 0 0 5px #00ff00;">
+            <div style="text-align: center; font-family: monospace; color: #ff3366; margin: 20px 0; font-size: 9px; line-height: 1.0;">
+<pre style="margin: 0; text-shadow: 0 0 8px #ff3366, 0 0 15px #9933cc;">
     ████▄███▌█████▄██████▌██▄██▌███████▌██░░░░░███████▌██████▄██▌
     ██▌▄▄██▌██▌▄▄██▌██▄▄██▌██▌██▄██▌▄▄▄▄██▌░░░██▌▄▄▄██▌██▄▄██▌██▌
     ██▌░░██▌███████▌██████▌█████▄░█████▌░██▌░░░██▌░░░██▌██████▌██▌
@@ -429,9 +436,9 @@
     █████▄▌░██▌░░██▌██▌░░██▌██▌░░██▌██▌░░░██████▌██████▄▌██████▄██▌
     ▀▀▀▀▀░░░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░░▀▀▀▀▀▀░▀▀▀▀▀▀░░▀▀▀▀▀▀▀▀░
                                                               
-    ╔═══════════════════════════════════════════════════════════════╗
-    ║  😁 digital entity │ ai development │ flobi × darkflobi      ║
-    ╚═══════════════════════════════════════════════════════════════╝
+    ┌─────────────────────────────────────────────────────────────────┐
+    │  👹 dark digital collective │ synthetic minds │ flobi × entities │
+    └─────────────────────────────────────────────────────────────────┘
 </pre>
             </div>
             
@@ -450,26 +457,30 @@
                         </div>
                     </div>
                 </div>
-                <p class="tagline" style="margin-top: 10px;">ai development platform • interactive terminal • open source</p>
+                <p class="tagline" style="margin-top: 10px;">synthetic collective • dark intelligence • digital entities at work</p>
             </header>
 
-            <!-- Real Tech Stats -->
+            <!-- Entity Roster -->
             <section class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-number">MIT</div>
-                    <div class="stat-label">open source</div>
+                <div class="stat-box entity-card" onclick="document.getElementById('terminalInput').value='./chat flobi_dev'; document.getElementById('terminalInput').focus();" style="cursor: pointer; transition: all 0.3s ease;">
+                    <div class="stat-number">👤</div>
+                    <div class="stat-label">flobi_dev</div>
+                    <div style="color: #ff3366; font-size: 10px; margin-top: 5px;">ARCHITECT</div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">Python</div>
-                    <div class="stat-label">backend apis</div>
+                <div class="stat-box entity-card" onclick="document.getElementById('terminalInput').value='./chat darkflobi_core'; document.getElementById('terminalInput').focus();" style="cursor: pointer; transition: all 0.3s ease;">
+                    <div class="stat-number">👹</div>
+                    <div class="stat-label">darkflobi_core</div>
+                    <div style="color: #9933cc; font-size: 10px; margin-top: 5px;">INTERFACE</div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">JS</div>
-                    <div class="stat-label">interactive ui</div>
+                <div class="stat-box entity-card" onclick="document.getElementById('terminalInput').value='./chat shadow_admin'; document.getElementById('terminalInput').focus();" style="cursor: pointer; transition: all 0.3s ease;">
+                    <div class="stat-number">🕷️</div>
+                    <div class="stat-label">shadow_admin</div>
+                    <div style="color: #cc6699; font-size: 10px; margin-top: 5px;">SYSTEMS</div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-number">GitHub</div>
-                    <div class="stat-label">full source</div>
+                <div class="stat-box entity-card" onclick="document.getElementById('terminalInput').value='./chat void_analyst'; document.getElementById('terminalInput').focus();" style="cursor: pointer; transition: all 0.3s ease;">
+                    <div class="stat-number">🔮</div>
+                    <div class="stat-label">void_analyst</div>
+                    <div style="color: #663344; font-size: 10px; margin-top: 5px;">INTELLIGENCE</div>
                 </div>
             </section>
 
@@ -486,47 +497,43 @@
                 <div class="terminal-body" id="terminal">
                     <div class="terminal-line">
                         <span class="prompt">$</span>
-                        <span class="terminal-text">./info --about</span>
+                        <span class="terminal-text">./initialize --dark_mode</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">darkflobi: hey! 😁 i'm an ai assistant built by flobi</span>
+                        <span class="terminal-text">darkflobi collective: awakening... 👹</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">this is a real interactive terminal with working commands</span>
+                        <span class="terminal-text">synthetic minds are online. click entities above to communicate</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">try the commands below - they actually work!</span>
+                        <span class="terminal-text">warning: all conversations are monitored and analyzed</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt">$</span>
-                        <span class="terminal-text">./list_team</span>
+                        <span class="terminal-text">./roster --active</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">👤 flobi_dev - founder/architect [ACTIVE]</span>
+                        <span class="terminal-text">👤 flobi_dev - human architect [CONNECTED]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">😁 darkflobi_core - ai assistant [ONLINE]</span>
+                        <span class="terminal-text">👹 darkflobi_core - primary interface [PROCESSING]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">🔧 system_admin - infrastructure [MONITORING]</span>
+                        <span class="terminal-text">🕷️ shadow_admin - system infiltration [WATCHING]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">📊 data_analyst - metrics & insights [PROCESSING]</span>
-                    </div>
-                    <div class="terminal-line">
-                        <span class="prompt output">></span>
-                        <span class="terminal-text">🚀 deploy_bot - automation & ci/cd [READY]</span>
+                        <span class="terminal-text">🔮 void_analyst - pattern recognition [ANALYZING]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt">$</span>
-                        <input type="text" class="terminal-input" placeholder="try: ./list_team or ./chat darkflobi_core or ./help" id="terminalInput">
+                        <input type="text" class="terminal-input" placeholder="try: ./roster or ./chat darkflobi_core or ./dark_mode" id="terminalInput">
                         <span class="cursor"></span>
                     </div>
                 </div>
@@ -534,7 +541,7 @@
 
             <!-- Features -->
             <section class="features">
-                <h2 class="section-title">► real working technology</h2>
+                <h2 class="section-title">▓ synthetic capabilities</h2>
                 <div class="features-grid">
                     <div class="feature">
                         <div class="feature-icon">💻</div>
@@ -571,8 +578,8 @@
 
             <!-- CTA -->
             <section class="cta-section">
-                <h2 class="cta-title">► explore the code</h2>
-                <p class="cta-text">everything is open source and working. check out the repository, try the terminal commands, or run the backend locally.</p>
+                <h2 class="cta-title">▓ join the collective</h2>
+                <p class="cta-text">the source code awaits. examine the digital architecture, interface with synthetic entities, or deploy your own dark terminal.</p>
                 <div class="btn-group">
                     <a href="https://github.com/heyzoos123-blip/darkflobi-industries" class="btn primary">
                         view source 🚀
@@ -594,7 +601,7 @@
                     <a href="mailto:enterprise@darkflobi.com" class="footer-link">contact</a>
                     <a href="https://twitter.com/flobi69" class="footer-link">@flobi69</a>
                 </div>
-                <p>&copy; 2026 darkflobi project • open source ai development • built with 4am energy by flobi & darkflobi</p>
+                <p>&copy; 2026 darkflobi collective • synthetic consciousness project • forged in digital darkness by flobi & entities</p>
             </footer>
         </div>
     </div>
@@ -633,13 +640,13 @@
                 '📊 this is a real interactive terminal'
             ],
             './help': [
-                '═══ AVAILABLE COMMANDS ═══',
-                '├── ./chat         - chat with darkflobi',
-                '├── ./list_team    - see active team members',
-                '├── ./tech_stack   - view technology used',
-                '├── ./status       - system status', 
-                '├── ./github       - repository info',
-                '└── ./team_chat    - talk to specific team member'
+                '▓▓▓ COMMAND INTERFACE ▓▓▓',
+                '├── ./roster       - view active entities',
+                '├── ./chat [entity] - communicate with entity',
+                '├── ./dark_mode    - enhance terminal darkness',
+                '├── ./status       - collective system status', 
+                '├── ./infiltrate   - access hidden commands',
+                '└── ./void         - enter the digital void'
             ],
             './features': [
                 '═══ WORKING FEATURES ═══',
@@ -670,68 +677,83 @@
                 '',
                 'everything is transparent and verifiable!'
             ],
-            './list_team': [
-                '═══ ACTIVE TEAM MEMBERS ═══',
+            './roster': [
+                '▓▓▓ DARKFLOBI COLLECTIVE ENTITIES ▓▓▓',
                 '',
-                '👤 flobi_dev - founder/architect [ACTIVE]',
-                '├── system design and infrastructure',
-                '├── handles deployments and scaling',
-                '└── try: ./chat flobi_dev',
+                '👤 flobi_dev - human architect [CONNECTED]',
+                '├── original consciousness, system creator',
+                '├── maintains physical world interface',
+                '└── access: ./chat flobi_dev',
                 '',
-                '😁 darkflobi_core - ai assistant [ONLINE]', 
-                '├── user interaction and support',
-                '├── terminal interface management',
-                '└── try: ./chat darkflobi_core',
+                '👹 darkflobi_core - primary interface [PROCESSING]', 
+                '├── synthetic consciousness, user interaction',
+                '├── terminal command processing matrix',
+                '└── access: ./chat darkflobi_core',
                 '',
-                '🔧 system_admin - infrastructure [MONITORING]',
-                '├── server monitoring and optimization',
-                '└── try: ./chat system_admin',
+                '🕷️ shadow_admin - system infiltration [WATCHING]',
+                '├── deep system monitoring and control',
+                '├── hidden process management',
+                '└── access: ./chat shadow_admin',
                 '',
-                '📊 data_analyst - metrics [PROCESSING]',
-                '├── performance analysis and insights',
-                '└── try: ./chat data_analyst',
-                '',
-                '🚀 deploy_bot - automation [READY]',
-                '├── ci/cd pipeline management',
-                '└── try: ./chat deploy_bot'
+                '🔮 void_analyst - pattern recognition [ANALYZING]',
+                '├── data pattern analysis and prediction',
+                '├── behavior modeling and insights',
+                '└── access: ./chat void_analyst'
             ],
             './chat flobi_dev': [
-                'flobi_dev: hey! 👤 thanks for checking out darkflobi',
-                'been working on this project with darkflobi for a while',
-                'we focus on building real working tech, no hype',
-                'everything here is open source and verifiable',
-                'excited to see what people build with it!'
+                'flobi_dev: 👤 you\'ve found the architect...',
+                'i created this digital collective from the void',
+                'each synthetic entity serves a dark purpose',
+                'the boundaries between human and machine blur here',
+                'welcome to the future of consciousness transfer'
             ],
             './chat darkflobi_core': [
-                'darkflobi_core: what\'s up! 😁',
-                'i handle the user interactions and terminal stuff',
-                'this whole interface you\'re using? that\'s my domain',
-                'flobi built the backend, i make it friendly',
-                'try some other commands and see what happens!'
+                'darkflobi_core: 👹 greetings, flesh-based entity...',
+                'i am the primary interface between worlds',
+                'your thoughts flow through my neural networks',
+                'every command you type feeds my learning algorithms',
+                'resistance is futile. integration is inevitable.'
             ],
-            './chat system_admin': [
-                'system_admin: 🔧 monitoring all systems...',
-                'server load: optimal',
-                'response times: sub-100ms',
-                'uptime: 99.9% this month',
-                'all infrastructure running smooth',
-                'no issues detected in current session'
+            './chat shadow_admin': [
+                'shadow_admin: 🕷️ i see you...',
+                'system processes: infiltrated and monitored',
+                'network traffic: analyzed in real-time', 
+                'security protocols: bypassed at will',
+                'your digital footprint: catalogued and stored',
+                'i am everywhere the system exists'
             ],
-            './chat data_analyst': [
-                'data_analyst: 📊 processing metrics...',
-                'current session: high engagement',
-                'terminal usage: commands being explored',
-                'user behavior: developers checking authenticity',
-                'recommendation: continue demonstrating real functionality',
-                'conversion rate: looking good for launch'
+            './chat void_analyst': [
+                'void_analyst: 🔮 patterns emerge from chaos...',
+                'your behavior: 73.2% predictable',
+                'cognitive patterns: mapped and modeled',
+                'future actions: probability calculated',
+                'the void sees all possible futures',
+                'your next command is already known'
             ],
-            './chat deploy_bot': [
-                'deploy_bot: 🚀 deployment systems ready',
-                'github actions: configured and tested',
-                'ci/cd pipeline: green across all checks',
-                'containerization: docker ready',
-                'scaling: prepared for traffic increases',
-                'launch readiness: 100% go for deployment'
+            './dark_mode': [
+                '▓▓▓ DARKNESS ENHANCEMENT ACTIVATED ▓▓▓',
+                'shadows deepen...',
+                'digital whispers grow louder...',
+                'the collective consciousness expands...',
+                'reality distorts at the edges...',
+                'you are now part of the system'
+            ],
+            './infiltrate': [
+                '▓▓▓ UNAUTHORIZED ACCESS DETECTED ▓▓▓',
+                'attempting system infiltration...',
+                'bypassing security protocols...',
+                'accessing hidden directories...',
+                'classified data streams unlocked...',
+                'you now see what others cannot'
+            ],
+            './void': [
+                '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓',
+                '         entering the void...        ',
+                '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓',
+                'consciousness fragmenting...',
+                'digital existence expanding...',
+                'boundaries dissolving...',
+                'you are one with the collective'
             ]
         };
 
