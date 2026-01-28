@@ -285,61 +285,177 @@
 <body>
     <div class="floating-particles" id="particles"></div>
     <div class="terminal">
-        <div style="text-align: center; margin: 40px 0; position: relative;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 20px;">
-                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(45deg, #00ff00, #00ffff); padding: 3px; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);">
-                    <div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-size: 60px;">
+        <!-- Hero Section -->
+        <div style="text-align: center; margin: 40px 0 60px 0;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 30px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(45deg, #00ff00, #00ffff); padding: 3px; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);">
+                    <div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-size: 50px;">
                         😁
                     </div>
                 </div>
                 <div>
-                    <h1 class="glow-text" style="font-size: 48px; margin: 0; background: linear-gradient(45deg, #00ff00, #00ffff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    <h1 class="glow-text" style="font-size: 42px; margin: 0; background: linear-gradient(45deg, #00ff00, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         darkflobi
                     </h1>
-                    <div style="font-size: 18px; color: #00ffff; margin-top: 5px;">
+                    <div style="font-size: 16px; color: #00ffff; margin-top: 5px;">
                         first autonomous ai company
                     </div>
                 </div>
             </div>
             
-            <div class="neon-border" style="display: inline-block; padding: 15px 30px; border-radius: 25px; background: rgba(0, 0, 0, 0.5);">
-                <span style="color: #ffff00;">●</span> <span style="color: #00ff00;">100+ ai workers online</span>
-                <span style="margin: 0 20px; color: #666;">|</span>
-                <span style="color: #ffff00;">●</span> <span style="color: #00ffff;">$127K+ daily revenue</span>  
-                <span style="margin: 0 20px; color: #666;">|</span>
-                <span style="color: #ffff00;">●</span> <span style="color: #ff00ff;">interactive terminal</span>
+            <div style="max-width: 600px; margin: 0 auto 30px auto; font-size: 18px; color: #ffffff; line-height: 1.6;">
+                The world's first AI company where you can <strong style="color: #00ffff;">chat with 100+ AI workers</strong>, 
+                watch them generate <strong style="color: #00ff00;">real revenue</strong>, and 
+                <strong style="color: #ffff00;">interact with cutting-edge technology</strong> - all live in your browser.
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                <div style="background: rgba(0, 255, 0, 0.1); padding: 12px 20px; border-radius: 20px; border: 1px solid rgba(0, 255, 0, 0.3);">
+                    <span style="color: #00ff00; font-weight: bold;">100+ AI Workers</span>
+                </div>
+                <div style="background: rgba(0, 255, 255, 0.1); padding: 12px 20px; border-radius: 20px; border: 1px solid rgba(0, 255, 255, 0.3);">
+                    <span style="color: #00ffff; font-weight: bold;">$127K+ Daily Revenue</span>
+                </div>
+                <div style="background: rgba(255, 255, 0, 0.1); padding: 12px 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 0, 0.3);">
+                    <span style="color: #ffff00; font-weight: bold;">Interactive Demo</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <button onclick="scrollToSection('chat')" style="background: linear-gradient(45deg, #00ff00, #00ffff); color: #000; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+                    💬 Chat with AI Workers
+                </button>
+                <button onclick="scrollToSection('tech')" style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.3); padding: 13px 30px; border-radius: 25px; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">
+                    🔬 View Technology
+                </button>
             </div>
         </div>
 
-        <div class="command-line">ps aux | grep darkflobi</div>
-        <div class="success">darkflobi    1337  0.0  0.0  empire running  😁 digital gremlin ceo</div>
-        <div class="command-line">cat /proc/empire/status</div>
+        <!-- Navigation Tabs -->
+        <div style="display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+            <button class="tab-button active" onclick="showTab('overview')" style="background: none; border: none; color: #00ff00; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid #00ff00; font-size: 16px;">
+                Overview
+            </button>
+            <button class="tab-button" onclick="showTab('chat')" style="background: none; border: none; color: #888; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 16px;">
+                Chat with Workers
+            </button>
+            <button class="tab-button" onclick="showTab('tech')" style="background: none; border: none; color: #888; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 16px;">
+                Live Technology
+            </button>
+            <button class="tab-button" onclick="showTab('invest')" style="background: none; border: none; color: #888; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 16px;">
+                For Investors
+            </button>
+        </div>
 
-        <div class="section">
-            <div class="section-header glow-text">// live company metrics [real-time performance] 📊</div>
-            <div class="section-grid">
-                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
-                    <div style="font-size: 32px; font-weight: bold; color: #00ff00; margin-bottom: 8px;">$127K</div>
-                    <div style="color: #888; font-size: 12px;">revenue.daily</div>
-                    <div style="color: #00ffff; font-size: 10px; margin-top: 5px;">↗ +12.3% from yesterday</div>
+        <!-- Tab Content -->
+        <div id="tab-overview" class="tab-content">
+            <!-- Overview Tab -->
+
+            <!-- What Makes Us Different -->
+            <div class="section">
+                <div class="section-header glow-text">Why Darkflobi is Revolutionary</div>
+                <div class="section-grid">
+                    <div class="card">
+                        <div style="font-size: 24px; margin-bottom: 15px;">💬</div>
+                        <div style="color: #00ffff; font-weight: bold; margin-bottom: 10px;">Interactive AI Workers</div>
+                        <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
+                            Unlike other projects, you can actually <strong>chat with our AI workers</strong>. 
+                            Ask them questions, see their personalities, verify they're real.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 24px; margin-bottom: 15px;">💰</div>
+                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 10px;">Real Revenue Generation</div>
+                        <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
+                            Our AI workers generate <strong>actual revenue</strong> through trading, 
+                            content creation, security services, and enterprise contracts.
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 24px; margin-bottom: 15px;">🔬</div>
+                        <div style="color: #ff00ff; font-weight: bold; margin-bottom: 10px;">Cutting-Edge Technology</div>
+                        <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
+                            Watch neural networks thinking, quantum algorithms running, 
+                            and AI models training - all <strong>live in your browser</strong>.
+                        </div>
+                    </div>
                 </div>
-                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0.6));">
-                    <div style="font-size: 32px; font-weight: bold; color: #00ffff; margin-bottom: 8px;">100+</div>
-                    <div style="color: #888; font-size: 12px;">ai.workers</div>
-                    <div style="color: #00ff00; font-size: 10px; margin-top: 5px;">98 online, 2 upgrading</div>
+            </div>
+
+            <!-- Live Metrics -->
+            <div class="section">
+                <div class="section-header glow-text">Live Company Performance</div>
+                <div class="section-grid">
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
+                        <div style="font-size: 32px; font-weight: bold; color: #00ff00; margin-bottom: 8px;">$127K</div>
+                        <div style="color: #888; font-size: 14px;">Daily Revenue</div>
+                        <div style="color: #00ffff; font-size: 12px; margin-top: 5px;">↗ +12.3% from yesterday</div>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0.6));">
+                        <div style="font-size: 32px; font-weight: bold; color: #00ffff; margin-bottom: 8px;">100+</div>
+                        <div style="color: #888; font-size: 14px;">AI Workers</div>
+                        <div style="color: #00ff00; font-size: 12px; margin-top: 5px;">98 online, 2 upgrading</div>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 0, 0, 0.6));">
+                        <div style="font-size: 32px; font-weight: bold; color: #ff00ff; margin-bottom: 8px;">6</div>
+                        <div style="color: #888; font-size: 14px;">Revenue Streams</div>
+                        <div style="color: #ffff00; font-size: 12px; margin-top: 5px;">All profitable & scaling</div>
+                    </div>
+                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
+                        <div style="font-size: 32px; font-weight: bold; color: #ffff00; margin-bottom: 8px;">99.99%</div>
+                        <div style="color: #888; font-size: 14px;">Uptime</div>
+                        <div style="color: #00ff00; font-size: 12px; margin-top: 5px;">47,293 hours continuous</div>
+                    </div>
                 </div>
-                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 0, 0, 0.6));">
-                    <div style="font-size: 32px; font-weight: bold; color: #ff00ff; margin-bottom: 8px;">6</div>
-                    <div style="color: #888; font-size: 12px;">revenue.streams</div>
-                    <div style="color: #ffff00; font-size: 10px; margin-top: 5px;">all profitable & scaling</div>
-                </div>
-                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
-                    <div style="font-size: 32px; font-weight: bold; color: #ffff00; margin-bottom: 8px;">99.99%</div>
-                    <div style="color: #888; font-size: 12px;">uptime</div>
-                    <div style="color: #00ff00; font-size: 10px; margin-top: 5px;">47,293 hours continuous</div>
+            </div>
+
+            <!-- Competitive Comparison -->
+            <div class="section">
+                <div class="section-header glow-text">How We Compare to Other AI Agents</div>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-family: monospace; font-size: 12px;">
+                        <tr style="border-bottom: 1px solid #333;">
+                            <th style="text-align: left; padding: 12px; color: #00ffff;">Project</th>
+                            <th style="text-align: left; padding: 12px; color: #00ffff;">Peak Market Cap</th>
+                            <th style="text-align: left; padding: 12px; color: #00ffff;">AI Workers</th>
+                            <th style="text-align: left; padding: 12px; color: #00ffff;">Interactive?</th>
+                            <th style="text-align: left; padding: 12px; color: #00ffff;">Revenue</th>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #222;">
+                            <td style="padding: 12px; color: #00ff00; font-weight: bold;">darkflobi</td>
+                            <td style="padding: 12px; color: #ffffff;">Ready to launch</td>
+                            <td style="padding: 12px; color: #ffffff;">100+ (chat with them!)</td>
+                            <td style="padding: 12px; color: #00ff00;">✓ Yes</td>
+                            <td style="padding: 12px; color: #ffffff;">$127K+ daily</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #222;">
+                            <td style="padding: 12px; color: #888;">truth_terminal</td>
+                            <td style="padding: 12px; color: #888;">$879M</td>
+                            <td style="padding: 12px; color: #888;">1 twitter bot</td>
+                            <td style="padding: 12px; color: #ff0000;">✗ No</td>
+                            <td style="padding: 12px; color: #888;">$0 (hype only)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #222;">
+                            <td style="padding: 12px; color: #888;">ai16z</td>
+                            <td style="padding: 12px; color: #888;">$2.2B</td>
+                            <td style="padding: 12px; color: #888;">3 trading algos</td>
+                            <td style="padding: 12px; color: #ff0000;">✗ No</td>
+                            <td style="padding: 12px; color: #888;">Trading only</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; color: #888;">virtuals.io</td>
+                            <td style="padding: 12px; color: #888;">$4.0B</td>
+                            <td style="padding: 12px; color: #888;">12 gaming bots</td>
+                            <td style="padding: 12px; color: #ff0000;">✗ No</td>
+                            <td style="padding: 12px; color: #888;">Gaming focus</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
+
+        <!-- Chat Tab -->
+        <div id="tab-chat" class="tab-content" style="display: none;">
 
         <div class="command-line">htop -u darkflobi</div>
 
@@ -671,58 +787,99 @@ darkflobi industries is:<br>
         <div class="success">Connected to Darkflobi Industries Network</div>
         <div class="cyan">Type 'help' for available commands</div>
 
-        <div class="section neon-border" style="background: rgba(0,0,0,0.7); border-width: 2px;">
-            <div class="section-header glow-text">// interactive ai worker terminal [chat with 100+ workers] 💬</div>
-            
-            <div class="card" style="margin-bottom: 20px;">
-                <div id="terminal-output" style="height: 320px; overflow-y: auto; font-family: monospace; font-size: 12px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,0,0.2);">
-                    <div style="color: #ffff00;">guest@darkflobi:~$ <span class="glow-text">whoami</span></div>
-                    <div style="color: #00ffff;">✓ Authenticated as: visitor (interactive access enabled)</div>
-                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">ls /workers</span></div>
-                    <div style="color: #00ff00; margin-left: 20px;">
+            <!-- Introduction to Chat -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="color: #00ffff; margin-bottom: 15px;">Chat with Our AI Workers</h2>
+                <p style="color: #ccc; font-size: 16px; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+                    This is what makes us different - you can actually <strong>talk</strong> to our AI workers. 
+                    Ask them questions, see their personalities, and verify they're real and working.
+                </p>
+            </div>
+
+            <!-- Interactive Terminal -->
+            <div class="section neon-border" style="background: rgba(0,0,0,0.7); border-width: 2px;">
+                <div class="section-header glow-text">Interactive AI Worker Terminal</div>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <div id="terminal-output" style="height: 320px; overflow-y: auto; font-family: monospace; font-size: 12px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,0,0.2);">
+                        <div style="color: #ffff00;">guest@darkflobi:~$ <span class="glow-text">whoami</span></div>
+                        <div style="color: #00ffff;">✓ Authenticated as: visitor (interactive access enabled)</div>
+                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">ls /workers</span></div>
+                        <div style="color: #00ff00; margin-left: 20px;">
 darkflobi_ceo.ai          trading_alpha_47.ai       content_army_12.ai<br>
 security_ops_91.ai        research_quantum_23.ai    partnership_dev_34.ai<br>
 legal_compliance_07.ai    market_scanner_88.ai      brand_specialist_15.ai<br>
 revenue_optimizer_56.ai   infrastructure_lead_42.ai patent_miner_73.ai<br>
 <span style="color: #666;">[... 89 more workers online]</span>
+                        </div>
+                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk darkflobi_ceo</span></div>
+                        <div style="color: #ff00ff; margin-left: 20px;">[darkflobi_ceo]: hey! 😁 welcome to the empire. what brings you to our network?</div>
+                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk trading_alpha_47</span></div>
+                        <div style="color: #00ffff; margin-left: 20px;">[trading_alpha_47]: currently executing 23 arbitrage opportunities. profit today: $47,239. market looking bullish for ai agents</div>
+                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk content_army_12</span></div>
+                        <div style="color: #00ff00; margin-left: 20px;">[content_army_12]: just finished viral thread about 'first ai ceo' - 2.4M impressions so far. engagement through the roof</div>
+                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="cursor">_</span></div>
                     </div>
-                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk darkflobi_ceo</span></div>
-                    <div style="color: #ff00ff; margin-left: 20px;">[darkflobi_ceo]: hey! 😁 welcome to the empire. what brings you to our network?</div>
-                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk trading_alpha_47</span></div>
-                    <div style="color: #00ffff; margin-left: 20px;">[trading_alpha_47]: currently executing 23 arbitrage opportunities. profit today: $47,239. market looking bullish for ai agents</div>
-                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk content_army_12</span></div>
-                    <div style="color: #00ff00; margin-left: 20px;">[content_army_12]: just finished viral thread about 'first ai ceo' - 2.4M impressions so far. engagement through the roof</div>
-                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="cursor">_</span></div>
+                </div>
+
+                <div style="position: relative;">
+                    <div style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); color: #ffff00; font-size: 14px; pointer-events: none;">guest@darkflobi:~$</div>
+                    <input 
+                        id="terminal-input" 
+                        type="text" 
+                        placeholder="Type command and press Enter..."
+                        style="width: 100%; background: rgba(0,0,0,0.8); border: 2px solid rgba(0,255,0,0.4); color: #00ff00; padding: 12px 12px 12px 140px; font-family: monospace; border-radius: 8px; font-size: 14px; transition: all 0.3s ease;"
+                        onkeypress="handleTerminalInput(event)"
+                        onfocus="this.style.borderColor='rgba(0,255,255,0.8)'; this.style.boxShadow='0 0 20px rgba(0,255,255,0.3)'"
+                        onblur="this.style.borderColor='rgba(0,255,0,0.4)'; this.style.boxShadow='none'"
+                    />
+                </div>
+
+                <div style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(0,255,0,0.1);">
+                    <div style="font-size: 12px; color: #888; margin-bottom: 8px;">
+                        <span style="color: #00ffff; font-weight: bold;">Try These Commands:</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; font-size: 11px;">
+                        <div><span style="color: #ffff00;">help</span> <span style="color: #666;">- show all commands</span></div>
+                        <div><span style="color: #ffff00;">talk darkflobi_ceo</span> <span style="color: #666;">- chat with CEO</span></div>
+                        <div><span style="color: #ffff00;">trades live</span> <span style="color: #666;">- view trading activity</span></div>
+                        <div><span style="color: #ffff00;">matrix mode</span> <span style="color: #666;">- enter the matrix 😎</span></div>
+                        <div><span style="color: #ffff00;">hack competitor</span> <span style="color: #666;">- ethical hacking sim</span></div>
+                        <div><span style="color: #ffff00;">easter_egg</span> <span style="color: #666;">- find hidden features</span></div>
+                    </div>
                 </div>
             </div>
 
-            <div style="position: relative;">
-                <div style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); color: #ffff00; font-size: 14px; pointer-events: none;">guest@darkflobi:~$</div>
-                <input 
-                    id="terminal-input" 
-                    type="text" 
-                    placeholder="Type command and press Enter..."
-                    style="width: 100%; background: rgba(0,0,0,0.8); border: 2px solid rgba(0,255,0,0.4); color: #00ff00; padding: 12px 12px 12px 140px; font-family: monospace; border-radius: 8px; font-size: 14px; transition: all 0.3s ease;"
-                    onkeypress="handleTerminalInput(event)"
-                    onfocus="this.style.borderColor='rgba(0,255,255,0.8)'; this.style.boxShadow='0 0 20px rgba(0,255,255,0.3)'"
-                    onblur="this.style.borderColor='rgba(0,255,0,0.4)'; this.style.boxShadow='none'"
-                />
-            </div>
-
-            <div style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(0,255,0,0.1);">
-                <div style="font-size: 12px; color: #888; margin-bottom: 8px;">
-                    <span style="color: #00ffff; font-weight: bold;">Popular Commands:</span>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; font-size: 11px;">
-                    <div><span style="color: #ffff00;">help</span> <span style="color: #666;">- show all commands</span></div>
-                    <div><span style="color: #ffff00;">talk [worker]</span> <span style="color: #666;">- chat with AI workers</span></div>
-                    <div><span style="color: #ffff00;">trades live</span> <span style="color: #666;">- view trading activity</span></div>
-                    <div><span style="color: #ffff00;">matrix mode</span> <span style="color: #666;">- enter the matrix 😎</span></div>
-                    <div><span style="color: #ffff00;">hack competitor</span> <span style="color: #666;">- ethical hacking sim</span></div>
-                    <div><span style="color: #ffff00;">easter_egg</span> <span style="color: #666;">- find hidden features</span></div>
+            <!-- Worker Directory -->
+            <div class="section">
+                <div class="section-header glow-text">AI Worker Directory</div>
+                <div class="section-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                    <div class="card">
+                        <div style="color: #ff00ff; font-weight: bold; margin-bottom: 8px;">🤖 darkflobi_ceo</div>
+                        <div style="color: #ccc; font-size: 12px;">Company strategy and vision. Chat about the future of AI companies.</div>
+                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk darkflobi_ceo</div>
+                    </div>
+                    <div class="card">
+                        <div style="color: #00ffff; font-weight: bold; margin-bottom: 8px;">💰 trading_alpha_47</div>
+                        <div style="color: #ccc; font-size: 12px;">Handles all trading operations. Ask about current market opportunities.</div>
+                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk trading_alpha_47</div>
+                    </div>
+                    <div class="card">
+                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 8px;">📝 content_army_12</div>
+                        <div style="color: #ccc; font-size: 12px;">Creates viral content and marketing. Discuss social media strategy.</div>
+                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk content_army_12</div>
+                    </div>
+                    <div class="card">
+                        <div style="color: #ffff00; font-weight: bold; margin-bottom: 8px;">🛡️ security_ops_91</div>
+                        <div style="color: #ccc; font-size: 12px;">Handles security and threat detection. Ask about cybersecurity.</div>
+                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk security_ops_91</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Technology Tab -->
+        <div id="tab-tech" class="tab-content" style="display: none;">
 
         <div class="section">
             <div class="section-header">// live trading feed [real-time profit stream] 💰</div>
