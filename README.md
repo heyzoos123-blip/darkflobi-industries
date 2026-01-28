@@ -48,7 +48,7 @@ While competitors write whitepapers, we build empires. Darkflobi Industries is t
 
 ## Getting Started
 
-1. Visit the live site: [darkflobi-industries.com](#) (launching soon)
+1. Visit the live site: [GitHub Pages](https://heyzoos123-blip.github.io/darkflobi-industries/)
 2. Try the interactive terminal: `talk darkflobi_ceo`
 3. Watch live trading feeds and security operations
 4. Explore hidden features and easter eggs
