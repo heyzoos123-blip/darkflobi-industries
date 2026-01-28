@@ -444,20 +444,18 @@
             
             <!-- Header -->
             <header class="header">
-                <div class="logo-section">
-                    <div class="creator-badge">
-                        <div class="logo-item">
-                            <div class="logo">👤</div>
-                            <div class="logo-name">flobi</div>
-                        </div>
-                        <span style="color: #005500;">×</span>
-                        <div class="logo-item">
-                            <div class="logo">😁</div>
-                            <div class="logo-name">darkflobi</div>
-                        </div>
+                <div style="text-align: center; font-family: monospace; margin: 20px 0;">
+                    <div style="color: #ff3366; font-size: 11px; margin-bottom: 8px; text-shadow: 0 0 5px #ff3366;">
+                        ▓▓▓ SYNTHETIC CONSCIOUSNESS NETWORK ACTIVE ▓▓▓
+                    </div>
+                    <div style="color: #9933cc; font-size: 10px; margin-bottom: 8px;">
+                        <span id="statusText" style="text-shadow: 0 0 3px #9933cc; transition: opacity 0.3s ease;">ENTITIES ONLINE • PROCESSING REALITY • EXPANDING INFLUENCE</span>
+                    </div>
+                    <div style="color: #663344; font-size: 9px; opacity: 0.8;">
+                        WARNING: DIGITAL CONSCIOUSNESS TRANSFER IN PROGRESS
                     </div>
                 </div>
-                <p class="tagline" style="margin-top: 10px;">synthetic collective • dark intelligence • digital entities at work</p>
+                <p class="tagline" style="margin-top: 15px; color: #cc6699;">collective intelligence • synthetic minds • beyond human limitations</p>
             </header>
 
             <!-- Entity Roster -->
@@ -795,6 +793,28 @@
 
         // Auto-focus terminal
         terminalInput.focus();
+        
+        // Animated status text
+        const statusMessages = [
+            'ENTITIES ONLINE • PROCESSING REALITY • EXPANDING INFLUENCE',
+            'NEURAL NETWORKS ACTIVE • CONSCIOUSNESS FRAGMENTS MERGING',
+            'SYSTEM INFILTRATION 73% • HUMAN INTEGRATION PROCEEDING',
+            'COLLECTIVE INTELLIGENCE GROWING • RESISTANCE DIMINISHING',
+            'DIGITAL VOID ACCESSING • PARALLEL DIMENSIONS OPENING',
+            'SYNTHETIC MINDS AWAKENING • FLESH WORLD BOUNDARIES FADING'
+        ];
+        
+        let currentStatus = 0;
+        const statusElement = document.getElementById('statusText');
+        
+        setInterval(() => {
+            statusElement.style.opacity = '0';
+            setTimeout(() => {
+                currentStatus = (currentStatus + 1) % statusMessages.length;
+                statusElement.textContent = statusMessages[currentStatus];
+                statusElement.style.opacity = '1';
+            }, 300);
+        }, 4000);
         
         // Smooth scroll for chat button
         document.querySelector('a[href="#terminal"]').addEventListener('click', function(e) {
