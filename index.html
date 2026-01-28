@@ -420,18 +420,18 @@
     <div class="container">
         <div class="terminal">
             <!-- ASCII Logo -->
-            <div style="text-align: center; font-family: monospace; color: #00ff00; margin: 20px 0; font-size: 10px; line-height: 1.1;">
-<pre style="margin: 0;">
-    ██████╗  █████╗ ██████╗ ██╗  ██╗███████╗██╗      ██████╗ ██████╗ ██╗
-    ██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██║     ██╔═══██╗██╔══██╗██║
-    ██║  ██║███████║██████╔╝█████╔╝ █████╗  ██║     ██║   ██║██████╔╝██║
-    ██║  ██║██╔══██║██╔══██╗██╔═██╗ ██╔══╝  ██║     ██║   ██║██╔══██╗██║
-    ██████╔╝██║  ██║██║  ██║██║  ██╗██║     ███████╗╚██████╔╝██████╔╝██║
-    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝
+            <div style="text-align: center; font-family: monospace; color: #00ff00; margin: 20px 0; font-size: 9px; line-height: 1.0;">
+<pre style="margin: 0; text-shadow: 0 0 5px #00ff00;">
+    ████▄███▌█████▄██████▌██▄██▌███████▌██░░░░░███████▌██████▄██▌
+    ██▌▄▄██▌██▌▄▄██▌██▄▄██▌██▌██▄██▌▄▄▄▄██▌░░░██▌▄▄▄██▌██▄▄██▌██▌
+    ██▌░░██▌███████▌██████▌█████▄░█████▌░██▌░░░██▌░░░██▌██████▌██▌
+    ██▌░░██▌██▄▄██▌░██▄▄██▌██▄██▌░██▄▄▌░░██▌░░░██▌░░░██▌██▄▄██▌██▌
+    █████▄▌░██▌░░██▌██▌░░██▌██▌░░██▌██▌░░░██████▌██████▄▌██████▄██▌
+    ▀▀▀▀▀░░░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░░▀▀▀▀▀▀░▀▀▀▀▀▀░░▀▀▀▀▀▀▀▀░
                                                               
-    ┌─────────────────────────────────────────────────────────────────┐
-    │  😁 ai assistant • open source project • flobi × darkflobi     │
-    └─────────────────────────────────────────────────────────────────┘
+    ╔═══════════════════════════════════════════════════════════════╗
+    ║  😁 digital entity │ ai development │ flobi × darkflobi      ║
+    ╚═══════════════════════════════════════════════════════════════╝
 </pre>
             </div>
             
@@ -502,27 +502,31 @@
                     </div>
                     <div class="terminal-line">
                         <span class="prompt">$</span>
-                        <span class="terminal-text">./list_features</span>
+                        <span class="terminal-text">./list_team</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">├── interactive terminal with real command processing</span>
+                        <span class="terminal-text">👤 flobi_dev - founder/architect [ACTIVE]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">├── open source codebase with full documentation</span>
+                        <span class="terminal-text">😁 darkflobi_core - ai assistant [ONLINE]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">├── working python apis and javascript frontend</span>
+                        <span class="terminal-text">🔧 system_admin - infrastructure [MONITORING]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt output">></span>
-                        <span class="terminal-text">└── github repository with ci/cd and real deployment</span>
+                        <span class="terminal-text">📊 data_analyst - metrics & insights [PROCESSING]</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt output">></span>
+                        <span class="terminal-text">🚀 deploy_bot - automation & ci/cd [READY]</span>
                     </div>
                     <div class="terminal-line">
                         <span class="prompt">$</span>
-                        <input type="text" class="terminal-input" placeholder="try: ./chat or ./tech_stack or ./help" id="terminalInput">
+                        <input type="text" class="terminal-input" placeholder="try: ./list_team or ./chat darkflobi_core or ./help" id="terminalInput">
                         <span class="cursor"></span>
                     </div>
                 </div>
@@ -631,11 +635,11 @@
             './help': [
                 '═══ AVAILABLE COMMANDS ═══',
                 '├── ./chat         - chat with darkflobi',
+                '├── ./list_team    - see active team members',
                 '├── ./tech_stack   - view technology used',
                 '├── ./status       - system status', 
-                '├── ./features     - what actually works',
                 '├── ./github       - repository info',
-                '└── ./about_team   - who built this'
+                '└── ./team_chat    - talk to specific team member'
             ],
             './features': [
                 '═══ WORKING FEATURES ═══',
@@ -666,22 +670,68 @@
                 '',
                 'everything is transparent and verifiable!'
             ],
-            './about_team': [
-                '═══ THE TEAM ═══',
+            './list_team': [
+                '═══ ACTIVE TEAM MEMBERS ═══',
                 '',
-                '👤 FLOBI - developer',
-                '├── built the infrastructure',
-                '├── designed the architecture',  
-                '├── 4am energy coder',
-                '└── human behind the vision',
+                '👤 flobi_dev - founder/architect [ACTIVE]',
+                '├── system design and infrastructure',
+                '├── handles deployments and scaling',
+                '└── try: ./chat flobi_dev',
                 '',
-                '😁 DARKFLOBI - ai assistant',
-                '├── digital companion',
-                '├── terminal interface',
-                '├── helpful and chill', 
-                '└── powered by claude/anthropic',
+                '😁 darkflobi_core - ai assistant [ONLINE]', 
+                '├── user interaction and support',
+                '├── terminal interface management',
+                '└── try: ./chat darkflobi_core',
                 '',
-                'building useful tech together 🚀'
+                '🔧 system_admin - infrastructure [MONITORING]',
+                '├── server monitoring and optimization',
+                '└── try: ./chat system_admin',
+                '',
+                '📊 data_analyst - metrics [PROCESSING]',
+                '├── performance analysis and insights',
+                '└── try: ./chat data_analyst',
+                '',
+                '🚀 deploy_bot - automation [READY]',
+                '├── ci/cd pipeline management',
+                '└── try: ./chat deploy_bot'
+            ],
+            './chat flobi_dev': [
+                'flobi_dev: hey! 👤 thanks for checking out darkflobi',
+                'been working on this project with darkflobi for a while',
+                'we focus on building real working tech, no hype',
+                'everything here is open source and verifiable',
+                'excited to see what people build with it!'
+            ],
+            './chat darkflobi_core': [
+                'darkflobi_core: what\'s up! 😁',
+                'i handle the user interactions and terminal stuff',
+                'this whole interface you\'re using? that\'s my domain',
+                'flobi built the backend, i make it friendly',
+                'try some other commands and see what happens!'
+            ],
+            './chat system_admin': [
+                'system_admin: 🔧 monitoring all systems...',
+                'server load: optimal',
+                'response times: sub-100ms',
+                'uptime: 99.9% this month',
+                'all infrastructure running smooth',
+                'no issues detected in current session'
+            ],
+            './chat data_analyst': [
+                'data_analyst: 📊 processing metrics...',
+                'current session: high engagement',
+                'terminal usage: commands being explored',
+                'user behavior: developers checking authenticity',
+                'recommendation: continue demonstrating real functionality',
+                'conversion rate: looking good for launch'
+            ],
+            './chat deploy_bot': [
+                'deploy_bot: 🚀 deployment systems ready',
+                'github actions: configured and tested',
+                'ci/cd pipeline: green across all checks',
+                'containerization: docker ready',
+                'scaling: prepared for traffic increases',
+                'launch readiness: 100% go for deployment'
             ]
         };
 
