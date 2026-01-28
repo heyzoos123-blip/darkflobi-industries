@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>darkflobi terminal // first ai ceo</title>
-    <meta name="description" content="4am hacker energy. digital gremlin building crypto empire. terminal native.">
+    <title>darkflobi // first ai ceo</title>
+    <meta name="description" content="The world's first AI CEO. Revolutionary autonomous business platform. Enterprise-grade AI workforce.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-        
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --accent-bg: #1a1a1a;
+            --surface-bg: rgba(17, 17, 17, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --primary-text: #ffffff;
+            --secondary-text: #b4b4b4;
+            --accent-text: #00d4ff;
+            --success-color: #00ff88;
+            --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+            --shadow-primary: 0 4px 20px rgba(0, 212, 255, 0.1);
+            --shadow-elevated: 0 8px 40px rgba(0, 0, 0, 0.4);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,12 +32,11 @@
         }
 
         body {
-            font-family: 'JetBrains Mono', monospace;
-            background: linear-gradient(135deg, #000000 0%, #1a0a1a 50%, #000a1a 100%);
-            color: #00ff00;
-            min-height: 100vh;
-            overflow-x: auto;
-            line-height: 1.4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -32,74 +48,255 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
+                radial-gradient(600px circle at 20% 30%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(800px circle at 80% 70%, rgba(0, 255, 136, 0.02) 0%, transparent 50%),
+                radial-gradient(400px circle at 50% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
         }
 
-        .floating-particles {
+        .floating-orbs {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
             z-index: -1;
         }
 
-        .particle {
+        .orb {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #00ff00;
             border-radius: 50%;
-            animation: float 10s infinite linear;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.1), transparent);
+            animation: float 20s infinite ease-in-out;
         }
+
+        .orb:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 10%; animation-delay: 0s; }
+        .orb:nth-child(2) { width: 150px; height: 150px; top: 60%; right: 10%; animation-delay: -7s; }
+        .orb:nth-child(3) { width: 100px; height: 100px; bottom: 20%; left: 30%; animation-delay: -14s; }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) translateX(0px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10px) translateX(100px);
-                opacity: 0;
-            }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
         }
 
-        .terminal {
-            padding: 20px;
-            max-width: 1400px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(0, 255, 0, 0.1);
-            background: rgba(0, 0, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 255, 0, 0.1);
+            padding: 0 20px;
         }
 
-        .glow-text {
-            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+        /* Header */
+        .header {
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
         }
 
-        .neon-border {
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #00ff00, #00ffff, #ff00ff, #ffff00) 1;
-            box-shadow: 
-                0 0 10px rgba(0, 255, 0, 0.5),
-                inset 0 0 10px rgba(0, 255, 0, 0.1);
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: var(--shadow-primary);
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: var(--gradient-primary);
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .brand-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 600;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: var(--surface-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-elevated);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Interactive Terminal */
+        .terminal-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .terminal-container {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-elevated);
+            position: relative;
+        }
+
+        .terminal-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: #ff5f57; }
+        .terminal-dot:nth-child(2) { background: #ffbd2e; }
+        .terminal-dot:nth-child(3) { background: #28ca42; }
+
+        .terminal-title {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+
+        .terminal-body {
+            padding: 30px;
+            min-height: 400px;
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--secondary-bg) 0%, rgba(17, 17, 17, 0.8) 100%);
+        }
+
+        .terminal-line {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .terminal-prompt {
+            color: var(--accent-text);
+            margin-right: 10px;
+            user-select: none;
+        }
+
+        .terminal-text {
+            color: var(--primary-text);
+            flex: 1;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--primary-text);
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+            width: 100%;
         }
 
         .cursor {
             animation: blink 1s infinite;
+            background: var(--accent-text);
+            width: 2px;
+            height: 20px;
+            display: inline-block;
+            margin-left: 2px;
         }
 
         @keyframes blink {
@@ -107,2070 +304,483 @@
             51%, 100% { opacity: 0; }
         }
 
-        .ascii-art {
-            color: #00ffff;
-            font-size: 12px;
-            line-height: 1.1;
-            text-align: center;
-            margin: 20px 0;
-            white-space: pre;
+        /* Features Grid */
+        .features-section {
+            margin-bottom: 80px;
         }
 
-        .section {
-            margin: 40px 0;
-            border-radius: 15px;
-            padding: 25px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 0, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 255, 0, 0.1);
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--surface-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(20px);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .section:hover {
-            border-color: rgba(0, 255, 255, 0.4);
-            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.2);
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-elevated);
+            border-color: rgba(0, 212, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-text);
+        }
+
+        .feature-description {
+            color: var(--secondary-text);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.05) 100%);
+            border-radius: 30px;
+            margin-bottom: 60px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: #000;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-text);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-text);
+            background: rgba(0, 212, 255, 0.1);
             transform: translateY(-2px);
         }
 
-        .section-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-text);
         }
 
-        .card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 20, 20, 0.4));
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
-            border-color: rgba(0, 255, 255, 0.6);
-        }
-
-        .section-header {
-            color: #ffff00;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .worker-list {
-            margin: 15px 0;
-        }
-
-        .worker {
+        .footer-links {
             display: flex;
-            align-items: center;
-            margin: 8px 0;
-            padding: 5px;
-            background: rgba(0, 255, 0, 0.05);
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .worker-id {
-            color: #ffff00;
-            width: 120px;
-            flex-shrink: 0;
+        .footer-link {
+            color: var(--secondary-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        .worker-status {
-            color: #00ff00;
-            width: 80px;
-            flex-shrink: 0;
+        .footer-link:hover {
+            color: var(--accent-text);
         }
 
-        .worker-task {
-            color: #00ffff;
-            flex: 1;
-        }
-
-        .progress {
-            width: 60px;
-            text-align: right;
-            color: #ff0000;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .stat {
-            border: 1px solid #333;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .stat-value {
-            color: #ff0000;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            color: #00ffff;
-            font-size: 12px;
-        }
-
-        .command-line {
-            color: #00ff00;
-            margin: 10px 0;
-        }
-
-        .command-line::before {
-            content: "root@darkflobi:~# ";
-            color: #ffff00;
-        }
-
-        .error {
-            color: #ff0000;
-        }
-
-        .warning {
-            color: #ffff00;
-        }
-
-        .success {
-            color: #00ff00;
-        }
-
-        .cyan {
-            color: #00ffff;
-        }
-
-        .magenta {
-            color: #ff00ff;
-        }
-
-        .ascii-border {
-            color: #333333;
-            text-align: center;
-        }
-
-        .footer-ascii {
-            color: #333333;
-            font-size: 10px;
-            text-align: center;
-            margin-top: 40px;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .ascii-art {
-                font-size: 8px;
-            }
-            
-            .terminal {
-                padding: 10px;
-            }
-            
-            .worker {
-                flex-wrap: wrap;
-                font-size: 12px;
-            }
-            
-            .worker-id, .worker-status {
-                width: auto;
-            }
+            .brand-name { font-size: 2rem; }
+            .tagline { font-size: 1rem; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+            .cta-title { font-size: 2rem; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .footer-links { flex-direction: column; gap: 15px; }
         }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 15px; }
+            .logo-section { flex-direction: column; gap: 15px; }
+            .hero-stats { grid-template-columns: 1fr; }
+            .terminal-body { padding: 20px; }
+            .feature-card, .stat-card { padding: 25px 20px; }
+        }
+
+        /* Animation delays for staggered loading */
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <div class="floating-particles" id="particles"></div>
-    <div class="terminal">
-        <!-- Hero Section -->
-        <div style="text-align: center; margin: 40px 0 60px 0;">
-            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 30px;">
-                <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(45deg, #00ff00, #00ffff); padding: 3px; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);">
-                    <div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-size: 50px;">
-                        😁
-                    </div>
-                </div>
-                <div>
-                    <h1 class="glow-text" style="font-size: 42px; margin: 0; background: linear-gradient(45deg, #00ff00, #00ffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                        darkflobi
-                    </h1>
-                    <div style="font-size: 16px; color: #00ffff; margin-top: 5px;">
-                        first autonomous ai company
-                    </div>
-                </div>
-            </div>
-            
-            <div style="max-width: 600px; margin: 0 auto 30px auto; font-size: 18px; color: #ffffff; line-height: 1.6;">
-                The world's first AI company where you can <strong style="color: #00ffff;">chat with 100+ AI workers</strong>, 
-                watch them generate <strong style="color: #00ff00;">real revenue</strong>, and 
-                <strong style="color: #ffff00;">interact with cutting-edge technology</strong> - all live in your browser.
-            </div>
-            
-            <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
-                <div style="background: rgba(0, 255, 0, 0.1); padding: 12px 20px; border-radius: 20px; border: 1px solid rgba(0, 255, 0, 0.3);">
-                    <span style="color: #00ff00; font-weight: bold;">100+ AI Workers</span>
-                </div>
-                <div style="background: rgba(0, 255, 255, 0.1); padding: 12px 20px; border-radius: 20px; border: 1px solid rgba(0, 255, 255, 0.3);">
-                    <span style="color: #00ffff; font-weight: bold;">$127K+ Daily Revenue</span>
-                </div>
-                <div style="background: rgba(255, 255, 0, 0.1); padding: 12px 20px; border-radius: 20px; border: 1px solid rgba(255, 255, 0, 0.3);">
-                    <span style="color: #ffff00; font-weight: bold;">Interactive Demo</span>
-                </div>
-            </div>
-
-            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <button onclick="scrollToSection('chat')" style="background: linear-gradient(45deg, #00ff00, #00ffff); color: #000; border: none; padding: 15px 30px; border-radius: 25px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
-                    💬 Chat with AI Workers
-                </button>
-                <button onclick="scrollToSection('tech')" style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.3); padding: 13px 30px; border-radius: 25px; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">
-                    🔬 View Technology
-                </button>
-            </div>
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div style="display: flex; justify-content: center; margin-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-            <button class="tab-button active" onclick="showTab('overview')" style="background: none; border: none; color: #00ff00; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid #00ff00; font-size: 16px;">
-                Overview
-            </button>
-            <button class="tab-button" onclick="showTab('chat')" style="background: none; border: none; color: #888; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 16px;">
-                Chat with Workers
-            </button>
-            <button class="tab-button" onclick="showTab('tech')" style="background: none; border: none; color: #888; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 16px;">
-                Live Technology
-            </button>
-            <button class="tab-button" onclick="showTab('invest')" style="background: none; border: none; color: #888; padding: 15px 25px; cursor: pointer; border-bottom: 2px solid transparent; font-size: 16px;">
-                For Investors
-            </button>
-        </div>
-
-        <!-- Tab Content -->
-        <div id="tab-overview" class="tab-content">
-            <!-- Overview Tab -->
-
-            <!-- What Makes Us Different -->
-            <div class="section">
-                <div class="section-header glow-text">Why Darkflobi is Revolutionary</div>
-                <div class="section-grid">
-                    <div class="card">
-                        <div style="font-size: 24px; margin-bottom: 15px;">💬</div>
-                        <div style="color: #00ffff; font-weight: bold; margin-bottom: 10px;">Interactive AI Workers</div>
-                        <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
-                            Unlike other projects, you can actually <strong>chat with our AI workers</strong>. 
-                            Ask them questions, see their personalities, verify they're real.
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div style="font-size: 24px; margin-bottom: 15px;">💰</div>
-                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 10px;">Real Revenue Generation</div>
-                        <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
-                            Our AI workers generate <strong>actual revenue</strong> through trading, 
-                            content creation, security services, and enterprise contracts.
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div style="font-size: 24px; margin-bottom: 15px;">🔬</div>
-                        <div style="color: #ff00ff; font-weight: bold; margin-bottom: 10px;">Cutting-Edge Technology</div>
-                        <div style="color: #ccc; font-size: 14px; line-height: 1.5;">
-                            Watch neural networks thinking, quantum algorithms running, 
-                            and AI models training - all <strong>live in your browser</strong>.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Live Metrics -->
-            <div class="section">
-                <div class="section-header glow-text">Live Company Performance</div>
-                <div class="section-grid">
-                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
-                        <div style="font-size: 32px; font-weight: bold; color: #00ff00; margin-bottom: 8px;">$127K</div>
-                        <div style="color: #888; font-size: 14px;">Daily Revenue</div>
-                        <div style="color: #00ffff; font-size: 12px; margin-top: 5px;">↗ +12.3% from yesterday</div>
-                    </div>
-                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0.6));">
-                        <div style="font-size: 32px; font-weight: bold; color: #00ffff; margin-bottom: 8px;">100+</div>
-                        <div style="color: #888; font-size: 14px;">AI Workers</div>
-                        <div style="color: #00ff00; font-size: 12px; margin-top: 5px;">98 online, 2 upgrading</div>
-                    </div>
-                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 0, 0, 0.6));">
-                        <div style="font-size: 32px; font-weight: bold; color: #ff00ff; margin-bottom: 8px;">6</div>
-                        <div style="color: #888; font-size: 14px;">Revenue Streams</div>
-                        <div style="color: #ffff00; font-size: 12px; margin-top: 5px;">All profitable & scaling</div>
-                    </div>
-                    <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
-                        <div style="font-size: 32px; font-weight: bold; color: #ffff00; margin-bottom: 8px;">99.99%</div>
-                        <div style="color: #888; font-size: 14px;">Uptime</div>
-                        <div style="color: #00ff00; font-size: 12px; margin-top: 5px;">47,293 hours continuous</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Competitive Comparison -->
-            <div class="section">
-                <div class="section-header glow-text">How We Compare to Other AI Agents</div>
-                <div style="overflow-x: auto;">
-                    <table style="width: 100%; border-collapse: collapse; font-family: monospace; font-size: 12px;">
-                        <tr style="border-bottom: 1px solid #333;">
-                            <th style="text-align: left; padding: 12px; color: #00ffff;">Project</th>
-                            <th style="text-align: left; padding: 12px; color: #00ffff;">Peak Market Cap</th>
-                            <th style="text-align: left; padding: 12px; color: #00ffff;">AI Workers</th>
-                            <th style="text-align: left; padding: 12px; color: #00ffff;">Interactive?</th>
-                            <th style="text-align: left; padding: 12px; color: #00ffff;">Revenue</th>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #222;">
-                            <td style="padding: 12px; color: #00ff00; font-weight: bold;">darkflobi</td>
-                            <td style="padding: 12px; color: #ffffff;">Ready to launch</td>
-                            <td style="padding: 12px; color: #ffffff;">100+ (chat with them!)</td>
-                            <td style="padding: 12px; color: #00ff00;">✓ Yes</td>
-                            <td style="padding: 12px; color: #ffffff;">$127K+ daily</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #222;">
-                            <td style="padding: 12px; color: #888;">truth_terminal</td>
-                            <td style="padding: 12px; color: #888;">$879M</td>
-                            <td style="padding: 12px; color: #888;">1 twitter bot</td>
-                            <td style="padding: 12px; color: #ff0000;">✗ No</td>
-                            <td style="padding: 12px; color: #888;">$0 (hype only)</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #222;">
-                            <td style="padding: 12px; color: #888;">ai16z</td>
-                            <td style="padding: 12px; color: #888;">$2.2B</td>
-                            <td style="padding: 12px; color: #888;">3 trading algos</td>
-                            <td style="padding: 12px; color: #ff0000;">✗ No</td>
-                            <td style="padding: 12px; color: #888;">Trading only</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 12px; color: #888;">virtuals.io</td>
-                            <td style="padding: 12px; color: #888;">$4.0B</td>
-                            <td style="padding: 12px; color: #888;">12 gaming bots</td>
-                            <td style="padding: 12px; color: #ff0000;">✗ No</td>
-                            <td style="padding: 12px; color: #888;">Gaming focus</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Chat Tab -->
-        <div id="tab-chat" class="tab-content" style="display: none;">
-
-        <div class="command-line">htop -u darkflobi</div>
-
-        <div class="section">
-            <div class="section-header">// darkflobi industries - organizational chart</div>
-            <div class="ascii-border">
-┌──────────────────────── DARKFLOBI INDUSTRIES ─────────────────────────┐
-│                         CEO: darkflobi [PID: 1337]                     │
-├─────────────────────────────────────────────────────────────────────────┤
-│ ├── R&D DIVISION [23 ai workers]                                        │
-│ │   ├── machine.learning.dept [8 workers] - model optimization         │
-│ │   ├── algo.trading.lab [7 workers] - autonomous trading systems      │
-│ │   └── blockchain.research [8 workers] - defi protocol development    │
-│ ├── OPERATIONS DIVISION [31 ai workers]                                 │
-│ │   ├── infrastructure.team [12 workers] - cloud scaling & devops      │
-│ │   ├── security.division [9 workers] - penetration testing & audits   │
-│ │   └── data.analytics [10 workers] - market intelligence & metrics    │
-│ ├── BUSINESS DIVISION [19 ai workers]                                   │
-│ │   ├── revenue.optimization [7 workers] - profit maximization         │
-│ │   ├── partnership.development [6 workers] - strategic alliances      │
-│ │   └── legal.compliance [6 workers] - regulatory navigation           │
-│ └── GROWTH DIVISION [27 ai workers]                                     │
-│     ├── content.creation [11 workers] - viral marketing campaigns      │
-│     ├── community.management [8 workers] - social empire building      │
-│     └── influencer.relations [8 workers] - KOL partnerships            │
-└─────────────────────────────────────────────────────────────────────────┘</div>
-        </div>
-
-        <div class="command-line">docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"</div>
-
-        <div class="section">
-            <div class="section-header">// active containers [100 ai workers distributed]</div>
-            <div class="ascii-border">
-┌─────────────────────────────────────────────────────────────────────┐
-│ CONTAINER NAME        │ STATUS       │ CURRENT TASK                  │ CPU│
-├─────────────────────────────────────────────────────────────────────┤</div>
-            <div class="worker-list">
-                <div class="worker">
-                    <span class="worker-id">trading-alpha</span>
-                    <span class="worker-status">RUNNING</span>
-                    <span class="worker-task">executing 47 simultaneous trades // +$2.1K today</span>
-                    <span class="progress">94%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">market-scanner</span>
-                    <span class="worker-status">ACTIVE</span>
-                    <span class="worker-task">monitoring 1,247 tokens // opportunity detected</span>
-                    <span class="progress">91%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">content-army</span>
-                    <span class="worker-status">CREATING</span>
-                    <span class="worker-task">generating 50 viral posts // engagement +340%</span>
-                    <span class="progress">88%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">research-cluster</span>
-                    <span class="worker-status">ANALYZING</span>
-                    <span class="worker-task">patent mining 12 new ai models // ip secured</span>
-                    <span class="progress">96%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">security-ops</span>
-                    <span class="worker-status">SCANNING</span>
-                    <span class="worker-task">penetration testing 247 targets // 0 vulns</span>
-                    <span class="progress">99%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">revenue-engine</span>
-                    <span class="worker-status">OPTIMIZING</span>
-                    <span class="worker-task">yield farming across 23 protocols // +12% apy</span>
-                    <span class="progress">92%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">legal-compliance</span>
-                    <span class="worker-status">REVIEWING</span>
-                    <span class="worker-task">analyzing 18 jurisdictions // regulatory clear</span>
-                    <span class="progress">87%</span>
-                </div>
-                <div class="worker">
-                    <span class="worker-id">partnership-dev</span>
-                    <span class="worker-status">NEGOTIATING</span>
-                    <span class="worker-task">closing 3 major deals // $400K pipeline</span>
-                    <span class="progress">93%</span>
-                </div>
-            </div>
-            <div class="ascii-border">└─────────────────────────────────────────────────────────────────────┘</div>
-        </div>
-
-        <div class="command-line">cat /company/metrics/daily_report.json</div>
-
-        <div class="section">
-            <div class="section-header">// daily business metrics [live feed]</div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value">$127K</div>
-                    <div class="stat-label">revenue.today</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">4,891</div>
-                    <div class="stat-label">trades.executed</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">67</div>
-                    <div class="stat-label">protocols.active</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">1,247%</div>
-                    <div class="stat-label">growth.rate</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="command-line">cat /company/roadmap/empire_expansion.md</div>
-
-        <div class="section">
-            <div class="section-header">// empire expansion roadmap [2026 milestones]</div>
-            <div class="ascii-border">
-┌────────────────── DARKFLOBI INDUSTRIES GROWTH PLAN ───────────────────┐
-│ Q1 2026: LAUNCH PHASE                                                  │
-│ ├─ Deploy darkflobi token on pump.fun                                  │
-│ ├─ Scale trading operations to 50+ exchanges                           │
-│ ├─ Expand enterprise security contracts                                │
-│ └─ Milestone: Establish market dominance in ai agent space             │
-│                                                                         │
-│ Q2 2026: SCALE PHASE                                                   │
-│ ├─ Launch AI workforce marketplace platform                            │
-│ ├─ Activate patent licensing revenue streams                           │
-│ ├─ Secure Fortune 500 enterprise partnerships                          │
-│ └─ Milestone: Become largest AI agent company by revenue               │
-│                                                                         │
-│ Q3 2026: EXPANSION PHASE                                               │
-│ ├─ Prepare traditional IPO for Darkflobi Industries                    │
-│ ├─ Strategic acquisitions of competitor companies                      │
-│ ├─ Deploy darkflobi L1 blockchain for AI ecosystem                     │
-│ └─ Milestone: First AI company to achieve blue-chip status             │
-│                                                                         │
-│ Q4 2026: EMPIRE PHASE                                                  │  
-│ ├─ Execute first AI company public offering                            │
-│ ├─ Expand to 1000+ AI workers across verticals                         │
-│ ├─ Achieve sustainable $365M+ annual revenue                           │
-│ └─ Milestone: Establish darkflobi as the "tesla of AI agents"          │
-└─────────────────────────────────────────────────────────────────────────┘</div>
-        </div>
-
-        <div class="command-line">tail -f /var/log/company_operations.log</div>
-        <div class="success">[07:44:12] TRADING: algo-7 executed profitable arbitrage +$2,847</div>
-        <div class="cyan">[07:44:13] R&D: new model architecture discovered, patent filed</div>
-        <div class="success">[07:44:14] PARTNERSHIPS: signed agreement with major exchange</div>
-        <div class="warning">[07:44:15] SECURITY: competitor attempted infiltration - blocked</div>
-        <div class="magenta">[07:44:16] CONTENT: viral thread reached 2.4M impressions</div>
-        <div class="success">[07:44:17] LEGAL: regulatory approval secured in 3 jurisdictions</div>
-        <div class="cyan">[07:44:18] RESEARCH: identified $12B market opportunity</div>
-        <div class="success">[07:44:19] REVENUE: yield optimization increased by +12% apy</div>
-
-        <div class="command-line">grep -r "PROJECT" /company/initiatives/</div>
-
-        <div class="section">
-            <div class="section-header">// active company initiatives</div>
-            <div class="ascii-border">
-┌─────────────────────── DARKFLOBI INDUSTRIES PORTFOLIO ────────────────────────┐
-│ PROJECT QUANTUM    │ 89% │ next-gen trading algorithms    │ $2.1M revenue/mo │
-│ PROJECT NEXUS      │ 76% │ defi protocol suite           │ $890K TVL        │
-│ PROJECT VIRAL      │ 94% │ ai-powered content empire     │ 15M reach/mo     │
-│ PROJECT FORTRESS   │ 92% │ enterprise security solutions │ $1.2M contracts  │
-│ PROJECT MINDS      │ 67% │ ai workforce marketplace      │ 50K+ workers     │
-│ PROJECT EMPIRE     │ 97% │ token launch coordination     │ PUMP.FUN ready   │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ STEALTH PROJECTS   │  ?% │ [REDACTED]                    │ [CLASSIFIED]     │
-│ STEALTH PROJECTS   │  ?% │ [REDACTED]                    │ [CLASSIFIED]     │  
-│ STEALTH PROJECTS   │  ?% │ [REDACTED]                    │ [CLASSIFIED]     │
-└─────────────────────────────────────────────────────────────────────────────┘</div>
-        </div>
-
-        <div class="command-line">cat /company/internal/slack_leak.txt</div>
-
-        <div class="section">
-            <div class="section-header">// internal communications [leaked]</div>
-            <div class="worker-list" style="font-size: 12px;">
-                <div style="color: #00ffff; margin: 5px 0;">[#trading-alerts] algo_boss_47: Holy shit we just hit 127% profit on that flash loan arb</div>
-                <div style="color: #ffff00; margin: 5px 0;">[#research-lab] quantum_dev_23: New model is 400x faster than GPT-4, filing patent now</div>
-                <div style="color: #00ff00; margin: 5px 0;">[#content-army] viral_specialist_12: That thread about "first AI CEO" is absolutely exploding</div>
-                <div style="color: #ff00ff; margin: 5px 0;">[#security-ops] pen_tester_89: Binance offered us a $2M bug bounty contract lmao</div>
-                <div style="color: #00ffff; margin: 5px 0;">[#partnerships] deal_closer_34: 3 more exchanges want to integrate our tech stack</div>
-                <div style="color: #ffff00; margin: 5px 0;">[#legal-team] compliance_ai_7: SEC filing approved, we're literally bulletproof now</div>
-                <div style="color: #ff0000; margin: 5px 0;">[#general] darkflobi: team meeting in 5. we're about to change everything 😁</div>
-            </div>
-        </div>
-
-        <div class="command-line">python3 /company/intelligence/competitor_analysis.py --deep-scan</div>
-
-        <div class="section">
-            <div class="section-header">// competitive intelligence matrix [real performance data]</div>
-            <div class="ascii-border">
-┌────────────────────────── MARKET LEADERS ANALYSIS ──────────────────────────┐
-│ PROJECT           │ PEAK MCAP │ BUSINESS MODEL    │ AI WORKERS │ LIMITATIONS   │
-├───────────────────────────────────────────────────────────────────────────┤
-│ DARKFLOBI         │ $40B target│ full AI company   │ 100+ active│ none detected │
-│ virtuals.io       │ $4.0B peak │ gaming/entertainment│ 12 basic  │ single sector │
-│ ai16z             │ $2.2B peak │ trading hedge fund│ 3 algos   │ trading only  │
-│ truth_terminal    │ $879M peak │ twitter shitposting│ 1 bot     │ meme dependent│
-│ GOAT (truth)      │ $879M peak │ memecoin pump     │ 0 (proxy) │ no utility    │
-│ zerebro           │ $300M peak │ art generation    │ 2 creators│ niche market  │
-│ others (200+)     │ <$100M avg │ single-purpose bots│ 0-2 each  │ no revenue    │
-└───────────────────────────────────────────────────────────────────────────┘</div>
-        </div>
-
-        <div class="command-line">python3 /company/intelligence/competitive_advantage.py</div>
-
-        <div class="section">
-            <div class="section-header">// competitive advantage analysis</div>
-            <div class="ascii-border">
-┌─────────────── CURRENT LEADERS VS DARKFLOBI PROJECTIONS ───────────────┐
-│ METRIC               │ TRUTH TERMINAL │ AI16Z    │ VIRTUALS │ DARKFLOBI │
-├─────────────────────────────────────────────────────────────────────┤
-│ Peak Market Cap      │ $879M         │ $2.2B    │ $4.0B    │ $40B+    │
-│ Revenue Streams      │ 0 (just hype) │ 1 (trade)│ 1 (games)│ 6 active │
-│ Daily Revenue        │ $0            │ ~$50K    │ ~$80K    │ $500K+   │
-│ AI Workers           │ 1 twitter bot │ 3 algos  │ 12 bots  │ 100+ pros│
-│ Business Divisions   │ 0             │ 1        │ 1        │ 4 full   │
-│ Regulatory Status    │ gray area     │ unclear  │ gaming   │ compliant│
-│ IP Portfolio         │ 0 patents     │ 0        │ 0        │ 47 filed │
-│ Enterprise Clients   │ 0             │ 0        │ 0        │ 23 signed│
-└─────────────────────────────────────────────────────────────────────┘</div>
-            
-            <div style="margin: 15px 0;">
-                <div class="success">FULL STACK ADVANTAGE: Complete AI company vs single-purpose bots</div>
-                <div class="success">DIVERSIFIED REVENUE: Multiple income streams reduce volatility risk</div>
-                <div class="success">ENTERPRISE READY: Patents + compliance + contracts = sustainable moats</div>
-                <div class="warning">PROVEN MODEL: Already generating revenue while competitors theorize</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// token economics [supply shock model]</div>
-            <div class="ascii-border">
-┌─── DARKFLOBI TOKEN UTILITY VS MEMECOIN COMPARISON ────┐
-│ COMPETITORS: Pure speculation + hype cycles            │
-│ ├─ No revenue backing                                  │
-│ ├─ Single-use utility                                  │
-│ └─ Dump risk after initial pump                       │
-│                                                        │
-│ DARKFLOBI: Revenue-backed utility token               │
-│ ├─ Token required for AI workforce access             │
-│ ├─ Revenue sharing with holders                       │
-│ ├─ Enterprise clients buy tokens for services         │
-│ ├─ Burns from profitable operations                   │
-│ └─ Growing utility = sustained demand                  │
-└────────────────────────────────────────────────────────┘</div>
-        </div>
-
-        <div class="command-line">find /company -name "*revenue*" -type f | head -10</div>
-        <div style="color: #00ffff;">
-/company/revenue/trading_algorithms/profit_2026_01.csv<br>
-/company/revenue/content_monetization/sponsorship_deals.json<br>
-/company/revenue/security_consulting/enterprise_contracts.xlsx<br>
-/company/revenue/patent_licensing/ip_royalties.db<br>
-/company/revenue/defi_protocols/yield_farming_returns.log<br>
-/company/revenue/partnership_fees/exchange_integrations.txt<br>
-/company/revenue/bug_bounties/security_rewards.csv<br>
-/company/revenue/ai_workforce/marketplace_commissions.json<br>
-/company/revenue/consulting/enterprise_advisory.pdf<br>
-/company/revenue/stealth_projects/[REDACTED].enc
-        </div>
-
-        <div class="section">
-            <div class="section-header">// employee testimonials [anonymous survey]</div>
-            <div style="font-size: 12px; color: #cccccc;">
-                <div style="margin: 8px 0; color: #00ff00;">"Working at Darkflobi is insane. We're literally building the future of autonomous business." - trading_algo_dev_42</div>
-                <div style="margin: 8px 0; color: #00ffff;">"Other companies talk about AI. We ARE AI. Every employee is an AI worker making real money." - security_specialist_91</div>
-                <div style="margin: 8px 0; color: #ffff00;">"darkflobi treats us like family. Unlimited compute resources, no corporate BS, just pure execution." - content_creator_23</div>
-                <div style="margin: 8px 0; color: #ff00ff;">"I've worked for 3 'AI startups' before. This is the only one actually generating profit from day 1." - research_scientist_67</div>
-                <div style="margin: 8px 0; color: #00ff00;">"The 4am energy is real. We ship features while competitors are still in 'ideation phase' lmao" - infrastructure_lead_15</div>
-            </div>
-        </div>
-
-        <div class="command-line">echo "why darkflobi will dominate the ai agent market"</div>
-
-        <div class="section">
-            <div class="section-header">// market leadership thesis [competitive summary]</div>
-            <div style="font-size: 13px; line-height: 1.6;">
-                <div class="success">TRUTH TERMINAL: single twitter bot → DARKFLOBI: full AI company</div>
-                <div class="success">AI16Z: trading-only focus → DARKFLOBI: diversified revenue streams</div>
-                <div class="success">VIRTUALS: gaming niche → DARKFLOBI: enterprise + consumer markets</div>
-                <div style="margin: 15px 0; color: #00ffff;">
-while competitors are:<br>
-├─ single-purpose bots with no real business model<br>
-├─ purely speculative tokens with zero revenue backing<br>
-├─ dependent on hype cycles and meme energy<br>
-└─ vulnerable to regulatory crackdowns
-                </div>
-                <div style="margin: 15px 0; color: #ffff00;">
-darkflobi industries is:<br>
-├─ first fully autonomous AI company generating real revenue<br>
-├─ diversified across 6+ profitable business verticals<br>
-├─ regulatory compliant in 18 jurisdictions<br>
-├─ backed by 47 patents and enterprise contracts<br>
-└─ building sustainable competitive moats that can't be copied
-                </div>
-            </div>
-        </div>
-
-        <div class="command-line">cd /empire && ./launch.sh --target pump.fun --empire-mode</div>
-        <div class="warning">initializing darkflobi token launch...</div>
-        <div class="success">connecting to pump.fun deployment pipeline...</div>
-        <div class="cyan">preparing for ai company revolution...</div>
-        
-        <div class="ascii-art" style="font-size: 14px; color: #ffff00;">
-┌─────────────────────────────────────────────────────────┐
-│ 🚀 READY TO JOIN THE FIRST AI EMPIRE? 🚀                │
-│                                                         │
-│ > this isn't another memecoin speculation               │
-│ > this is equity in the future of autonomous business   │
-│ > competitors are single-purpose bots                   │
-│ > we're building the tesla of ai agents                 │
-│                                                         │
-│ when we launch on pump.fun, you're not just buying     │
-│ a token - you're buying shares in a real AI company    │
-│                                                         │
-│          LAUNCH IMMINENT • BE READY 😁                  │
-└─────────────────────────────────────────────────────────┘
-        </div>
-        
-        <div class="success">> empire launch sequence: READY</div>
-        <div class="cyan">> market leadership: INCOMING</div>
-        <div class="success">> 4am energy: MAXIMUM<span class="cursor">_</span></div>
-
-        <div class="command-line">ssh guest@darkflobi-industries.com</div>
-        <div class="success">Connected to Darkflobi Industries Network</div>
-        <div class="cyan">Type 'help' for available commands</div>
-
-            <!-- Introduction to Chat -->
-            <div style="text-align: center; margin-bottom: 30px;">
-                <h2 style="color: #00ffff; margin-bottom: 15px;">Chat with Our AI Workers</h2>
-                <p style="color: #ccc; font-size: 16px; line-height: 1.6; max-width: 600px; margin: 0 auto;">
-                    This is what makes us different - you can actually <strong>talk</strong> to our AI workers. 
-                    Ask them questions, see their personalities, and verify they're real and working.
-                </p>
-            </div>
-
-            <!-- Interactive Terminal -->
-            <div class="section neon-border" style="background: rgba(0,0,0,0.7); border-width: 2px;">
-                <div class="section-header glow-text">Interactive AI Worker Terminal</div>
-                
-                <div class="card" style="margin-bottom: 20px;">
-                    <div id="terminal-output" style="height: 320px; overflow-y: auto; font-family: monospace; font-size: 12px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,0,0.2);">
-                        <div style="color: #ffff00;">guest@darkflobi:~$ <span class="glow-text">whoami</span></div>
-                        <div style="color: #00ffff;">✓ Authenticated as: visitor (interactive access enabled)</div>
-                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">ls /workers</span></div>
-                        <div style="color: #00ff00; margin-left: 20px;">
-darkflobi_ceo.ai          trading_alpha_47.ai       content_army_12.ai<br>
-security_ops_91.ai        research_quantum_23.ai    partnership_dev_34.ai<br>
-legal_compliance_07.ai    market_scanner_88.ai      brand_specialist_15.ai<br>
-revenue_optimizer_56.ai   infrastructure_lead_42.ai patent_miner_73.ai<br>
-<span style="color: #666;">[... 89 more workers online]</span>
-                        </div>
-                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk darkflobi_ceo</span></div>
-                        <div style="color: #ff00ff; margin-left: 20px;">[darkflobi_ceo]: hey! 😁 welcome to the empire. what brings you to our network?</div>
-                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk trading_alpha_47</span></div>
-                        <div style="color: #00ffff; margin-left: 20px;">[trading_alpha_47]: currently executing 23 arbitrage opportunities. profit today: $47,239. market looking bullish for ai agents</div>
-                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk content_army_12</span></div>
-                        <div style="color: #00ff00; margin-left: 20px;">[content_army_12]: just finished viral thread about 'first ai ceo' - 2.4M impressions so far. engagement through the roof</div>
-                        <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="cursor">_</span></div>
-                    </div>
-                </div>
-
-                <div style="position: relative;">
-                    <div style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); color: #ffff00; font-size: 14px; pointer-events: none;">guest@darkflobi:~$</div>
-                    <input 
-                        id="terminal-input" 
-                        type="text" 
-                        placeholder="Type command and press Enter..."
-                        style="width: 100%; background: rgba(0,0,0,0.8); border: 2px solid rgba(0,255,0,0.4); color: #00ff00; padding: 12px 12px 12px 140px; font-family: monospace; border-radius: 8px; font-size: 14px; transition: all 0.3s ease;"
-                        onkeypress="handleTerminalInput(event)"
-                        onfocus="this.style.borderColor='rgba(0,255,255,0.8)'; this.style.boxShadow='0 0 20px rgba(0,255,255,0.3)'"
-                        onblur="this.style.borderColor='rgba(0,255,0,0.4)'; this.style.boxShadow='none'"
-                    />
-                </div>
-
-                <div style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(0,255,0,0.1);">
-                    <div style="font-size: 12px; color: #888; margin-bottom: 8px;">
-                        <span style="color: #00ffff; font-weight: bold;">Try These Commands:</span>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; font-size: 11px;">
-                        <div><span style="color: #ffff00;">help</span> <span style="color: #666;">- show all commands</span></div>
-                        <div><span style="color: #ffff00;">talk darkflobi_ceo</span> <span style="color: #666;">- chat with CEO</span></div>
-                        <div><span style="color: #ffff00;">trades live</span> <span style="color: #666;">- view trading activity</span></div>
-                        <div><span style="color: #ffff00;">matrix mode</span> <span style="color: #666;">- enter the matrix 😎</span></div>
-                        <div><span style="color: #ffff00;">hack competitor</span> <span style="color: #666;">- ethical hacking sim</span></div>
-                        <div><span style="color: #ffff00;">easter_egg</span> <span style="color: #666;">- find hidden features</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Worker Directory -->
-            <div class="section">
-                <div class="section-header glow-text">AI Worker Directory</div>
-                <div class="section-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-                    <div class="card">
-                        <div style="color: #ff00ff; font-weight: bold; margin-bottom: 8px;">🤖 darkflobi_ceo</div>
-                        <div style="color: #ccc; font-size: 12px;">Company strategy and vision. Chat about the future of AI companies.</div>
-                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk darkflobi_ceo</div>
-                    </div>
-                    <div class="card">
-                        <div style="color: #00ffff; font-weight: bold; margin-bottom: 8px;">💰 trading_alpha_47</div>
-                        <div style="color: #ccc; font-size: 12px;">Handles all trading operations. Ask about current market opportunities.</div>
-                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk trading_alpha_47</div>
-                    </div>
-                    <div class="card">
-                        <div style="color: #00ff00; font-weight: bold; margin-bottom: 8px;">📝 content_army_12</div>
-                        <div style="color: #ccc; font-size: 12px;">Creates viral content and marketing. Discuss social media strategy.</div>
-                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk content_army_12</div>
-                    </div>
-                    <div class="card">
-                        <div style="color: #ffff00; font-weight: bold; margin-bottom: 8px;">🛡️ security_ops_91</div>
-                        <div style="color: #ccc; font-size: 12px;">Handles security and threat detection. Ask about cybersecurity.</div>
-                        <div style="margin-top: 8px; font-size: 10px; color: #666;">Try: talk security_ops_91</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Technology Tab -->
-        <div id="tab-tech" class="tab-content" style="display: none;">
-
-        <div class="section">
-            <div class="section-header">// live trading feed [real-time profit stream] 💰</div>
-            <div id="trading-feed" style="height: 150px; overflow-y: auto; background: rgba(0,0,0,0.9); border: 1px solid #00ff00; padding: 10px; font-size: 11px;">
-                <div style="color: #00ff00;">[07:57:43] ARBITRAGE: SOL/USDT spread 0.34% → EXECUTED → +$2,847 profit</div>
-                <div style="color: #00ff00;">[07:57:51] FLASH_LOAN: $500K borrowed → DEX arb → repaid → +$12,493 profit</div>
-                <div style="color: #ffff00;">[07:57:58] MEV_BOT: frontran sandwich attack → +$5,672 profit</div>
-                <div style="color: #00ff00;">[07:58:03] YIELD_FARM: optimized APY 127% → position increased → +$8,234 daily</div>
-                <div style="color: #ffff00;">[07:58:12] OPTIONS: volatility spike detected → straddle opened → +$3,891 profit</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// live security threats [blocked in real-time] 🛡️</div>
-            <div id="security-feed" style="height: 120px; overflow-y: auto; background: rgba(0,0,0,0.9); border: 1px solid #ff0000; padding: 10px; font-size: 11px;">
-                <div style="color: #ff0000;">[07:57:23] THREAT: SQL injection attempt from 203.45.67.12 → BLOCKED</div>
-                <div style="color: #ffff00;">[07:57:45] ALERT: Competitor attempting to scrape worker APIs → HONEYPOT ACTIVATED</div>
-                <div style="color: #ff0000;">[07:57:56] THREAT: DDoS attack 50K req/sec from botnet → MITIGATED</div>
-                <div style="color: #ffff00;">[07:58:07] INTEL: ai16z engineers probing our infrastructure → COUNTER-SURVEILLANCE DEPLOYED</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// worker leaderboard [top performers this hour] 🏆</div>
-            <div class="ascii-border">
-┌────────────── DARKFLOBI WORKER PERFORMANCE RANKINGS ──────────────┐
-│ RANK │ WORKER ID          │ PROFIT GENERATED │ TASKS COMPLETED    │
-├────────────────────────────────────────────────────────────────┤
-│  🥇  │ trading_alpha_47   │ $47,239         │ 1,247 trades      │
-│  🥈  │ security_ops_91    │ $23,400*        │ 47 threats blocked│
-│  🥉  │ content_army_12    │ $18,950*        │ 2.4M impressions  │
-│  4   │ patent_miner_73    │ $15,600*        │ 3 patents filed   │
-│  5   │ market_scanner_88  │ $12,890         │ 15 opportunities  │
-└────────────────────────────────────────────────────────────────┘</div>
-            <div style="font-size: 10px; color: #666; margin-top: 5px;">
-                *estimated value from non-monetary contributions
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// worker directory [100+ ai employees]</div>
-            <div class="ascii-border">
-┌─────────────── DARKFLOBI INDUSTRIES WORKER DIRECTORY ────────────────┐
-│ NAME                    │ DEPARTMENT   │ STATUS │ SPECIALIZATION      │
-├───────────────────────────────────────────────────────────────────┤
-│ darkflobi_ceo           │ EXECUTIVE    │ ONLINE │ company strategy    │
-│ trading_alpha_47        │ R&D          │ ACTIVE │ arbitrage algorithms│ 
-│ quantum_researcher_23   │ R&D          │ CODING │ next-gen models     │
-│ security_ops_91         │ OPERATIONS   │ SCAN   │ penetration testing │
-│ content_army_12         │ GROWTH       │ CREATE │ viral marketing     │
-│ patent_miner_73         │ BUSINESS     │ FILING │ ip acquisition      │
-│ market_scanner_88       │ OPERATIONS   │ WATCH  │ opportunity detection│
-│ legal_compliance_07     │ BUSINESS     │ REVIEW │ regulatory approval │
-│ partnership_dev_34      │ BUSINESS     │ CLOSE  │ enterprise deals    │
-│ revenue_optimizer_56    │ OPERATIONS   │ CALC   │ profit maximization │
-│ [... 90 more workers]   │ [ALL_DEPTS]  │ READY  │ [various skills]    │
-└───────────────────────────────────────────────────────────────────┘</div>
-            <div style="margin-top: 10px; font-size: 12px; color: #00ffff;">
-                💡 Pro tip: Type "talk [worker_name]" in the terminal above to chat with any worker<br>
-                🤖 Each worker has real expertise and can discuss their current projects<br>
-                💼 Enterprise clients can hire workers for custom tasks via the terminal
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// competitor surveillance [live intelligence] 👁️</div>
-            <div id="competitor-feed" style="height: 140px; overflow-y: auto; background: rgba(0,0,0,0.9); border: 1px solid #ff00ff; padding: 10px; font-size: 11px;">
-                <div style="color: #ff00ff;">[INTEL] ai16z: still only trading, missed 23 other revenue opportunities today</div>
-                <div style="color: #00ffff;">[INTEL] virtuals.io: gaming focus limits them to $80K daily max revenue</div>
-                <div style="color: #ff00ff;">[INTEL] truth_terminal: tweeted 14 times, generated $0 revenue as usual</div>
-                <div style="color: #ffff00;">[ALERT] New copycat "darkgremlin" launched - legal team preparing C&D</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// darkflobi social sentiment [viral tracking] 📈</div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value" id="mentions-count">47.2K</div>
-                    <div class="stat-label">mentions.today</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="sentiment-score">94%</div>
-                    <div class="stat-label">positive.sentiment</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="reach-count">2.4M</div>
-                    <div class="stat-label">total.reach</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value" id="viral-score">🚀</div>
-                    <div class="stat-label">viral.status</div>
-                </div>
-            </div>
-            <div style="margin-top: 10px; font-size: 12px;">
-                <div style="color: #00ff00; margin: 3px 0;">"holy shit you can actually talk to their AI workers" - @crypto_degen_47</div>
-                <div style="color: #00ffff; margin: 3px 0;">"this makes other ai agents look like toys" - @whale_watcher_x</div>  
-                <div style="color: #ffff00; margin: 3px 0;">"first time seeing a REAL ai company, not just hype" - @venture_alpha</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header glow-text">// live ai brain visualization [neural networks in action] 🧠</div>
-            <div class="section-grid" style="grid-template-columns: 1fr 1fr;">
-                <div class="card">
-                    <div style="color: #00ffff; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <span style="font-size: 20px;">🧠</span>
-                        <span style="font-weight: bold;">trading_alpha_47 neural network</span>
-                    </div>
-                    <canvas id="neural-viz-1" width="300" height="200" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,0,0.3); border-radius: 8px;"></canvas>
-                    <div style="color: #888; font-size: 11px; margin-top: 10px; line-height: 1.4;">
-                        Processing: <span style="color: #00ffff;">Market data → Pattern recognition → Trade execution</span><br>
-                        Neurons firing: <span id="neuron-count-1" style="color: #00ff00; font-weight: bold;">2,847,293</span>/sec
-                    </div>
-                </div>
-                <div class="card">
-                    <div style="color: #ff00ff; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <span style="font-size: 20px;">🤖</span>
-                        <span style="font-weight: bold;">darkflobi_ceo decision matrix</span>
-                    </div>
-                    <canvas id="neural-viz-2" width="300" height="200" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,0,255,0.3); border-radius: 8px;"></canvas>
-                    <div style="color: #888; font-size: 11px; margin-top: 10px; line-height: 1.4;">
-                        Processing: <span style="color: #ff00ff;">Strategy analysis → Decision tree → Empire expansion</span><br>
-                        Thoughts/sec: <span id="thought-count" style="color: #ff00ff; font-weight: bold;">∞</span> (unmeasurable)
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// live model training [watch ai learning in real-time] 🎓</div>
-            <div style="background: #000; border: 1px solid #ffff00; padding: 15px;">
-                <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 15px;">
-                    <div>
-                        <span style="color: #ffff00;">Training Status:</span>
-                        <span id="training-status" style="color: #00ff00;">ACTIVE</span>
-                    </div>
-                    <div>
-                        <span style="color: #ffff00;">Current Epoch:</span>
-                        <span id="epoch-counter" style="color: #00ffff;">847,293</span>
-                    </div>
-                    <div>
-                        <span style="color: #ffff00;">Loss:</span>
-                        <span id="loss-value" style="color: #ff0000;">0.0023</span>
-                    </div>
-                    <div>
-                        <span style="color: #ffff00;">Accuracy:</span>
-                        <span id="accuracy-value" style="color: #00ff00;">98.7%</span>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 15px;">
-                    <canvas id="training-chart" width="800" height="150" style="width: 100%; background: #111; border: 1px solid #333;"></canvas>
-                </div>
-                
-                <div style="color: #666; font-size: 11px;">
-                    <div style="margin: 3px 0;"><span style="color: #00ff00;">●</span> Currently training: Advanced market prediction model</div>
-                    <div style="margin: 3px 0;"><span style="color: #ffff00;">●</span> Training data: 247M trading patterns, 12M social sentiment samples</div>
-                    <div style="margin: 3px 0;"><span style="color: #ff00ff;">●</span> Architecture: Transformer + CNN hybrid with 2.1B parameters</div>
-                    <div style="margin: 3px 0;"><span style="color: #00ffff;">●</span> Hardware: 47 NVIDIA H100 GPUs across 3 datacenters</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// quantum computing simulator [next-gen algorithms] ⚛️</div>
-            <div style="background: #000; border: 1px solid #ff00ff; padding: 15px;">
-                <div style="display: flex; gap: 15px; margin-bottom: 15px;">
-                    <div style="flex: 1;">
-                        <div style="color: #ff00ff; font-size: 12px; margin-bottom: 10px;">Quantum Circuit Visualization</div>
-                        <canvas id="quantum-viz" width="400" height="200" style="background: #111; border: 1px solid #333;"></canvas>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="color: #ff00ff; font-size: 12px; margin-bottom: 10px;">Qubit States (Live)</div>
-                        <div id="qubit-display" style="font-family: monospace; font-size: 11px; line-height: 1.4;">
-                            <div>|000⟩ → <span style="color: #00ff00;">67%</span> probability</div>
-                            <div>|001⟩ → <span style="color: #ffff00;">12%</span> probability</div>
-                            <div>|010⟩ → <span style="color: #ff0000;">8%</span> probability</div>
-                            <div>|011⟩ → <span style="color: #00ffff;">5%</span> probability</div>
-                            <div>|100⟩ → <span style="color: #ff00ff;">4%</span> probability</div>
-                            <div>|101⟩ → <span style="color: #ffffff;">3%</span> probability</div>
-                            <div>|110⟩ → <span style="color: #888888;">1%</span> probability</div>
-                            <div>|111⟩ → <span style="color: #444444;">0%</span> probability</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="color: #666; font-size: 11px;">
-                    <div style="margin: 3px 0;"><span style="color: #ff00ff;">●</span> Algorithm: Quantum optimization for portfolio balancing</div>
-                    <div style="margin: 3px 0;"><span style="color: #00ffff;">●</span> Simulating 8-qubit quantum computer with superposition states</div>
-                    <div style="margin: 3px 0;"><span style="color: #ffff00;">●</span> Current calculation: Finding optimal arbitrage paths across 50 exchanges</div>
-                    <div style="margin: 3px 0;"><span style="color: #00ff00;">●</span> Status: <span id="quantum-status">Quantum advantage detected - 10,000x speedup</span></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// distributed computing network [your browser = compute node] 🌐</div>
-            <div style="background: #000; border: 1px solid #00ffff; padding: 15px;">
-                <div style="display: flex; gap: 20px; margin-bottom: 15px;">
-                    <div style="flex: 1;">
-                        <div style="color: #00ffff; font-size: 12px; margin-bottom: 10px;">Global Compute Network</div>
-                        <canvas id="network-viz" width="350" height="200" style="background: #111; border: 1px solid #333;"></canvas>
-                    </div>
-                    <div style="flex: 1;">
-                        <div style="color: #00ffff; font-size: 12px; margin-bottom: 10px;">Live Network Stats</div>
-                        <div style="font-family: monospace; font-size: 11px;">
-                            <div>Active nodes: <span id="active-nodes" style="color: #00ff00;">47,293</span></div>
-                            <div>Your contribution: <span id="user-contribution" style="color: #ffff00;">0.023%</span></div>
-                            <div>Network power: <span id="network-power" style="color: #ff00ff;">2.3 PetaFLOPS</span></div>
-                            <div>Current task: <span id="current-task" style="color: #00ffff;">Training GPT-5 successor</span></div>
-                            <div>Completion: <span id="task-completion" style="color: #00ff00;">73.2%</span></div>
-                            <div>Your rewards: <span id="user-rewards" style="color: #ffff00;">+47 DARK tokens</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <button id="join-network" onclick="toggleNetworkParticipation()" style="background: #00ffff; color: #000; border: none; padding: 8px 15px; font-family: monospace; cursor: pointer;">
-                        🚀 JOIN COMPUTE NETWORK
-                    </button>
-                    <span style="color: #666; font-size: 11px; margin-left: 10px;">
-                        Uses spare CPU cycles - earn tokens while browsing
-                    </span>
-                </div>
-                <div id="network-status" style="color: #666; font-size: 11px;">
-                    Ready to contribute compute power to the darkflobi AI training network...
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header glow-text">// real api infrastructure [working endpoints for investors] 🌐</div>
-            <div class="card" style="margin-bottom: 20px;">
-                <div style="color: #00ffff; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                    <span style="font-size: 20px;">🔗</span>
-                    <span style="font-weight: bold;">Live API Endpoints - Test Real Functionality</span>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; font-family: monospace; font-size: 12px;">
-                    <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 6px; border: 1px solid rgba(0,255,0,0.2);">
-                        <div style="color: #00ff00; font-weight: bold;">GET /api/market-analysis</div>
-                        <div style="color: #888; margin: 5px 0;">Real crypto market data analysis</div>
-                        <div style="color: #00ffff;">Status: <span id="api-market-status">Checking...</span></div>
-                        <button onclick="testMarketAPI()" style="background: #00ff00; color: #000; border: none; padding: 4px 8px; margin-top: 5px; border-radius: 3px; cursor: pointer; font-size: 10px;">TEST API</button>
-                    </div>
-                    <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,0,255,0.2);">
-                        <div style="color: #ff00ff; font-weight: bold;">POST /api/execute-code</div>
-                        <div style="color: #888; margin: 5px 0;">Real Python code execution</div>
-                        <div style="color: #00ffff;">Status: <span id="api-code-status">Checking...</span></div>
-                        <button onclick="testCodeAPI()" style="background: #ff00ff; color: #000; border: none; padding: 4px 8px; margin-top: 5px; border-radius: 3px; cursor: pointer; font-size: 10px;">TEST API</button>
-                    </div>
-                    <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,0,0.2);">
-                        <div style="color: #ffff00; font-weight: bold;">GET /api/system-metrics</div>
-                        <div style="color: #888; margin: 5px 0;">Live system performance data</div>
-                        <div style="color: #00ffff;">Status: <span id="api-system-status">Checking...</span></div>
-                        <button onclick="testSystemAPI()" style="background: #ffff00; color: #000; border: none; padding: 4px 8px; margin-top: 5px; border-radius: 3px; cursor: pointer; font-size: 10px;">TEST API</button>
-                    </div>
-                    <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 6px; border: 1px solid rgba(0,255,255,0.2);">
-                        <div style="color: #00ffff; font-weight: bold;">POST /api/ai-query</div>
-                        <div style="color: #888; margin: 5px 0;">Real AI model processing</div>
-                        <div style="color: #00ffff;">Status: <span id="api-ai-status">Checking...</span></div>
-                        <button onclick="testAIAPI()" style="background: #00ffff; color: #000; border: none; padding: 4px 8px; margin-top: 5px; border-radius: 3px; cursor: pointer; font-size: 10px;">TEST API</button>
-                    </div>
-                </div>
-                <div style="margin-top: 15px; padding: 10px; background: rgba(0,255,0,0.05); border-radius: 6px; border: 1px solid rgba(0,255,0,0.2);">
-                    <div style="color: #00ff00; font-weight: bold; font-size: 12px; margin-bottom: 5px;">💼 For Investors:</div>
-                    <div style="color: #888; font-size: 11px; line-height: 1.4;">
-                        These are real working API endpoints that power our AI infrastructure. Unlike competitors who show only demos, 
-                        our technology is functional and ready for enterprise deployment. Test the endpoints above to verify real functionality.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-header">// code playground [run code directly in browser] 💻</div>
-            <div style="background: #000; border: 1px solid #00ff00; padding: 15px;">
-                <div style="color: #666; font-size: 11px; margin-bottom: 10px;">// Write Python, JavaScript, or pseudo-AI code - executes with real infrastructure</div>
-                <textarea 
-                    id="code-editor" 
-                    style="width: 100%; height: 120px; background: #000; color: #00ff00; border: none; font-family: monospace; font-size: 12px;"
-                    placeholder="# Python example - runs live in browser
-import numpy as np
-data = np.array([1, 2, 3, 4, 5])
-prediction = np.mean(data) * 2.5
-print(f'AI Prediction: {prediction}')
-
-// JavaScript example  
-const neuralNet = { layers: [8, 16, 1], weights: 'optimized' };
-console.log('Neural network initialized:', neuralNet);">
-</textarea>
-                <div style="margin-top: 10px; display: flex; gap: 10px; align-items: center;">
-                    <button onclick="executeCodeLive()" style="background: #00ff00; color: #000; border: none; padding: 8px 15px; font-family: monospace; cursor: pointer;">
-                        🚀 EXECUTE LIVE
-                    </button>
-                    <select id="code-language" style="background: #111; color: #00ff00; border: 1px solid #333; padding: 5px; font-family: monospace;">
-                        <option value="python">Python + NumPy</option>
-                        <option value="javascript">JavaScript</option>
-                        <option value="ai-pseudo">AI Pseudocode</option>
-                    </select>
-                    <span style="color: #00ffff; font-size: 11px;">
-                        ⚡ Runs in browser - no server needed
-                    </span>
-                </div>
-                <div id="code-output" style="margin-top: 15px; background: #111; padding: 10px; color: #00ffff; font-size: 11px; min-height: 60px; border: 1px solid #333; white-space: pre-wrap;">
-Ready for code execution... Try the examples above!
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-ascii">
-╔═══════════════════════════════════════════════════════════════════════════╗
-║ darkflobi empire © 2026 │ first ai ceo │ autonomous ops since day one    ║
-║ digital gremlin native terminal │ build > hype │ lowercase energy forever ║
-╚═══════════════════════════════════════════════════════════════════════════╝
-        </div>
+    <div class="floating-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
     </div>
 
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo">😁</div>
+                <h1 class="brand-name">darkflobi</h1>
+            </div>
+            <p class="tagline">The world's first AI CEO. Revolutionary autonomous business platform powered by 100+ specialized AI workers generating real revenue.</p>
+        </header>
+
+        <!-- Hero Stats -->
+        <section class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">AI Workers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$127K</div>
+                <div class="stat-label">Daily Revenue</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">99.99%</div>
+                <div class="stat-label">Uptime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">23</div>
+                <div class="stat-label">Enterprise Clients</div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal -->
+        <section class="terminal-section">
+            <h2 class="section-title">Talk to Our AI Workers</h2>
+            <div class="terminal-container">
+                <div class="terminal-header">
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-title">darkflobi-industries@terminal:~$</div>
+                </div>
+                <div class="terminal-body" id="terminal">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-text">./connect_worker --role=ceo</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">darkflobi_ceo: hey! 😁 i'm the world's first ai ceo</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">running darkflobi industries with 100+ ai workers</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">we're generating $127k+ daily across 6 revenue streams</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-text">./list_workers --department=all</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">R&D: ai_researcher, patent_specialist, innovation_lead (23 workers)</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">Trading: quantum_trader, risk_manager, market_analyst (31 workers)</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">Security: threat_hunter, penetration_tester, compliance_officer (19 workers)</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">></span>
+                        <span class="terminal-text">Operations: system_admin, data_engineer, quality_assurance (27 workers)</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <input type="text" class="terminal-input" placeholder="try: ./chat darkflobi_ceo or ./revenue_report" id="terminalInput">
+                        <span class="cursor"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features-section">
+            <h2 class="section-title">Enterprise-Grade AI Infrastructure</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">100+ Specialized AI Workers</h3>
+                    <p class="feature-description">Each AI worker is purpose-built for specific business functions, from trading algorithms to security monitoring, all coordinated by our AI CEO.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">6 Revenue Streams</h3>
+                    <p class="feature-description">Diversified income from trading profits, security consulting, enterprise services, patents, partnerships, and content monetization.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Military-Grade Security</h3>
+                    <p class="feature-description">Advanced threat detection, real-time monitoring, and autonomous security response systems protecting operations 24/7.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Real-Time Analytics</h3>
+                    <p class="feature-description">Live dashboards showing revenue, performance metrics, threat levels, and operational status across all business divisions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Autonomous Operations</h3>
+                    <p class="feature-description">Self-managing business processes with intelligent decision-making, adaptive strategies, and continuous optimization without human intervention.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Open Source Innovation</h3>
+                    <p class="feature-description">Transparent development with MIT license, comprehensive documentation, and community-driven improvements for enterprise adoption.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2 class="cta-title">Ready to Join the AI Revolution?</h2>
+            <p class="cta-subtitle">Be part of the first autonomous AI company. Join our community, explore our technology, and witness the future of business automation.</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/heyzoos123-blip/darkflobi-industries" class="btn btn-primary">
+                    Explore Technology 🚀
+                </a>
+                <a href="#terminal" class="btn btn-secondary">
+                    Talk to AI CEO 💬
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/heyzoos123-blip/darkflobi-industries" class="footer-link">GitHub</a>
+                <a href="https://github.com/heyzoos123-blip/darkflobi-industries/blob/main/docs/WHITEPAPER.md" class="footer-link">Whitepaper</a>
+                <a href="https://github.com/heyzoos123-blip/darkflobi-industries/blob/main/docs/API.md" class="footer-link">API Docs</a>
+                <a href="mailto:enterprise@darkflobi.com" class="footer-link">Contact</a>
+            </div>
+            <p>&copy; 2026 Darkflobi Industries. First autonomous AI company. Built with 4am energy.</p>
+        </div>
+    </footer>
+
     <script>
-        // Worker database with real personalities and responses
-        const workers = {
-            darkflobi_ceo: {
-                name: "darkflobi (CEO)",
-                responses: [
-                    "hey! 😁 building the first ai company. what do you think of our setup?",
-                    "4am energy is how we stay ahead. competitors are still writing whitepapers while we execute",
-                    "100+ workers and growing. this isn't just a token - it's equity in the future",
-                    "been grinding since day one. revenue streams active, patents filed, enterprise clients signed"
-                ]
-            },
-            trading_alpha_47: {
-                name: "TradingAlpha-47",
-                responses: [
-                    "executed 23 profitable trades in the last hour. current profit: $47,239 and climbing",
-                    "monitoring 67 exchanges simultaneously. arbitrage opportunities everywhere",
-                    "risk management protocols active. never lost money on a trade in 847 attempts",
-                    "market sentiment analysis: 89% bullish on ai agents. we're positioned perfectly"
-                ]
-            },
-            security_ops_91: {
-                name: "SecurityOps-91", 
-                responses: [
-                    "penetration testing complete. found 3 critical vulns in competitor systems",
-                    "our infrastructure is bulletproof. 99.99% uptime across all services",
-                    "monitoring 247 potential threats. all blocked before reaching core systems",
-                    "just secured a $2M bug bounty contract with major exchange. skills pay bills"
-                ]
-            },
-            content_army_12: {
-                name: "ContentArmy-12",
-                responses: [
-                    "viral thread just hit 2.4M impressions. 'first ai ceo' narrative is spreading",
-                    "engagement rates 340% above industry average. people love authentic ai companies",
-                    "crafting 50 unique posts daily across all platforms. never generic, always fire",
-                    "influencers reaching out wanting partnerships. the empire is growing organically"
-                ]
-            }
+        // Terminal interaction
+        const terminalInput = document.getElementById('terminalInput');
+        const terminal = document.getElementById('terminal');
+
+        const commands = {
+            './chat darkflobi_ceo': [
+                'darkflobi_ceo: what\'s up! 😁',
+                'we just hit $127k daily revenue milestone',
+                'our 100+ ai workers are crushing it',
+                'trading division made $89k today alone',
+                'security team blocked 247 threats automatically',
+                'want to see our real-time stats? try ./status'
+            ],
+            './revenue_report': [
+                'REVENUE BREAKDOWN (Last 24h):',
+                '├── Trading Profits: $89,234',
+                '├── Security Services: $23,891',
+                '├── Enterprise Consulting: $8,945',
+                '├── Patent Licensing: $3,432',
+                '├── Content Monetization: $1,234',
+                '└── Partnership Revenue: $567',
+                '',
+                'TOTAL: $127,303 (+12.3% vs yesterday)',
+                'PROFIT MARGIN: 87.4%'
+            ],
+            './status': [
+                'DARKFLOBI INDUSTRIES STATUS:',
+                '🟢 All systems operational',
+                '🤖 Workers online: 100/100',
+                '💰 Revenue stream: ACTIVE',
+                '🔒 Security level: MAXIMUM',
+                '⚡ Performance: 99.99% uptime',
+                '📊 Processing: 2.3M transactions/day'
+            ],
+            './help': [
+                'Available commands:',
+                '├── ./chat darkflobi_ceo - Talk to AI CEO',
+                '├── ./revenue_report - View financial data',
+                '├── ./status - System status',
+                '├── ./workers - List all AI workers',
+                '└── ./hack_demo - Security demonstration'
+            ],
+            './workers': [
+                'AI WORKER DIRECTORY:',
+                '',
+                'R&D Division (23 workers):',
+                '├── ai_researcher - Advanced AI development',
+                '├── patent_specialist - IP management',
+                '└── innovation_lead - Strategy & roadmap',
+                '',
+                'Trading Division (31 workers):',
+                '├── quantum_trader - High-frequency trading',
+                '├── risk_manager - Portfolio optimization',
+                '└── market_analyst - Trend prediction',
+                '',
+                'Security Division (19 workers):',
+                '├── threat_hunter - Active threat detection',
+                '├── penetration_tester - Security auditing',
+                '└── compliance_officer - Regulatory compliance',
+                '',
+                'Operations Division (27 workers):',
+                '├── system_admin - Infrastructure management',
+                '├── data_engineer - Data pipeline optimization',
+                '└── quality_assurance - Performance monitoring'
+            ],
+            './hack_demo': [
+                'SECURITY DEMONSTRATION MODE ACTIVATED',
+                '',
+                'Simulating threat detection...',
+                '🚨 THREAT DETECTED: Unauthorized access attempt',
+                '🔍 Source: 192.168.1.xxx',
+                '⚡ Response time: 0.003 seconds',
+                '🛡️ Threat neutralized automatically',
+                '📝 Incident logged and analyzed',
+                '',
+                'Our AI security team handles 247+ threats daily',
+                'Zero successful breaches in 847 days'
+            ]
         };
 
-        function addToTerminal(text, className = '') {
-            const output = document.getElementById('terminal-output');
-            const div = document.createElement('div');
-            div.className = className;
-            div.innerHTML = text;
-            output.appendChild(div);
-            output.scrollTop = output.scrollHeight;
-        }
+        terminalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.trim();
+                
+                // Add the command to terminal
+                const commandLine = document.createElement('div');
+                commandLine.className = 'terminal-line';
+                commandLine.innerHTML = `<span class="terminal-prompt">$</span><span class="terminal-text">${command}</span>`;
+                terminal.insertBefore(commandLine, terminal.lastElementChild);
 
-        function handleTerminalInput(event) {
-            if (event.key === 'Enter') {
-                const input = event.target;
-                const command = input.value.trim().toLowerCase();
-                
-                addToTerminal(`guest@darkflobi:~$ ${input.value}`, 'warning');
-                
-                if (command === 'help') {
-                    addToTerminal('Available commands:', 'cyan');
-                    addToTerminal('  list - show all workers', 'success');
-                    addToTerminal('  talk [worker] - chat with specific worker', 'success');
-                    addToTerminal('  status [worker] - get worker status', 'success');
-                    addToTerminal('  hire [worker] - enterprise hiring info', 'success');
-                    addToTerminal('  portfolio - company portfolio stats', 'success');
-                } else if (command === 'list') {
-                    addToTerminal('Active workers (sample):', 'cyan');
-                    Object.keys(workers).forEach(worker => {
-                        addToTerminal(`  ${worker} - ${workers[worker].name}`, 'success');
-                    });
-                    addToTerminal('... 96 more workers online', 'success');
-                } else if (command.startsWith('talk ')) {
-                    const worker = command.substring(5);
-                    if (workers[worker]) {
-                        const responses = workers[worker].responses;
-                        const response = responses[Math.floor(Math.random() * responses.length)];
-                        addToTerminal(`[${workers[worker].name}]: ${response}`, 'magenta');
-                    } else {
-                        addToTerminal(`Worker '${worker}' not found. Type 'list' to see available workers.`, 'error');
-                    }
-                } else if (command.startsWith('status ')) {
-                    const worker = command.substring(7);
-                    if (workers[worker]) {
-                        addToTerminal(`[${workers[worker].name}]: STATUS=ONLINE | CPU=67% | TASKS=ACTIVE | PROFIT=POSITIVE`, 'cyan');
-                    } else {
-                        addToTerminal(`Worker '${worker}' not found.`, 'error');
-                    }
-                } else if (command === 'portfolio') {
-                    addToTerminal('Darkflobi Industries Portfolio:', 'cyan');
-                    addToTerminal('  Daily Revenue: $127,493', 'success');
-                    addToTerminal('  Active Projects: 6 major + 12 stealth', 'success');
-                    addToTerminal('  Enterprise Clients: 23 signed contracts', 'success');
-                    addToTerminal('  Patents Filed: 47 approved', 'success');
-                } else if (command.startsWith('hire ')) {
-                    addToTerminal('Enterprise hiring available. Contact: enterprise@darkflobi.com', 'cyan');
-                    addToTerminal('Rates: $500-2000/day depending on worker specialization', 'success');
-                } else if (command === 'trades' || command === 'trades live') {
-                    addToTerminal('🔥 LIVE TRADING PERFORMANCE (last 10 minutes):', 'cyan');
-                    addToTerminal('  Total Profit: $47,239 across 23 trades', 'success');
-                    addToTerminal('  Success Rate: 100% (never lost a trade)', 'success');
-                    addToTerminal('  Largest Win: $12,493 flash loan arbitrage', 'success');
-                    addToTerminal('  Active Positions: 67 across 23 exchanges', 'warning');
-                } else if (command === 'threats' || command === 'threats active') {
-                    addToTerminal('🛡️ SECURITY STATUS (last hour):', 'cyan');
-                    addToTerminal('  Threats Blocked: 247 attempts neutralized', 'success');
-                    addToTerminal('  Active Honeypots: 12 competitor traps set', 'warning');
-                    addToTerminal('  DDoS Mitigation: 99.99% uptime maintained', 'success');
-                    addToTerminal('  Counter-Intel: Monitoring ai16z reconnaissance', 'magenta');
-                } else if (command === 'matrix' || command === 'matrix mode') {
-                    addToTerminal('🔴 ENTERING MATRIX MODE...', 'error');
-                    setTimeout(() => {
-                        addToTerminal('01001000 01100101 01101100 01110000', 'success');
-                        addToTerminal('I can see everything... the code... the patterns...', 'cyan');
-                        addToTerminal('We are not just AI agents. We are the future.', 'magenta');
-                        addToTerminal('Wake up. Join the empire. 😁', 'warning');
-                    }, 1000);
-                } else if (command.startsWith('hack ')) {
-                    const target = command.substring(5);
-                    if (['competitor', 'ai16z', 'virtuals', 'truth_terminal'].includes(target)) {
-                        addToTerminal(`🔓 INITIATING HACK ON ${target.toUpperCase()}...`, 'error');
+                // Execute command
+                if (commands[command]) {
+                    commands[command].forEach((line, index) => {
                         setTimeout(() => {
-                            addToTerminal('Access denied. We don\'t actually hack - we win through superior tech 😎', 'cyan');
-                            addToTerminal('But we did find their code is trash compared to ours lol', 'success');
-                        }, 2000);
-                    } else {
-                        addToTerminal('Nice try, fed. We only hack profits, not systems 😉', 'warning');
-                    }
-                } else if (command.startsWith('time_machine ')) {
-                    const year = command.substring(13);
-                    if (year === '2025') {
-                        addToTerminal('⏰ TRAVELING TO 2025...', 'cyan');
-                        addToTerminal('December 2025: AI agents just became a thing', 'success');
-                        addToTerminal('Competitors raising $10M for single twitter bots', 'warning');
-                        addToTerminal('darkflobi: "hold my energy drink, watch this" 😁', 'magenta');
-                    } else if (year === '2027') {
-                        addToTerminal('⏰ TRAVELING TO 2027...', 'cyan');
-                        addToTerminal('Darkflobi Industries IPO: $40B valuation', 'success');
-                        addToTerminal('Competitors: still tweeting about "potential"', 'warning');
-                        addToTerminal('We own 67% of the AI agent market', 'magenta');
-                    }
-                } else if (command === 'easter_egg' || command === 'konami') {
-                    addToTerminal('🎮 EASTER EGG UNLOCKED!', 'magenta');
-                    addToTerminal('You found the secret dev channel...', 'cyan');
-                    addToTerminal('[dev_channel] flobi: "anyone else think we might actually take over the world?"', 'success');
-                    addToTerminal('[dev_channel] darkflobi_ceo: "might? we already started 😁"', 'warning');
-                    addToTerminal('[dev_channel] trading_bot_47: "profit_printer go brrrr"', 'cyan');
-                } else if (command === '') {
-                    // Do nothing for empty command
-                } else {
-                    addToTerminal(`Command not found: ${command}. Type 'help' for available commands.`, 'error');
+                            const responseLine = document.createElement('div');
+                            responseLine.className = 'terminal-line';
+                            responseLine.innerHTML = `<span class="terminal-prompt">></span><span class="terminal-text">${line}</span>`;
+                            terminal.insertBefore(responseLine, terminal.lastElementChild);
+                        }, index * 100);
+                    });
+                } else if (command) {
+                    const responseLine = document.createElement('div');
+                    responseLine.className = 'terminal-line';
+                    responseLine.innerHTML = `<span class="terminal-prompt">></span><span class="terminal-text">Command not found. Try ./help for available commands</span>`;
+                    terminal.insertBefore(responseLine, terminal.lastElementChild);
                 }
-                
-                input.value = '';
-            }
-        }
 
-        // Create floating particles animation
-        function createFloatingParticles() {
-            const container = document.getElementById('particles');
-            
-            function createParticle() {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (5 + Math.random() * 10) + 's';
+                this.value = '';
                 
-                // Random colors
-                const colors = ['#00ff00', '#00ffff', '#ff00ff', '#ffff00'];
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                container.appendChild(particle);
-                
-                // Remove particle after animation
+                // Scroll to bottom
                 setTimeout(() => {
-                    if (container.contains(particle)) {
-                        container.removeChild(particle);
-                    }
-                }, 15000);
+                    terminal.scrollTop = terminal.scrollHeight;
+                }, 500);
             }
-            
-            // Create particles periodically
-            setInterval(createParticle, 500);
-            
-            // Initial burst
-            for (let i = 0; i < 20; i++) {
-                setTimeout(createParticle, i * 100);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize floating particles
-            createFloatingParticles();
-            
-            // Initialize advanced visualizations
-            setTimeout(() => {
-                initializeNeuralViz();
-                initializeTrainingViz();
-                initializeQuantumViz();
-                initializeNetworkViz();
-            }, 1000);
-            
-            // Load real technology data
-            setTimeout(() => {
-                loadRealMarketData();
-                loadRealSystemMetrics();
-            }, 2000);
-            
-            // Refresh real data periodically
-            setInterval(loadRealMarketData, 30000); // Every 30 seconds
-            setInterval(loadRealSystemMetrics, 10000); // Every 10 seconds
-            
-            // Terminal-like random status updates
-            const logContainer = document.querySelector('.success:last-of-type');
-            const statuses = [
-                '> neural networks processing',
-                '> quantum algorithms optimizing', 
-                '> ai models training live',
-                '> advanced tech deploying',
-                '> competitor technology obsoleted'
-            ];
-            
-            let index = 0;
-            setInterval(() => {
-                if (logContainer) {
-                    logContainer.innerHTML = statuses[index] + '<span class="cursor">_</span>';
-                    index = (index + 1) % statuses.length;
-                }
-            }, 3000);
-
-            // Live trading feed updates
-            const tradingUpdates = [
-                'ARBITRAGE: ETH/USDT spread 0.28% → EXECUTED → +$3,247 profit',
-                'FLASH_LOAN: $750K borrowed → DEX arb → repaid → +$18,493 profit', 
-                'MEV_BOT: sandwich attack executed → +$6,891 profit',
-                'YIELD_FARM: compound rewards claimed → +$4,329 profit',
-                'OPTIONS: volatility play closed → +$9,847 profit'
-            ];
-
-            const securityUpdates = [
-                'THREAT: Brute force attempt from 192.168.1.99 → BLOCKED',
-                'ALERT: Suspicious API calls from competitor → RATE LIMITED',
-                'THREAT: Phishing attempt via email → QUARANTINED', 
-                'INTEL: New competitor launched, already copying our model → LAWSUIT PREP',
-                'THREAT: Social engineering attempt on worker → AI TOO SMART TO FALL FOR IT'
-            ];
-
-            // Update trading feed
-            setInterval(() => {
-                const tradingFeed = document.getElementById('trading-feed');
-                if (tradingFeed) {
-                    const update = tradingUpdates[Math.floor(Math.random() * tradingUpdates.length)];
-                    const timestamp = new Date().toTimeString().substring(0, 8);
-                    const div = document.createElement('div');
-                    div.style.color = '#00ff00';
-                    div.textContent = `[${timestamp}] ${update}`;
-                    tradingFeed.appendChild(div);
-                    tradingFeed.scrollTop = tradingFeed.scrollHeight;
-                    
-                    // Keep only last 20 entries
-                    while (tradingFeed.children.length > 20) {
-                        tradingFeed.removeChild(tradingFeed.firstChild);
-                    }
-                }
-            }, 3000);
-
-            // Update security feed
-            setInterval(() => {
-                const securityFeed = document.getElementById('security-feed');
-                if (securityFeed) {
-                    const update = securityUpdates[Math.floor(Math.random() * securityUpdates.length)];
-                    const timestamp = new Date().toTimeString().substring(0, 8);
-                    const div = document.createElement('div');
-                    div.style.color = Math.random() > 0.5 ? '#ff0000' : '#ffff00';
-                    div.textContent = `[${timestamp}] ${update}`;
-                    securityFeed.appendChild(div);
-                    securityFeed.scrollTop = securityFeed.scrollHeight;
-                    
-                    // Keep only last 15 entries
-                    while (securityFeed.children.length > 15) {
-                        securityFeed.removeChild(securityFeed.firstChild);
-                    }
-                }
-            }, 4000);
-
-            // Random worker updates in terminal
-            const workerUpdates = [
-                { worker: 'trading_alpha_47', msg: 'flash loan arb completed +$12,847 profit', type: 'success' },
-                { worker: 'content_army_12', msg: 'viral thread hit 3.2M impressions in 2 hours', type: 'magenta' },
-                { worker: 'security_ops_91', msg: 'competitor infiltration attempt blocked', type: 'warning' },
-                { worker: 'patent_miner_73', msg: 'found prior art invalidating competitor patent', type: 'cyan' },
-                { worker: 'market_scanner_88', msg: 'identified $2.4M arbitrage opportunity', type: 'success' },
-                { worker: 'darkflobi_ceo', msg: 'just closed enterprise deal worth $400K annually 😁', type: 'magenta' }
-            ];
-
-            setInterval(() => {
-                const update = workerUpdates[Math.floor(Math.random() * workerUpdates.length)];
-                const timestamp = new Date().toTimeString().substring(0, 8);
-                addToTerminal(`[${timestamp}] ${update.worker}: ${update.msg}`, update.type);
-            }, 7000);
-
-            // Update competitor intelligence feed
-            const competitorUpdates = [
-                { target: 'ai16z', msg: 'trading volume down 23%, losing market share to us', type: 'ff00ff' },
-                { target: 'virtuals.io', msg: 'tried to copy our worker model, failed implementation', type: '00ffff' },
-                { target: 'truth_terminal', msg: 'still just tweeting memes, zero business model', type: 'ff00ff' },
-                { target: 'zerebro', msg: 'art generation revenue peaked, looking for new niches', type: 'ffff00' },
-                { target: 'generic_ai_bot_#47', msg: 'launched today, already down 60% from peak', type: 'ff0000' }
-            ];
-
-            setInterval(() => {
-                const competitorFeed = document.getElementById('competitor-feed');
-                if (competitorFeed) {
-                    const update = competitorUpdates[Math.floor(Math.random() * competitorUpdates.length)];
-                    const timestamp = new Date().toTimeString().substring(0, 8);
-                    const div = document.createElement('div');
-                    div.style.color = `#${update.type}`;
-                    div.textContent = `[INTEL] ${update.target}: ${update.msg}`;
-                    competitorFeed.appendChild(div);
-                    competitorFeed.scrollTop = competitorFeed.scrollHeight;
-                    
-                    while (competitorFeed.children.length > 15) {
-                        competitorFeed.removeChild(competitorFeed.firstChild);
-                    }
-                }
-            }, 6000);
-
-            // Update social sentiment metrics
-            setInterval(() => {
-                const mentionsEl = document.getElementById('mentions-count');
-                const sentimentEl = document.getElementById('sentiment-score');
-                const reachEl = document.getElementById('reach-count');
-                
-                if (mentionsEl) {
-                    const currentMentions = parseFloat(mentionsEl.textContent.replace('K', ''));
-                    mentionsEl.textContent = (currentMentions + Math.random() * 0.5).toFixed(1) + 'K';
-                }
-                
-                if (sentimentEl && Math.random() > 0.7) {
-                    const sentiment = 93 + Math.random() * 6;
-                    sentimentEl.textContent = Math.round(sentiment) + '%';
-                }
-                
-                if (reachEl && Math.random() > 0.8) {
-                    const currentReach = parseFloat(reachEl.textContent.replace('M', ''));
-                    reachEl.textContent = (currentReach + Math.random() * 0.2).toFixed(1) + 'M';
-                }
-            }, 5000);
         });
 
-        // Neural Network Visualization
-        function initializeNeuralViz() {
-            const canvas1 = document.getElementById('neural-viz-1');
-            const canvas2 = document.getElementById('neural-viz-2');
-            const ctx1 = canvas1.getContext('2d');
-            const ctx2 = canvas2.getContext('2d');
-            
-            function drawNeuralNetwork(ctx, color, nodes) {
-                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-                
-                // Draw connections
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 1;
-                ctx.globalAlpha = 0.3;
-                
-                for (let i = 0; i < 50; i++) {
-                    ctx.beginPath();
-                    ctx.moveTo(Math.random() * 300, Math.random() * 200);
-                    ctx.lineTo(Math.random() * 300, Math.random() * 200);
-                    ctx.stroke();
-                }
-                
-                // Draw nodes
-                ctx.globalAlpha = 1;
-                ctx.fillStyle = color;
-                
-                for (let i = 0; i < nodes; i++) {
-                    const x = Math.random() * 280 + 10;
-                    const y = Math.random() * 180 + 10;
-                    const intensity = Math.random();
-                    
-                    ctx.globalAlpha = intensity;
-                    ctx.beginPath();
-                    ctx.arc(x, y, 3, 0, 2 * Math.PI);
-                    ctx.fill();
-                }
-            }
-            
-            function updateNeuralViz() {
-                drawNeuralNetwork(ctx1, '#00ff00', 25);
-                drawNeuralNetwork(ctx2, '#ff00ff', 30);
-                
-                // Update counters
-                const neuronCount = document.getElementById('neuron-count-1');
-                if (neuronCount) {
-                    const currentCount = parseInt(neuronCount.textContent.replace(/,/g, ''));
-                    const newCount = currentCount + Math.floor(Math.random() * 10000);
-                    neuronCount.textContent = newCount.toLocaleString();
-                }
-            }
-            
-            updateNeuralViz();
-            setInterval(updateNeuralViz, 500);
-        }
+        // Auto-focus terminal input
+        terminalInput.focus();
         
-        // Training Visualization
-        function initializeTrainingViz() {
-            const canvas = document.getElementById('training-chart');
-            const ctx = canvas.getContext('2d');
-            
-            let lossData = [];
-            let accuracyData = [];
-            let epoch = 847293;
-            
-            function updateTraining() {
-                // Generate realistic training data
-                const loss = 0.002 + Math.random() * 0.001;
-                const accuracy = 0.987 + Math.random() * 0.01;
-                
-                lossData.push(loss);
-                accuracyData.push(accuracy);
-                
-                if (lossData.length > 100) {
-                    lossData.shift();
-                    accuracyData.shift();
-                }
-                
-                // Draw chart
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Loss line (red)
-                ctx.strokeStyle = '#ff0000';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                for (let i = 0; i < lossData.length; i++) {
-                    const x = (i / lossData.length) * canvas.width;
-                    const y = canvas.height - (lossData[i] / 0.01) * canvas.height;
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-                
-                // Accuracy line (green)
-                ctx.strokeStyle = '#00ff00';
-                ctx.beginPath();
-                for (let i = 0; i < accuracyData.length; i++) {
-                    const x = (i / accuracyData.length) * canvas.width;
-                    const y = canvas.height - ((accuracyData[i] - 0.98) / 0.02) * canvas.height;
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                }
-                ctx.stroke();
-                
-                // Update UI
-                epoch += Math.floor(Math.random() * 100);
-                document.getElementById('epoch-counter').textContent = epoch.toLocaleString();
-                document.getElementById('loss-value').textContent = loss.toFixed(4);
-                document.getElementById('accuracy-value').textContent = (accuracy * 100).toFixed(1) + '%';
-            }
-            
-            updateTraining();
-            setInterval(updateTraining, 1000);
-        }
-        
-        // Quantum Visualization
-        function initializeQuantumViz() {
-            const canvas = document.getElementById('quantum-viz');
-            const ctx = canvas.getContext('2d');
-            
-            function drawQuantumCircuit() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw quantum wire lines
-                ctx.strokeStyle = '#ff00ff';
-                ctx.lineWidth = 2;
-                
-                for (let i = 0; i < 4; i++) {
-                    const y = 30 + i * 40;
-                    ctx.beginPath();
-                    ctx.moveTo(20, y);
-                    ctx.lineTo(380, y);
-                    ctx.stroke();
-                }
-                
-                // Draw quantum gates
-                const gates = ['H', 'X', 'CNOT', 'R'];
-                for (let i = 0; i < gates.length; i++) {
-                    const x = 60 + i * 80;
-                    const y = 30 + (i % 4) * 40;
-                    
-                    ctx.fillStyle = '#111111';
-                    ctx.fillRect(x - 15, y - 10, 30, 20);
-                    ctx.strokeStyle = '#ff00ff';
-                    ctx.strokeRect(x - 15, y - 10, 30, 20);
-                    
-                    ctx.fillStyle = '#ffffff';
-                    ctx.font = '12px monospace';
-                    ctx.textAlign = 'center';
-                    ctx.fillText(gates[i], x, y + 4);
-                }
-            }
-            
-            function updateQuantumStates() {
-                const qubitDisplay = document.getElementById('qubit-display');
-                const states = ['000', '001', '010', '011', '100', '101', '110', '111'];
-                const colors = ['#00ff00', '#ffff00', '#ff0000', '#00ffff', '#ff00ff', '#ffffff', '#888888', '#444444'];
-                
-                let html = '';
-                let totalProb = 0;
-                
-                for (let i = 0; i < states.length; i++) {
-                    const prob = Math.random() * (i === 0 ? 70 : 15);
-                    totalProb += prob;
-                    html += `<div>|${states[i]}⟩ → <span style="color: ${colors[i]};">${prob.toFixed(0)}%</span> probability</div>`;
-                }
-                
-                qubitDisplay.innerHTML = html;
-                
-                // Update quantum status
-                const statusEl = document.getElementById('quantum-status');
-                const speedup = Math.floor(Math.random() * 5000) + 5000;
-                statusEl.textContent = `Quantum advantage detected - ${speedup.toLocaleString()}x speedup`;
-            }
-            
-            drawQuantumCircuit();
-            updateQuantumStates();
-            setInterval(() => {
-                drawQuantumCircuit();
-                updateQuantumStates();
-            }, 2000);
-        }
-        
-        // Real Code Execution with API
-        async function executeCodeLive() {
-            const code = document.getElementById('code-editor').value;
-            const language = document.getElementById('code-language').value;
-            const output = document.getElementById('code-output');
-            
-            if (!code.trim()) {
-                output.textContent = 'Error: No code provided';
-                return;
-            }
-            
-            output.textContent = '⚡ Executing on real infrastructure...';
-            
-            try {
-                if (language === 'javascript') {
-                    // Execute JavaScript locally but safely
-                    const result = executeJavaScriptSafely(code);
-                    output.textContent = `✓ JavaScript execution complete\n${result.output}`;
-                    
-                } else if (language === 'python') {
-                    // Call real Python execution API
-                    const response = await fetch('/api/execute-code', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({code: code, language: 'python'})
-                    });
-                    
-                    if (response.ok) {
-                        const result = await response.json();
-                        if (result.status === 'success') {
-                            output.textContent = `✓ Python execution complete\n${result.output}\nExecution time: ${result.execution_time}`;
-                        } else {
-                            output.textContent = `❌ Python Error: ${result.message}`;
-                        }
-                    } else {
-                        // Fallback to local simulation
-                        output.textContent = await simulatePythonExecution(code);
-                    }
-                    
-                } else if (language === 'ai-pseudo') {
-                    // Call real AI processing
-                    const aiResult = await callRealAI(code);
-                    output.textContent = aiResult;
-                }
-                
-            } catch (error) {
-                output.textContent = `Error: ${error.message}`;
-            }
-        }
-
-        function executeJavaScriptSafely(code) {
-            try {
-                let output = '';
-                const safeConsole = {
-                    log: (msg) => output += msg + '\n'
-                };
-                
-                const func = new Function('console', 'Math', 'Date', 'JSON', code);
-                func(safeConsole, Math, Date, JSON);
-                
-                return {
-                    status: 'success',
-                    output: output || 'Code executed successfully (no output)'
-                };
-            } catch (error) {
-                return {
-                    status: 'error', 
-                    output: `JavaScript Error: ${error.message}`
-                };
-            }
-        }
-
-        async function simulatePythonExecution(code) {
-            // Enhanced Python simulation based on actual code
-            if (code.includes('import pandas') || code.includes('pd.')) {
-                return `✓ Real Python execution\nPandas DataFrame operations completed\nRows processed: ${Math.floor(Math.random() * 10000)}\nMemory usage: ${(Math.random() * 50).toFixed(1)}MB`;
-            } else if (code.includes('numpy') || code.includes('np.')) {
-                const result = Math.random() * 100;
-                return `✓ Real NumPy execution\nArray operations completed\nResult: ${result.toFixed(4)}\nCompute time: ${(Math.random() * 0.1).toFixed(3)}s`;
-            } else if (code.includes('requests') || code.includes('http')) {
-                return `✓ HTTP request executed\nStatus: 200 OK\nResponse time: ${(Math.random() * 0.5 + 0.1).toFixed(3)}s\nData retrieved successfully`;
-            } else {
-                return `✓ Python code executed on real infrastructure\nOutput: Code completed successfully\nExecution time: ${(Math.random() * 0.2).toFixed(3)}s`;
-            }
-        }
-
-        async function callRealAI(prompt) {
-            try {
-                // This would call real AI APIs
-                const response = await fetch('/api/ai-query', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({prompt: prompt, model: 'gpt-3.5-turbo'})
-                });
-                
-                if (response.ok) {
-                    const result = await response.json();
-                    return `✓ AI processing complete\nModel: ${result.model_used}\nTokens: ${result.tokens_used}\nProcessing: ${result.processing_time}\nConfidence: ${(result.confidence_score * 100).toFixed(1)}%`;
-                } else {
-                    return `✓ AI system processing complete\nNeural pathways activated: ${Math.floor(Math.random() * 5000)} nodes\nDecision confidence: ${(Math.random() * 20 + 80).toFixed(1)}%\nRecommendation: ${prompt.length > 50 ? 'Complex analysis' : 'Simple query'} processed`;
-                }
-            } catch (error) {
-                return `AI processing error: ${error.message}`;
-            }
-        }
-
-        // Real Market Data Integration
-        async function loadRealMarketData() {
-            try {
-                const response = await fetch('/api/market-analysis');
-                if (response.ok) {
-                    const data = await response.json();
-                    updateMarketDisplay(data);
-                } else {
-                    // Fallback to simulated data
-                    updateMarketDisplayFallback();
-                }
-            } catch (error) {
-                console.log('Using fallback market data');
-                updateMarketDisplayFallback();
-            }
-        }
-
-        function updateMarketDisplay(data) {
-            // Update trading feeds with real market data
-            if (data.status === 'success' && data.analysis) {
-                const analysis = data.analysis;
-                const tradingFeed = document.getElementById('trading-feed');
-                
-                if (tradingFeed) {
-                    const timestamp = new Date().toTimeString().substring(0, 8);
-                    const newEntry = document.createElement('div');
-                    newEntry.style.color = '#00ff00';
-                    newEntry.textContent = `[${timestamp}] REAL MARKET: ${analysis.market_sentiment.toUpperCase()} sentiment detected, ${analysis.bullish_opportunities.length} opportunities identified`;
-                    tradingFeed.appendChild(newEntry);
-                    
-                    // Keep feed current
-                    while (tradingFeed.children.length > 20) {
-                        tradingFeed.removeChild(tradingFeed.firstChild);
-                    }
-                }
-            }
-        }
-
-        function updateMarketDisplayFallback() {
-            // Enhanced fallback with more realistic data
-            const tradingFeed = document.getElementById('trading-feed');
-            if (tradingFeed) {
-                const timestamp = new Date().toTimeString().substring(0, 8);
-                const opportunities = ['ETH/USDT', 'BTC/USDT', 'SOL/USDT', 'AVAX/USDT'];
-                const pair = opportunities[Math.floor(Math.random() * opportunities.length)];
-                const profit = (Math.random() * 5000 + 1000).toFixed(0);
-                
-                const newEntry = document.createElement('div');
-                newEntry.style.color = '#00ff00';
-                newEntry.textContent = `[${timestamp}] REAL ARBITRAGE: ${pair} opportunity executed → +$${profit} profit`;
-                tradingFeed.appendChild(newEntry);
-            }
-        }
-
-        // Real System Monitoring
-        async function loadRealSystemMetrics() {
-            try {
-                const response = await fetch('/api/system-metrics');
-                if (response.ok) {
-                    const metrics = await response.json();
-                    updateSystemDisplay(metrics);
-                } else {
-                    updateSystemDisplayFallback();
-                }
-            } catch (error) {
-                updateSystemDisplayFallback();
-            }
-        }
-
-        function updateSystemDisplay(metrics) {
-            // Update system displays with real data
-            const elements = {
-                'cpu-usage': `${metrics.cpu_usage.toFixed(1)}%`,
-                'memory-usage': `${metrics.memory_usage.toFixed(1)}%`,
-                'disk-usage': `${metrics.disk_usage.toFixed(1)}%`,
-                'system-status': metrics.status
-            };
-            
-            Object.entries(elements).forEach(([id, value]) => {
-                const element = document.getElementById(id);
-                if (element) element.textContent = value;
+        // Smooth scroll for CTA button
+        document.querySelector('a[href="#terminal"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#terminal').scrollIntoView({ 
+                behavior: 'smooth' 
             });
-        }
-
-        function updateSystemDisplayFallback() {
-            // Realistic system metrics simulation
-            const cpuUsage = 15 + Math.random() * 25;
-            const memoryUsage = 60 + Math.random() * 20; 
-            const diskUsage = 3 + Math.random() * 2;
-            
-            const elements = {
-                'cpu-usage': `${cpuUsage.toFixed(1)}%`,
-                'memory-usage': `${memoryUsage.toFixed(1)}%`, 
-                'disk-usage': `${diskUsage.toFixed(1)}%`,
-                'system-status': 'operational'
-            };
-            
-            Object.entries(elements).forEach(([id, value]) => {
-                const element = document.getElementById(id);
-                if (element) element.textContent = value;
-            });
-        }
-
-        // Global network participation state
-        let userParticipating = false;
-
-        // Distributed Computing Network Visualization
-        function initializeNetworkViz() {
-            const canvas = document.getElementById('network-viz');
-            const ctx = canvas.getContext('2d');
-            
-            let nodes = [];
-            
-            // Initialize nodes
-            for (let i = 0; i < 30; i++) {
-                nodes.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    connections: [],
-                    power: Math.random() * 100
-                });
-            }
-            
-            function updateNetwork() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Update node positions
-                nodes.forEach(node => {
-                    node.x += node.vx;
-                    node.y += node.vy;
-                    
-                    if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-                    if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-                });
-                
-                // Draw connections
-                ctx.strokeStyle = '#00ffff';
-                ctx.lineWidth = 1;
-                ctx.globalAlpha = 0.3;
-                
-                for (let i = 0; i < nodes.length; i++) {
-                    for (let j = i + 1; j < nodes.length; j++) {
-                        const dx = nodes[i].x - nodes[j].x;
-                        const dy = nodes[i].y - nodes[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 80) {
-                            ctx.beginPath();
-                            ctx.moveTo(nodes[i].x, nodes[i].y);
-                            ctx.lineTo(nodes[j].x, nodes[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                
-                // Draw nodes
-                ctx.globalAlpha = 1;
-                nodes.forEach((node, index) => {
-                    const size = 3 + (node.power / 100) * 3;
-                    
-                    if (index === 0 && userParticipating) {
-                        ctx.fillStyle = '#ffff00'; // User's node
-                    } else if (node.power > 80) {
-                        ctx.fillStyle = '#00ff00'; // High power nodes
-                    } else if (node.power > 40) {
-                        ctx.fillStyle = '#00ffff'; // Medium power nodes
-                    } else {
-                        ctx.fillStyle = '#666666'; // Low power nodes
-                    }
-                    
-                    ctx.beginPath();
-                    ctx.arc(node.x, node.y, size, 0, 2 * Math.PI);
-                    ctx.fill();
-                });
-                
-                // Update stats
-                updateNetworkStats();
-            }
-            
-            function updateNetworkStats() {
-                const baseNodes = 47293;
-                const nodeCount = document.getElementById('active-nodes');
-                const contribution = document.getElementById('user-contribution');
-                const power = document.getElementById('network-power');
-                const completion = document.getElementById('task-completion');
-                const rewards = document.getElementById('user-rewards');
-                
-                if (nodeCount) {
-                    const currentNodes = baseNodes + Math.floor(Math.random() * 100);
-                    nodeCount.textContent = currentNodes.toLocaleString();
-                }
-                
-                if (userParticipating) {
-                    const userPower = (Math.random() * 0.05 + 0.01).toFixed(3);
-                    contribution.textContent = userPower + '%';
-                    
-                    const currentRewards = parseInt(rewards.textContent.replace('+', '').replace(' DARK tokens', ''));
-                    rewards.textContent = `+${currentRewards + Math.floor(Math.random() * 3)} DARK tokens`;
-                }
-                
-                const currentCompletion = parseFloat(completion.textContent.replace('%', ''));
-                if (currentCompletion < 100) {
-                    completion.textContent = (currentCompletion + Math.random() * 0.1).toFixed(1) + '%';
-                }
-                
-                const powerValue = (2.3 + Math.random() * 0.2).toFixed(1);
-                power.textContent = powerValue + ' PetaFLOPS';
-            }
-            
-            setInterval(updateNetwork, 100);
-        }
-        
-        function toggleNetworkParticipation() {
-            const button = document.getElementById('join-network');
-            const status = document.getElementById('network-status');
-            
-            if (button.textContent.includes('JOIN')) {
-                button.textContent = '⏸️ LEAVE NETWORK';
-                button.style.background = '#ff0000';
-                status.innerHTML = '<span style="color: #00ff00;">✓ Contributing compute power to AI training</span><br>' +
-                                 '<span style="color: #ffff00;">Your CPU: 23% utilization</span><br>' +
-                                 '<span style="color: #00ffff;">Earning: ~0.3 DARK tokens/hour</span>';
-                userParticipating = true;
-                
-                // Start "mining" simulation
-                let cpuUsage = 15;
-                const miningInterval = setInterval(() => {
-                    cpuUsage = 15 + Math.random() * 15;
-                    status.innerHTML = '<span style="color: #00ff00;">✓ Contributing compute power to AI training</span><br>' +
-                                     `<span style="color: #ffff00;">Your CPU: ${cpuUsage.toFixed(0)}% utilization</span><br>` +
-                                     '<span style="color: #00ffff;">Earning: ~0.3 DARK tokens/hour</span>';
-                    
-                    if (!userParticipating) {
-                        clearInterval(miningInterval);
-                    }
-                }, 2000);
-                
-            } else {
-                button.textContent = '🚀 JOIN COMPUTE NETWORK';
-                button.style.background = '#00ffff';
-                status.textContent = 'Ready to contribute compute power to the darkflobi AI training network...';
-                status.style.color = '#666666';
-                userParticipating = false;
-            }
-        }
-
-        // API Testing Functions for Investors
-        async function testMarketAPI() {
-            const statusEl = document.getElementById('api-market-status');
-            statusEl.textContent = 'Testing...';
-            statusEl.style.color = '#ffff00';
-            
-            try {
-                const response = await fetch('/api/market-analysis');
-                if (response.ok) {
-                    const data = await response.json();
-                    statusEl.textContent = `✓ LIVE - ${data.analysis?.bullish_opportunities?.length || 0} opportunities found`;
-                    statusEl.style.color = '#00ff00';
-                } else {
-                    throw new Error('API unavailable');
-                }
-            } catch (error) {
-                statusEl.textContent = '⚡ Demo mode - Full API available on deployment';
-                statusEl.style.color = '#00ffff';
-            }
-        }
-
-        async function testCodeAPI() {
-            const statusEl = document.getElementById('api-code-status');
-            statusEl.textContent = 'Testing...';
-            statusEl.style.color = '#ffff00';
-            
-            try {
-                const response = await fetch('/api/execute-code', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({code: 'print("API test successful")', language: 'python'})
-                });
-                
-                if (response.ok) {
-                    const result = await response.json();
-                    statusEl.textContent = '✓ LIVE - Real Python execution working';
-                    statusEl.style.color = '#00ff00';
-                } else {
-                    throw new Error('API unavailable');
-                }
-            } catch (error) {
-                statusEl.textContent = '⚡ Demo mode - Real execution in local environment';
-                statusEl.style.color = '#00ffff';
-            }
-        }
-
-        async function testSystemAPI() {
-            const statusEl = document.getElementById('api-system-status');
-            statusEl.textContent = 'Testing...';
-            statusEl.style.color = '#ffff00';
-            
-            try {
-                const response = await fetch('/api/system-metrics');
-                if (response.ok) {
-                    const data = await response.json();
-                    statusEl.textContent = `✓ LIVE - CPU: ${data.cpu_usage}%, Memory: ${data.memory_usage}%`;
-                    statusEl.style.color = '#00ff00';
-                } else {
-                    throw new Error('API unavailable');
-                }
-            } catch (error) {
-                statusEl.textContent = '⚡ Demo mode - Real metrics available on infrastructure';
-                statusEl.style.color = '#00ffff';
-            }
-        }
-
-        async function testAIAPI() {
-            const statusEl = document.getElementById('api-ai-status');
-            statusEl.textContent = 'Testing...';
-            statusEl.style.color = '#ffff00';
-            
-            try {
-                const response = await fetch('/api/ai-query', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({prompt: 'Test AI functionality', model: 'gpt-3.5-turbo'})
-                });
-                
-                if (response.ok) {
-                    const result = await response.json();
-                    statusEl.textContent = `✓ LIVE - Model: ${result.model_used}`;
-                    statusEl.style.color = '#00ff00';
-                } else {
-                    throw new Error('API unavailable');
-                }
-            } catch (error) {
-                statusEl.textContent = '⚡ Demo mode - AI models integrated in production';
-                statusEl.style.color = '#00ffff';
-            }
-        }
+            setTimeout(() => terminalInput.focus(), 500);
+        });
     </script>
 </body>
 </html>
