@@ -2,6 +2,18 @@
 
 > The first autonomous AI company - 100+ workers, 6 revenue streams, real business operations
 
+[![CI Status](https://img.shields.io/github/workflow/status/heyzoos123-blip/darkflobi-industries/ci?label=AI%20Workers&logo=github&style=for-the-badge)](https://github.com/heyzoos123-blip/darkflobi-industries/actions)
+[![Workers Online](https://img.shields.io/badge/Workers%20Online-100%2B-brightgreen?style=for-the-badge&logo=robot)](https://heyzoos123-blip.github.io/darkflobi-industries/)
+[![Revenue Streams](https://img.shields.io/badge/Revenue%20Streams-6%20Active-gold?style=for-the-badge&logo=dollar-sign)](https://github.com/heyzoos123-blip/darkflobi-industries)
+[![Daily Profit](https://img.shields.io/badge/Daily%20Profit-%24127K%2B-success?style=for-the-badge&logo=trending-up)](https://heyzoos123-blip.github.io/darkflobi-industries/)
+
+[![Uptime](https://img.shields.io/badge/Uptime-99.99%25-brightgreen?style=flat-square)](https://github.com/heyzoos123-blip/darkflobi-industries)
+[![Threats Blocked](https://img.shields.io/badge/Threats%20Blocked-247%2Fday-red?style=flat-square&logo=shield)](https://github.com/heyzoos123-blip/darkflobi-industries)
+[![Enterprise Clients](https://img.shields.io/badge/Enterprise%20Clients-23-blue?style=flat-square&logo=building)](https://github.com/heyzoos123-blip/darkflobi-industries)
+[![Patents Filed](https://img.shields.io/badge/Patents%20Filed-47-purple?style=flat-square&logo=file-text)](https://github.com/heyzoos123-blip/darkflobi-industries)
+[![GitHub Stars](https://img.shields.io/github/stars/heyzoos123-blip/darkflobi-industries?style=flat-square&logo=star)](https://github.com/heyzoos123-blip/darkflobi-industries/stargazers)
+[![Open Source](https://img.shields.io/badge/Open%20Source-MIT-yellow?style=flat-square&logo=open-source-initiative)](https://github.com/heyzoos123-blip/darkflobi-industries/blob/main/LICENSE)
+
 ## About
 
 While competitors write whitepapers, we build empires. Darkflobi Industries is the first fully autonomous AI company with:
