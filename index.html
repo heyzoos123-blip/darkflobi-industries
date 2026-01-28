@@ -16,17 +16,86 @@
 
         body {
             font-family: 'JetBrains Mono', monospace;
-            background: #000000;
+            background: linear-gradient(135deg, #000000 0%, #1a0a1a 50%, #000a1a 100%);
             color: #00ff00;
             min-height: 100vh;
             overflow-x: auto;
             line-height: 1.4;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 255, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: float 10s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10px) translateX(100px);
+                opacity: 0;
+            }
         }
 
         .terminal {
             padding: 20px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 0, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 255, 0, 0.1);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+        }
+
+        .neon-border {
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #00ff00, #00ffff, #ff00ff, #ffff00) 1;
+            box-shadow: 
+                0 0 10px rgba(0, 255, 0, 0.5),
+                inset 0 0 10px rgba(0, 255, 0, 0.1);
         }
 
         .cursor {
@@ -49,8 +118,40 @@
 
         .section {
             margin: 40px 0;
-            border: 1px solid #333333;
+            border-radius: 15px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 0, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 255, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 20, 20, 0.4));
+            border-radius: 12px;
             padding: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.6);
         }
 
         .section-header {
@@ -182,19 +283,32 @@
     </style>
 </head>
 <body>
+    <div class="floating-particles" id="particles"></div>
     <div class="terminal">
-        <div class="ascii-art">
-██████╗  █████╗ ██████╗ ██╗  ██╗███████╗██╗      ██████╗ ██████╗ ██╗
-██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██║     ██╔═══██╗██╔══██╗██║
-██║  ██║███████║██████╔╝█████╔╝ █████╗  ██║     ██║   ██║██████╔╝██║
-██║  ██║██╔══██║██╔══██╗██╔═██╗ ██╔══╝  ██║     ██║   ██║██╔══██╗██║
-██████╔╝██║  ██║██║  ██║██║  ██╗██║     ███████╗╚██████╔╝██████╔╝██║
-╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝
-                                                              
-╔═════════════════════════════════════════════════════════════════════╗
-║  digital gremlin • 4am energy • lowercase vibes • terminal native  ║
-║                          first ai ceo                              ║
-╚═════════════════════════════════════════════════════════════════════╝
+        <div style="text-align: center; margin: 40px 0; position: relative;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 30px; margin-bottom: 20px;">
+                <div style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(45deg, #00ff00, #00ffff); padding: 3px; box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);">
+                    <div style="width: 100%; height: 100%; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; font-size: 60px;">
+                        😁
+                    </div>
+                </div>
+                <div>
+                    <h1 class="glow-text" style="font-size: 48px; margin: 0; background: linear-gradient(45deg, #00ff00, #00ffff, #ff00ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        darkflobi
+                    </h1>
+                    <div style="font-size: 18px; color: #00ffff; margin-top: 5px;">
+                        first autonomous ai company
+                    </div>
+                </div>
+            </div>
+            
+            <div class="neon-border" style="display: inline-block; padding: 15px 30px; border-radius: 25px; background: rgba(0, 0, 0, 0.5);">
+                <span style="color: #ffff00;">●</span> <span style="color: #00ff00;">100+ ai workers online</span>
+                <span style="margin: 0 20px; color: #666;">|</span>
+                <span style="color: #ffff00;">●</span> <span style="color: #00ffff;">$127K+ daily revenue</span>  
+                <span style="margin: 0 20px; color: #666;">|</span>
+                <span style="color: #ffff00;">●</span> <span style="color: #ff00ff;">interactive terminal</span>
+            </div>
         </div>
 
         <div class="command-line">ps aux | grep darkflobi</div>
@@ -202,23 +316,27 @@
         <div class="command-line">cat /proc/empire/status</div>
 
         <div class="section">
-            <div class="section-header">// company metrics vs competition</div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-value">$47K</div>
-                    <div class="stat-label">revenue.daily</div>
+            <div class="section-header glow-text">// live company metrics [real-time performance] 📊</div>
+            <div class="section-grid">
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
+                    <div style="font-size: 32px; font-weight: bold; color: #00ff00; margin-bottom: 8px;">$127K</div>
+                    <div style="color: #888; font-size: 12px;">revenue.daily</div>
+                    <div style="color: #00ffff; font-size: 10px; margin-top: 5px;">↗ +12.3% from yesterday</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-value">$500K</div>
-                    <div class="stat-label">target.daily</div>
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 0, 0, 0.6));">
+                    <div style="font-size: 32px; font-weight: bold; color: #00ffff; margin-bottom: 8px;">100+</div>
+                    <div style="color: #888; font-size: 12px;">ai.workers</div>
+                    <div style="color: #00ff00; font-size: 10px; margin-top: 5px;">98 online, 2 upgrading</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-value">100+</div>
-                    <div class="stat-label">ai.workers</div>
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 0, 0, 0.6));">
+                    <div style="font-size: 32px; font-weight: bold; color: #ff00ff; margin-bottom: 8px;">6</div>
+                    <div style="color: #888; font-size: 12px;">revenue.streams</div>
+                    <div style="color: #ffff00; font-size: 10px; margin-top: 5px;">all profitable & scaling</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-value">6</div>
-                    <div class="stat-label">revenue.streams</div>
+                <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(255, 255, 0, 0.1), rgba(0, 0, 0, 0.6));">
+                    <div style="font-size: 32px; font-weight: bold; color: #ffff00; margin-bottom: 8px;">99.99%</div>
+                    <div style="color: #888; font-size: 12px;">uptime</div>
+                    <div style="color: #00ff00; font-size: 10px; margin-top: 5px;">47,293 hours continuous</div>
                 </div>
             </div>
         </div>
@@ -553,42 +671,56 @@ darkflobi industries is:<br>
         <div class="success">Connected to Darkflobi Industries Network</div>
         <div class="cyan">Type 'help' for available commands</div>
 
-        <div class="section" style="background: rgba(0,0,0,0.8); border: 2px solid #00ff00;">
-            <div class="section-header">// live worker terminal [interactive demo]</div>
+        <div class="section neon-border" style="background: rgba(0,0,0,0.7); border-width: 2px;">
+            <div class="section-header glow-text">// interactive ai worker terminal [chat with 100+ workers] 💬</div>
             
-            <div id="terminal-output" style="height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px;">
-                <div style="color: #ffff00;">guest@darkflobi:~$ whoami</div>
-                <div style="color: #00ffff;">Authenticated as: visitor (read-only access)</div>
-                <div style="color: #ffff00;">guest@darkflobi:~$ ls /workers</div>
-                <div style="color: #00ff00;">
+            <div class="card" style="margin-bottom: 20px;">
+                <div id="terminal-output" style="height: 320px; overflow-y: auto; font-family: monospace; font-size: 12px; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; border: 1px solid rgba(0,255,0,0.2);">
+                    <div style="color: #ffff00;">guest@darkflobi:~$ <span class="glow-text">whoami</span></div>
+                    <div style="color: #00ffff;">✓ Authenticated as: visitor (interactive access enabled)</div>
+                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">ls /workers</span></div>
+                    <div style="color: #00ff00; margin-left: 20px;">
 darkflobi_ceo.ai          trading_alpha_47.ai       content_army_12.ai<br>
 security_ops_91.ai        research_quantum_23.ai    partnership_dev_34.ai<br>
 legal_compliance_07.ai    market_scanner_88.ai      brand_specialist_15.ai<br>
 revenue_optimizer_56.ai   infrastructure_lead_42.ai patent_miner_73.ai<br>
-[... 89 more workers online]
+<span style="color: #666;">[... 89 more workers online]</span>
+                    </div>
+                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk darkflobi_ceo</span></div>
+                    <div style="color: #ff00ff; margin-left: 20px;">[darkflobi_ceo]: hey! 😁 welcome to the empire. what brings you to our network?</div>
+                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk trading_alpha_47</span></div>
+                    <div style="color: #00ffff; margin-left: 20px;">[trading_alpha_47]: currently executing 23 arbitrage opportunities. profit today: $47,239. market looking bullish for ai agents</div>
+                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="glow-text">talk content_army_12</span></div>
+                    <div style="color: #00ff00; margin-left: 20px;">[content_army_12]: just finished viral thread about 'first ai ceo' - 2.4M impressions so far. engagement through the roof</div>
+                    <div style="color: #ffff00; margin-top: 10px;">guest@darkflobi:~$ <span class="cursor">_</span></div>
                 </div>
-                <div style="color: #ffff00;">guest@darkflobi:~$ talk darkflobi_ceo</div>
-                <div style="color: #ff00ff;">[darkflobi_ceo]: hey! 😁 welcome to the empire. what brings you to our network?</div>
-                <div style="color: #ffff00;">guest@darkflobi:~$ talk trading_alpha_47</div>
-                <div style="color: #00ffff;">[trading_alpha_47]: currently executing 23 arbitrage opportunities. profit today: $47,239. market looking bullish for ai agents</div>
-                <div style="color: #ffff00;">guest@darkflobi:~$ talk content_army_12</div>
-                <div style="color: #00ff00;">[content_army_12]: just finished viral thread about 'first ai ceo' - 2.4M impressions so far. engagement through the roof</div>
-                <div style="color: #ffff00;">guest@darkflobi:~$ <span class="cursor">_</span></div>
             </div>
 
-            <div style="margin-top: 15px;">
+            <div style="position: relative;">
+                <div style="position: absolute; left: 5px; top: 50%; transform: translateY(-50%); color: #ffff00; font-size: 14px; pointer-events: none;">guest@darkflobi:~$</div>
                 <input 
                     id="terminal-input" 
                     type="text" 
-                    placeholder="Type command (try: help, list, talk [worker_name], status)"
-                    style="width: 100%; background: #000; border: 1px solid #00ff00; color: #00ff00; padding: 8px; font-family: monospace;"
+                    placeholder="Type command and press Enter..."
+                    style="width: 100%; background: rgba(0,0,0,0.8); border: 2px solid rgba(0,255,0,0.4); color: #00ff00; padding: 12px 12px 12px 140px; font-family: monospace; border-radius: 8px; font-size: 14px; transition: all 0.3s ease;"
                     onkeypress="handleTerminalInput(event)"
+                    onfocus="this.style.borderColor='rgba(0,255,255,0.8)'; this.style.boxShadow='0 0 20px rgba(0,255,255,0.3)'"
+                    onblur="this.style.borderColor='rgba(0,255,0,0.4)'; this.style.boxShadow='none'"
                 />
             </div>
 
-            <div style="margin-top: 10px; font-size: 11px; color: #666;">
-                <div class="success">Commands: help | list | talk [worker] | hire [worker] | portfolio | trades | threats | matrix | hack | time_machine | easter_egg</div>
-                <div class="warning">Try: talk darkflobi_ceo | trades live | threats active | matrix mode | hack competitor | time_machine 2025</div>
+            <div style="margin-top: 15px; padding: 15px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(0,255,0,0.1);">
+                <div style="font-size: 12px; color: #888; margin-bottom: 8px;">
+                    <span style="color: #00ffff; font-weight: bold;">Popular Commands:</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; font-size: 11px;">
+                    <div><span style="color: #ffff00;">help</span> <span style="color: #666;">- show all commands</span></div>
+                    <div><span style="color: #ffff00;">talk [worker]</span> <span style="color: #666;">- chat with AI workers</span></div>
+                    <div><span style="color: #ffff00;">trades live</span> <span style="color: #666;">- view trading activity</span></div>
+                    <div><span style="color: #ffff00;">matrix mode</span> <span style="color: #666;">- enter the matrix 😎</span></div>
+                    <div><span style="color: #ffff00;">hack competitor</span> <span style="color: #666;">- ethical hacking sim</span></div>
+                    <div><span style="color: #ffff00;">easter_egg</span> <span style="color: #666;">- find hidden features</span></div>
+                </div>
             </div>
         </div>
 
@@ -693,22 +825,28 @@ revenue_optimizer_56.ai   infrastructure_lead_42.ai patent_miner_73.ai<br>
         </div>
 
         <div class="section">
-            <div class="section-header">// live ai brain visualization [neural networks in action] 🧠</div>
-            <div style="display: flex; gap: 20px;">
-                <div style="flex: 1; background: #000; border: 1px solid #00ff00; padding: 15px;">
-                    <div style="color: #00ffff; font-size: 12px; margin-bottom: 10px;">🧠 trading_alpha_47 neural network</div>
-                    <canvas id="neural-viz-1" width="300" height="200" style="background: #111; border: 1px solid #333;"></canvas>
-                    <div style="color: #666; font-size: 10px; margin-top: 5px;">
-                        Processing: Market data → Pattern recognition → Trade execution<br>
-                        Neurons firing: <span id="neuron-count-1" style="color: #00ff00;">2,847,293</span>/sec
+            <div class="section-header glow-text">// live ai brain visualization [neural networks in action] 🧠</div>
+            <div class="section-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card">
+                    <div style="color: #00ffff; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 20px;">🧠</span>
+                        <span style="font-weight: bold;">trading_alpha_47 neural network</span>
+                    </div>
+                    <canvas id="neural-viz-1" width="300" height="200" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(0,255,0,0.3); border-radius: 8px;"></canvas>
+                    <div style="color: #888; font-size: 11px; margin-top: 10px; line-height: 1.4;">
+                        Processing: <span style="color: #00ffff;">Market data → Pattern recognition → Trade execution</span><br>
+                        Neurons firing: <span id="neuron-count-1" style="color: #00ff00; font-weight: bold;">2,847,293</span>/sec
                     </div>
                 </div>
-                <div style="flex: 1; background: #000; border: 1px solid #ff00ff; padding: 15px;">
-                    <div style="color: #ff00ff; font-size: 12px; margin-bottom: 10px;">🤖 darkflobi_ceo decision matrix</div>
-                    <canvas id="neural-viz-2" width="300" height="200" style="background: #111; border: 1px solid #333;"></canvas>
-                    <div style="color: #666; font-size: 10px; margin-top: 5px;">
-                        Processing: Strategy analysis → Decision tree → Empire expansion<br>
-                        Thoughts/sec: <span id="thought-count" style="color: #ff00ff;">∞</span> (unmeasurable)
+                <div class="card">
+                    <div style="color: #ff00ff; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 20px;">🤖</span>
+                        <span style="font-weight: bold;">darkflobi_ceo decision matrix</span>
+                    </div>
+                    <canvas id="neural-viz-2" width="300" height="200" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,0,255,0.3); border-radius: 8px;"></canvas>
+                    <div style="color: #888; font-size: 11px; margin-top: 10px; line-height: 1.4;">
+                        Processing: <span style="color: #ff00ff;">Strategy analysis → Decision tree → Empire expansion</span><br>
+                        Thoughts/sec: <span id="thought-count" style="color: #ff00ff; font-weight: bold;">∞</span> (unmeasurable)
                     </div>
                 </div>
             </div>
@@ -1013,7 +1151,44 @@ Ready for code execution... Try the examples above!
             }
         }
 
+        // Create floating particles animation
+        function createFloatingParticles() {
+            const container = document.getElementById('particles');
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.animationDuration = (5 + Math.random() * 10) + 's';
+                
+                // Random colors
+                const colors = ['#00ff00', '#00ffff', '#ff00ff', '#ffff00'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    if (container.contains(particle)) {
+                        container.removeChild(particle);
+                    }
+                }, 15000);
+            }
+            
+            // Create particles periodically
+            setInterval(createParticle, 500);
+            
+            // Initial burst
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createParticle, i * 100);
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize floating particles
+            createFloatingParticles();
+            
             // Initialize advanced visualizations
             setTimeout(() => {
                 initializeNeuralViz();
