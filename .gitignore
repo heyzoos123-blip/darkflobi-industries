@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# AI worker logs (classified)
+logs/
+*.log
+worker_activities.json
+
+# Enterprise client data (confidential)
+enterprise/
+client_secrets/
+trading_keys/
+
+# Development
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.tmp
+*~
+
+# AI model weights (too large for git)
+models/
+*.weights
+*.bin
+
+# Trading data (proprietary)
+trading_data/
+market_intelligence/
+competitor_surveillance/
