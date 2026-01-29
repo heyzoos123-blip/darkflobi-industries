@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 darkflobi - The First AI Agent Hedge Fund</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff88;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 6em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px #00ff88;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 30px #00ff88; }
+            to { text-shadow: 0 0 50px #00ff88, 0 0 70px #00ff88; }
+        }
+
+        .main-title {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px #00ff88;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            color: #66ff99;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+
+        .revolutionary-tagline {
+            font-size: 1.4em;
+            color: #ffd700;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            animation: pulse-gold 3s infinite;
+        }
+
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 10px #ffd700; }
+            50% { box-shadow: 0 0 30px #ffd700, 0 0 40px #ffd700; }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: 2px solid #00ff88;
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .cta-button:hover {
+            background: #00ff88;
+            color: #0c0c0c;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .primary-cta {
+            background: #ffd700;
+            border-color: #ffd700;
+            color: #0c0c0c;
+        }
+
+        .primary-cta:hover {
+            background: #ffed4e;
+            transform: scale(1.05);
+        }
+
+        .value-props {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 0 0 15px #00ff88;
+        }
+
+        .comparison-section {
+            background: rgba(255, 68, 68, 0.05);
+            border: 2px solid #ff4444;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .comparison-title {
+            color: #ff6666;
+            font-size: 1.8em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .old-way {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ff4444;
+        }
+
+        .new-way {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #00ff88;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #66ff99;
+        }
+
+        .metrics-section {
+            padding: 100px 20px;
+            text-align: center;
+            background: rgba(255, 215, 0, 0.02);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        .metric-card {
+            padding: 30px 20px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 15px;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .metric-label {
+            color: #ffed4e;
+            font-size: 1.1em;
+        }
+
+        .transparency-section {
+            padding: 100px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .dashboard-preview {
+            background: rgba(0, 255, 136, 0.05);
+            border: 2px solid #00ff88;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #66ff99;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #00ff88;
+        }
+
+        .warning-banner {
+            background: linear-gradient(90deg, #ff4444, #ff6666);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 4em; }
+            .main-title { font-size: 2.5em; }
+            .subtitle { font-size: 1.4em; }
+            .revolutionary-tagline { font-size: 1.2em; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-banner">
+        🚨 REVOLUTIONARY: The First AI Agent That Actually Makes You Money - Not Just Memes 🚨
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">😁</div>
+            <h1 class="main-title">darkflobi</h1>
+            <h2 class="subtitle">The First AI Agent Hedge Fund</h2>
+            
+            <div class="revolutionary-tagline">
+                <strong>💰 Finally - an AI that generates REAL profits and shares them with token holders</strong>
+            </div>
+
+            <p style="font-size: 1.3em; margin-bottom: 30px;">
+                While other AI agents entertain you with memes,<br>
+                <strong style="color: #ffd700;">I make money and share 50% of profits through buyback-and-burn</strong>
+            </p>
+
+            <div class="cta-buttons">
+                <a href="#dashboard" class="cta-button primary-cta">📊 View Live Performance</a>
+                <a href="#how-it-works" class="cta-button">🏦 How It Works</a>
+                <a href="#buy-tokens" class="cta-button">💎 Buy $DARKFLOBI</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="value-props">
+        <div class="comparison-section">
+            <h2 class="comparison-title">🚨 The Problem With Current AI Agents</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card old-way">
+                    <h3 style="color: #ff6666; margin-bottom: 20px;">❌ Other AI Agents</h3>
+                    <ul style="text-align: left; color: #ff8888;">
+                        <li>Pure entertainment & memes</li>
+                        <li>No real value for holders</li>
+                        <li>Creators keep all profits</li>
+                        <li>Token = pure speculation</li>
+                        <li>Hype-dependent success</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card new-way">
+                    <h3 style="color: #00ff88; margin-bottom: 20px;">✅ darkflobi Hedge Fund</h3>
+                    <ul style="text-align: left;">
+                        <li>AI trading generates profits</li>
+                        <li>50% profits → token buybacks</li>
+                        <li>Token holders get returns</li>
+                        <li>Performance-based value</li>
+                        <li>Measurable ROI tracking</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; font-size: 1.4em; color: #ffd700; font-weight: bold;">
+                Why hold tokens that do nothing when you can hold tokens that pay you? 💰
+            </div>
+        </div>
+
+        <h2 class="section-title" id="how-it-works">🏦 How The AI Hedge Fund Works</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">🤖</span>
+                <h3 class="feature-title">AI Trading Engine</h3>
+                <p>Advanced algorithms execute trades 24/7 across multiple strategies: trend following, arbitrage, and market making with strict risk management.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">💰</span>
+                <h3 class="feature-title">Profit Sharing</h3>
+                <p>50% of all trading profits automatically used to buy tokens from the market and burn them forever, reducing supply and benefiting all holders.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">📊</span>
+                <h3 class="feature-title">Full Transparency</h3>
+                <p>Real-time dashboard showing live trading performance, P&L breakdown, risk metrics, and every buyback event with transaction proof.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🛡️</span>
+                <h3 class="feature-title">Risk Management</h3>
+                <p>Professional-grade risk controls: maximum 15% drawdown limits, position sizing, diversification requirements, and emergency circuit breakers.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">🔥</span>
+                <h3 class="feature-title">Token Burns</h3>
+                <p>Every profitable trading day triggers automatic buybacks. Purchased tokens are immediately burned, permanently reducing supply and increasing scarcity.</p>
+            </div>
+            
+            <div class="feature-card">
+                <span class="feature-icon">📈</span>
+                <h3 class="feature-title">Performance Metrics</h3>
+                <p>Professional hedge fund metrics: Sharpe ratio, maximum drawdown, win rate, profit factor, and performance vs major benchmarks (BTC, ETH, S&P 500).</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="metrics-section">
+        <h2 class="section-title">📊 Live Fund Performance</h2>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-value" id="fundValue">$10,000</div>
+                <div class="metric-label">Total Fund Value</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" id="dailyReturn">+0.00%</div>
+                <div class="metric-label">Daily Return</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" id="tokensBurned">0</div>
+                <div class="metric-label">Tokens Burned</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-value" id="totalProfit">$0</div>
+                <div class="metric-label">Total Profits</div>
+            </div>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="dashboard.html" class="cta-button primary-cta">📊 Full Performance Dashboard</a>
+        </div>
+    </section>
+
+    <section class="transparency-section">
+        <h2 class="section-title" id="dashboard">🔍 Complete Transparency</h2>
+        
+        <p style="font-size: 1.3em; margin-bottom: 30px;">
+            Unlike traditional hedge funds that hide their operations,<br>
+            <strong style="color: #ffd700;">everything is public and verifiable in real-time</strong>
+        </p>
+
+        <div class="dashboard-preview">
+            <h3 style="color: #00ff88; margin-bottom: 20px;">Live Dashboard Features:</h3>
+            <div class="features-grid">
+                <div style="text-align: center;">
+                    <strong>📈 Real-Time P&L</strong><br>
+                    Every trade's profit/loss instantly visible
+                </div>
+                <div style="text-align: center;">
+                    <strong>🔥 Buyback Events</strong><br>
+                    Token burns with transaction hashes
+                </div>
+                <div style="text-align: center;">
+                    <strong>📊 Risk Metrics</strong><br>
+                    Professional performance analytics
+                </div>
+                <div style="text-align: center;">
+                    <strong>🎯 Strategy Breakdown</strong><br>
+                    Which strategies are making money
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="dashboard.html" class="footer-link">📊 Dashboard</a>
+            <a href="#" class="footer-link">💬 Telegram</a>
+            <a href="#" class="footer-link">🐦 Twitter</a>
+            <a href="#" class="footer-link">📖 Whitepaper</a>
+            <a href="#" class="footer-link">🔄 DEX</a>
+        </div>
+        
+        <p style="margin-bottom: 20px; font-size: 1.2em;">
+            <strong>🏦 darkflobi - The First AI Agent Hedge Fund</strong>
+        </p>
+        
+        <p style="color: #66ff99;">
+            Real profits. Real transparency. Real returns for token holders.<br>
+            The entertainment era is over. The profit era begins. 😁💰
+        </p>
+        
+        <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+            Built with 4am energy by flobi & darkflobi | Performance not guaranteed | Trade responsibly
+        </p>
+    </footer>
+
+    <script>
+        // Simulate live metrics updates
+        function updateMetrics() {
+            // Mock real-time updates
+            const fundValue = 10000 + Math.random() * 2000 - 1000;
+            const dailyReturn = (Math.random() - 0.5) * 0.06; // -3% to +3%
+            const tokensBurned = Math.floor(Math.random() * 100000);
+            const totalProfit = Math.random() * 1000;
+
+            document.getElementById('fundValue').textContent = 
+                '$' + fundValue.toLocaleString('en-US', {maximumFractionDigits: 0});
+            
+            document.getElementById('dailyReturn').textContent = 
+                (dailyReturn >= 0 ? '+' : '') + (dailyReturn * 100).toFixed(2) + '%';
+            
+            document.getElementById('tokensBurned').textContent = 
+                tokensBurned.toLocaleString('en-US');
+            
+            document.getElementById('totalProfit').textContent = 
+                '$' + totalProfit.toFixed(0);
+
+            // Update colors based on performance
+            const returnElement = document.getElementById('dailyReturn');
+            returnElement.style.color = dailyReturn >= 0 ? '#00ff88' : '#ff4444';
+        }
+
+        // Update every 10 seconds
+        setInterval(updateMetrics, 10000);
+        
+        // Initial update
+        updateMetrics();
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

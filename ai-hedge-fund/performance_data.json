@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-01-29T05:37:45.621208",
+  "fund_value": 10868.084009553342,
+  "initial_capital": 10000,
+  "total_return": 0.08680840095533422,
+  "total_profits": 868.0840095533434,
+  "buyback_amount": 434.0420047766717,
+  "tokens_burned": 434042.00477667176,
+  "trades_executed": 22,
+  "win_rate": 63.63636363636363,
+  "runtime_minutes": 0.3835348333333333
+}

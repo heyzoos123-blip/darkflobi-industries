@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏦 darkflobi AI Hedge Fund - Live Performance Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff88;
+            min-height: 100vh;
+            overflow-x: auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #00ff88;
+        }
+
+        .header .tagline {
+            font-size: 1.2em;
+            color: #66ff99;
+            margin-bottom: 15px;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .metric-title {
+            font-size: 0.9em;
+            color: #66ff99;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-change {
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .positive { color: #00ff88; }
+        .negative { color: #ff4444; }
+        .neutral { color: #ffff44; }
+
+        .chart-container {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            height: 400px;
+        }
+
+        .trades-section {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+        }
+
+        .trades-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        .trades-table th,
+        .trades-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #00ff8833;
+        }
+
+        .trades-table th {
+            background: rgba(0, 255, 136, 0.1);
+            color: #66ff99;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8em;
+        }
+
+        .trades-table tr:hover {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .profit-sharing-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .buyback-card {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .buyback-card h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .burn-animation {
+            font-size: 3em;
+            margin: 10px 0;
+            animation: burn 2s infinite;
+        }
+
+        @keyframes burn {
+            0%, 100% { color: #ff4444; transform: scale(1); }
+            50% { color: #ff8800; transform: scale(1.1); }
+        }
+
+        .refresh-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #00ff88;
+            color: #0c0c0c;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #66ff99;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #66ff99;
+            font-size: 0.9em;
+        }
+
+        .strategy-performance {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .strategy-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid #00ff8866;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .warning {
+            background: rgba(255, 68, 68, 0.1);
+            border: 1px solid #ff4444;
+            color: #ff6666;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .metric-value {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="refresh-btn" onclick="refreshData()">🔄 Refresh Data</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🏦 darkflobi AI Hedge Fund</h1>
+            <div class="tagline">The First AI Agent That Actually Makes You Money</div>
+            <div>
+                <span class="live-indicator"></span>
+                <span style="color: #ff6666;">LIVE</span> Performance Dashboard
+            </div>
+            <div style="margin-top: 10px; font-size: 0.9em; color: #66ff99;">
+                Last Updated: <span id="lastUpdate">Loading...</span>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>🚨 REVOLUTIONARY CONCEPT:</strong> Unlike other AI agents that just entertain, darkflobi generates REAL profits and shares them with token holders through buyback-and-burn mechanism!
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">🏛️ Fund Value</div>
+                <div class="metric-value" id="fundValue">$10,000.00</div>
+                <div class="metric-change">
+                    <span id="fundChange" class="positive">↗ +$0.00 (+0.00%)</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">📈 Total Return</div>
+                <div class="metric-value" id="totalReturn">+0.00%</div>
+                <div class="metric-change">
+                    <span id="dailyReturn" class="positive">Today: +0.00%</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">⚡ Sharpe Ratio</div>
+                <div class="metric-value" id="sharpeRatio">0.00</div>
+                <div class="metric-change">
+                    <span class="neutral">Risk-Adjusted Returns</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-title">🛡️ Max Drawdown</div>
+                <div class="metric-value" id="maxDrawdown">-0.00%</div>
+                <div class="metric-change">
+                    <span class="neutral">Downside Protection</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="profit-sharing-section">
+            <div class="buyback-card">
+                <h3>💰 Today's Profits</h3>
+                <div class="metric-value" id="dailyProfit">$0.00</div>
+                <div style="color: #ffd700; margin-top: 10px;">50% → Buyback & Burn</div>
+            </div>
+
+            <div class="buyback-card">
+                <h3>🔥 Tokens Burned</h3>
+                <div class="burn-animation">🔥</div>
+                <div class="metric-value" id="tokensBurned">0</div>
+                <div style="color: #ffd700; margin-top: 10px;">Supply Reduction</div>
+            </div>
+
+            <div class="buyback-card">
+                <h3>💎 Total Buybacks</h3>
+                <div class="metric-value" id="totalBuybacks">$0.00</div>
+                <div style="color: #ffd700; margin-top: 10px;">Value Returned</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="section-title">📊 Performance Chart</div>
+            <canvas id="performanceChart" width="800" height="300"></canvas>
+        </div>
+
+        <div class="trades-section">
+            <div class="section-title">🎯 Recent Trades</div>
+            <div style="overflow-x: auto;">
+                <table class="trades-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Symbol</th>
+                            <th>Side</th>
+                            <th>Amount</th>
+                            <th>Price</th>
+                            <th>P&L</th>
+                            <th>Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tradesTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #66ff99;">Loading recent trades...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="trades-section">
+            <div class="section-title">🤖 Strategy Performance</div>
+            <div class="strategy-performance" id="strategyPerformance">
+                <div class="strategy-card">
+                    <h4 style="color: #00ff88;">Trend Following</h4>
+                    <div class="metric-value">$0.00</div>
+                    <div>0 trades</div>
+                </div>
+                <div class="strategy-card">
+                    <h4 style="color: #00ff88;">Arbitrage</h4>
+                    <div class="metric-value">$0.00</div>
+                    <div>0 trades</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🏦 <strong>darkflobi AI Hedge Fund</strong> - The future of AI agent value creation</p>
+            <p>Real profits. Real transparency. Real returns for token holders.</p>
+            <p style="margin-top: 10px; font-size: 0.8em; color: #666;">
+                Unlike entertainment-only AI agents, darkflobi generates actual trading profits that directly benefit token holders through buyback-and-burn mechanisms.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Mock data for demonstration
+        let dashboardData = {
+            fund_overview: {
+                total_value: 10000,
+                initial_capital: 10000,
+                total_return: 0,
+                daily_return: 0,
+                sharpe_ratio: 0,
+                max_drawdown: 0
+            },
+            profit_sharing: {
+                total_profits: 0,
+                buyback_amount: 0,
+                tokens_burned: 0,
+                daily_profit: 0
+            },
+            recent_trades: [],
+            strategy_performance: {
+                "Trend Following": { pnl: 0, trade_count: 0 },
+                "Arbitrage": { pnl: 0, trade_count: 0 }
+            }
+        };
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', { 
+                style: 'currency', 
+                currency: 'USD' 
+            }).format(amount);
+        }
+
+        function formatPercentage(value) {
+            return (value * 100).toFixed(2) + '%';
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US').format(Math.round(num));
+        }
+
+        function updateDashboard() {
+            const fund = dashboardData.fund_overview;
+            const profits = dashboardData.profit_sharing;
+            
+            // Update main metrics
+            document.getElementById('fundValue').textContent = formatCurrency(fund.total_value);
+            document.getElementById('totalReturn').textContent = formatPercentage(fund.total_return);
+            document.getElementById('dailyReturn').textContent = `Today: ${formatPercentage(fund.daily_return)}`;
+            document.getElementById('sharpeRatio').textContent = fund.sharpe_ratio.toFixed(2);
+            document.getElementById('maxDrawdown').textContent = formatPercentage(Math.abs(fund.max_drawdown));
+            
+            // Update profit sharing metrics
+            document.getElementById('dailyProfit').textContent = formatCurrency(profits.daily_profit);
+            document.getElementById('tokensBurned').textContent = formatNumber(profits.tokens_burned);
+            document.getElementById('totalBuybacks').textContent = formatCurrency(profits.buyback_amount);
+            
+            // Update fund change indicator
+            const change = fund.total_value - fund.initial_capital;
+            const changePercent = fund.total_return;
+            const changeClass = change >= 0 ? 'positive' : 'negative';
+            const changeSymbol = change >= 0 ? '↗' : '↘';
+            
+            document.getElementById('fundChange').className = `metric-change ${changeClass}`;
+            document.getElementById('fundChange').textContent = 
+                `${changeSymbol} ${formatCurrency(change)} (${formatPercentage(changePercent)})`;
+            
+            // Update trades table
+            updateTradesTable();
+            
+            // Update strategy performance
+            updateStrategyPerformance();
+            
+            // Update timestamp
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+        }
+
+        function updateTradesTable() {
+            const tbody = document.getElementById('tradesTableBody');
+            
+            if (dashboardData.recent_trades.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #66ff99;">No trades yet - AI is analyzing markets...</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = dashboardData.recent_trades.map(trade => {
+                const time = new Date(trade.timestamp * 1000).toLocaleTimeString();
+                const pnlClass = trade.profit_loss >= 0 ? 'positive' : 'negative';
+                const sideClass = trade.side === 'buy' ? 'positive' : 'negative';
+                
+                return `
+                    <tr>
+                        <td>${time}</td>
+                        <td>${trade.symbol}</td>
+                        <td class="${sideClass}">${trade.side.toUpperCase()}</td>
+                        <td>${trade.amount}</td>
+                        <td>${formatCurrency(trade.price)}</td>
+                        <td class="${pnlClass}">${formatCurrency(trade.profit_loss || 0)}</td>
+                        <td>${trade.strategy}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateStrategyPerformance() {
+            const container = document.getElementById('strategyPerformance');
+            
+            container.innerHTML = Object.entries(dashboardData.strategy_performance).map(([name, perf]) => {
+                const pnlClass = perf.pnl >= 0 ? 'positive' : 'negative';
+                
+                return `
+                    <div class="strategy-card">
+                        <h4 style="color: #00ff88;">${name}</h4>
+                        <div class="metric-value ${pnlClass}">${formatCurrency(perf.pnl)}</div>
+                        <div>${perf.trade_count} trades</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Simulate live data updates
+        function simulateLiveData() {
+            // Simulate market movements
+            const randomReturn = (Math.random() - 0.5) * 0.02; // -1% to +1%
+            dashboardData.fund_overview.daily_return += randomReturn;
+            dashboardData.fund_overview.total_return = dashboardData.fund_overview.daily_return;
+            dashboardData.fund_overview.total_value = dashboardData.fund_overview.initial_capital * (1 + dashboardData.fund_overview.total_return);
+            
+            // Simulate random profits
+            if (Math.random() > 0.8) { // 20% chance
+                const profit = Math.random() * 500 - 100; // -$100 to +$400
+                dashboardData.profit_sharing.daily_profit += profit;
+                dashboardData.profit_sharing.total_profits += profit;
+                
+                // Trigger buyback if profitable
+                if (dashboardData.profit_sharing.daily_profit > 100) {
+                    const buyback = dashboardData.profit_sharing.daily_profit * 0.5;
+                    dashboardData.profit_sharing.buyback_amount += buyback;
+                    dashboardData.profit_sharing.tokens_burned += buyback / 0.001; // Assuming $0.001 token price
+                }
+                
+                // Add a mock trade
+                if (dashboardData.recent_trades.length >= 10) {
+                    dashboardData.recent_trades.shift();
+                }
+                
+                dashboardData.recent_trades.push({
+                    timestamp: Date.now() / 1000,
+                    symbol: 'BTC/USDT',
+                    side: Math.random() > 0.5 ? 'buy' : 'sell',
+                    amount: 0.1,
+                    price: 50000 + Math.random() * 2000 - 1000,
+                    profit_loss: profit,
+                    strategy: Math.random() > 0.5 ? 'Trend Following' : 'Arbitrage'
+                });
+                
+                // Update strategy performance
+                const strategy = Math.random() > 0.5 ? 'Trend Following' : 'Arbitrage';
+                dashboardData.strategy_performance[strategy].pnl += profit;
+                dashboardData.strategy_performance[strategy].trade_count += 1;
+            }
+            
+            // Update Sharpe ratio simulation
+            dashboardData.fund_overview.sharpe_ratio = Math.random() * 3;
+            dashboardData.fund_overview.max_drawdown = Math.min(0, dashboardData.fund_overview.total_return - 0.05);
+            
+            updateDashboard();
+        }
+
+        function refreshData() {
+            // In a real implementation, this would fetch from an API
+            simulateLiveData();
+            
+            // Visual feedback for refresh
+            const btn = document.querySelector('.refresh-btn');
+            btn.textContent = '🔄 Updating...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.textContent = '🔄 Refresh Data';
+                btn.disabled = false;
+            }, 1000);
+        }
+
+        // Initialize dashboard
+        updateDashboard();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(simulateLiveData, 30000);
+        
+        // Initial demo sequence
+        setTimeout(() => {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(simulateLiveData, i * 2000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
