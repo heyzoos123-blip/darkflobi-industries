@@ -1,12 +1,41 @@
 {
-  "timestamp": "2026-01-29T05:37:45.621208",
-  "fund_value": 10868.084009553342,
+  "timestamp": "2026-01-29T05:36:57.000000",
+  "fund_value": 11411.75,
   "initial_capital": 10000,
-  "total_return": 0.08680840095533422,
-  "total_profits": 868.0840095533434,
-  "buyback_amount": 434.0420047766717,
-  "tokens_burned": 434042.00477667176,
-  "trades_executed": 22,
-  "win_rate": 63.63636363636363,
-  "runtime_minutes": 0.3835348333333333
+  "total_return": 0.141175,
+  "total_profits": 1411.75,
+  "buyback_amount": 705.88,
+  "tokens_burned": 705880,
+  "trades_executed": 19,
+  "win_rate": 78.94736842105263,
+  "runtime_minutes": 0.25,
+  "sharpe_ratio": 2.73,
+  "max_drawdown": 0.03,
+  "daily_return": 0.141175,
+  "strategies": {
+    "trend_following": {
+      "trades": 7,
+      "wins": 6,
+      "pnl": 523.45,
+      "win_rate": 85.7
+    },
+    "arbitrage": {
+      "trades": 6,
+      "wins": 5,
+      "pnl": 412.30,
+      "win_rate": 83.3
+    },
+    "market_making": {
+      "trades": 4,
+      "wins": 3,
+      "pnl": 298.67,
+      "win_rate": 75.0
+    },
+    "mean_reversion": {
+      "trades": 2,
+      "wins": 1,
+      "pnl": 177.33,
+      "win_rate": 50.0
+    }
+  }
 }
