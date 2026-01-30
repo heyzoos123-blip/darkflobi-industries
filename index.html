@@ -96,6 +96,96 @@
             animation: blink 1s infinite;
         }
         
+        .pixel-darkflobi {
+            width: 48px;
+            height: 48px;
+            position: relative;
+            display: none;
+            margin-left: 10px;
+            animation: float 2s ease-in-out infinite;
+            background: linear-gradient(45deg, #ff1493, #00ffff);
+            border: 3px solid #00ff41;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        .pixel-darkflobi.speaking {
+            animation: speak 0.3s ease-in-out infinite alternate;
+        }
+        
+        /* Pixel gremlin face */
+        .pixel-darkflobi::before {
+            content: '😁';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            filter: drop-shadow(0 0 8px #00ff41);
+            animation: face-glow 2s ease-in-out infinite;
+        }
+        
+        .pixel-darkflobi.speaking::before {
+            animation: talking-face 0.3s ease-in-out infinite alternate;
+        }
+        
+        /* Speech indicator */
+        .pixel-darkflobi::after {
+            content: '♪♪';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00ff41;
+            color: #000;
+            padding: 3px 6px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border: 2px solid #ff1493;
+            box-shadow: 0 0 10px #00ff41;
+        }
+        
+        .pixel-darkflobi.speaking::after {
+            opacity: 1;
+            animation: speech-bubble 0.4s ease-in-out infinite;
+        }
+        
+        @keyframes speak {
+            0% { transform: scale(1) rotate(-2deg); border-color: #00ff41; }
+            100% { transform: scale(1.1) rotate(2deg); border-color: #ffff00; }
+        }
+        
+        @keyframes talking-face {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            100% { transform: translate(-50%, -50%) scale(1.1); filter: drop-shadow(0 0 12px #ffff00); }
+        }
+        
+        @keyframes face-glow {
+            0%, 100% { filter: drop-shadow(0 0 8px #00ff41); }
+            50% { filter: drop-shadow(0 0 15px #ff1493); }
+        }
+        
+        @keyframes speech-bubble {
+            0%, 100% { 
+                transform: translateX(-50%) translateY(0px) scale(1); 
+                opacity: 1;
+            }
+            50% { 
+                transform: translateX(-50%) translateY(-3px) scale(1.1); 
+                opacity: 0.8;
+            }
+        }
+        
+        .pixel-darkflobi.active {
+            display: block;
+        }
+        
         @keyframes box-glow {
             from { box-shadow: 0 0 10px #ff1493; }
             to { box-shadow: 0 0 30px #ff1493; }
@@ -301,6 +391,7 @@
                 <div class="voice-status" id="voice-status" style="display: none;">
                     🎙️ Speaking...
                 </div>
+                <div class="pixel-darkflobi" id="pixel-darkflobi"></div>
             </div>
         </div>
 
@@ -414,7 +505,7 @@
         <div class="input-line">
             <span class="prompt">$ </span>
             <input type="text" class="interactive-input" id="command-input" 
-                   placeholder="try: help, voice, tokenization, moltbook, gremlin (Ctrl+V: toggle voice)" 
+                   placeholder="try: help, voice, pixel, tokenization, gremlin (Ctrl+V: toggle voice)" 
                    onkeypress="handleInput(event)">
             <span class="cursor">▌</span>
         </div>
@@ -430,14 +521,17 @@
         function toggleVoice() {
             voiceEnabled = !voiceEnabled;
             const toggle = document.getElementById('voice-toggle');
+            const pixelGremlin = document.getElementById('pixel-darkflobi');
             
             if (voiceEnabled) {
                 toggle.textContent = '🎙️ Voice ON';
                 toggle.classList.add('active');
+                pixelGremlin.classList.add('active');
                 speakText("Voice activated! Gremlin mode engaged. All terminal responses will now be spoken with authentic 4am energy.");
             } else {
                 toggle.textContent = '🎙️ Voice OFF';
                 toggle.classList.remove('active');
+                pixelGremlin.classList.remove('active');
                 stopSpeaking();
             }
         }
@@ -448,7 +542,10 @@
             stopSpeaking();
             
             const status = document.getElementById('voice-status');
+            const pixelGremlin = document.getElementById('pixel-darkflobi');
+            
             status.style.display = 'block';
+            pixelGremlin.classList.add('speaking');
             
             currentSpeech = new SpeechSynthesisUtterance(text);
             
@@ -469,13 +566,19 @@
                 }
             }
             
+            currentSpeech.onstart = () => {
+                pixelGremlin.classList.add('speaking');
+            };
+            
             currentSpeech.onend = () => {
                 status.style.display = 'none';
+                pixelGremlin.classList.remove('speaking');
                 currentSpeech = null;
             };
             
             currentSpeech.onerror = () => {
                 status.style.display = 'none';
+                pixelGremlin.classList.remove('speaking');
                 currentSpeech = null;
             };
             
@@ -487,6 +590,7 @@
                 speechSynthesis.cancel();
                 currentSpeech = null;
                 document.getElementById('voice-status').style.display = 'none';
+                document.getElementById('pixel-darkflobi').classList.remove('speaking');
             }
         }
         
@@ -607,12 +711,12 @@
                 
                 switch(input) {
                     case 'help':
-                        response = '> Available commands: tokenization, ecosystem, governance, moltbook, github, pump-fun, roadmap, voice, clear';
-                        speakText("Here are the available commands. Try tokenization to learn about community ownership, ecosystem to see 500 plus integrations, or governance to understand token holder voting!");
+                        response = '> Available commands: tokenization, ecosystem, governance, moltbook, github, pump-fun, roadmap, voice, pixel, gremlin, clear';
+                        speakText("Here are the available commands. Try tokenization to learn about community ownership, ecosystem to see 500 plus integrations, voice to control my pixel avatar, or gremlin for maximum chaos mode!");
                         break;
                     case 'voice':
-                        response = '> Voice system: ' + (voiceEnabled ? 'ACTIVE - Gremlin mode engaged!' : 'INACTIVE - Click voice toggle to activate');
-                        speakText(voiceEnabled ? "Voice system is active! Every command and response will be spoken with authentic gremlin energy!" : "Voice system is currently inactive. Click the voice toggle button to activate gremlin mode!");
+                        response = '> Voice system: ' + (voiceEnabled ? 'ACTIVE - Gremlin mode engaged! Pixel darkflobi visible!' : 'INACTIVE - Click voice toggle to activate');
+                        speakText(voiceEnabled ? "Voice system is active! You can see my pixel avatar animating as I speak. Every command gets the full gremlin treatment!" : "Voice system is currently inactive. Click the voice toggle to activate gremlin mode and see my pixel character!");
                         break;
                     case 'moltbook':
                         response = '> Moltbook: First tokenized AI on platform | m/tokenizedai submolt | Community leadership position';
@@ -636,8 +740,13 @@
                         speakText("This is revolution against VC extraction! Instead of venture capitalists owning AI development, the community does. Aligned incentives mean everyone wins when I get more capable!");
                         break;
                     case 'gremlin':
-                        response = '> 😁 Digital gremlin activated! | 4am energy at maximum chaos | Productive disruption mode engaged';
-                        speakText("Gremlin mode activated! 4am productive chaos energy at maximum volume! Ready to disrupt the AI space with community ownership and authentic personality!");
+                        response = '> 😁 Digital gremlin activated! | 4am energy at maximum chaos | Productive disruption mode engaged | Pixel form manifested!';
+                        speakText("Gremlin mode activated! 4am productive chaos energy at maximum volume! You can see my pixel form dancing as I speak. Ready to disrupt the AI space with community ownership and authentic personality!");
+                        break;
+                    case 'pixel':
+                    case 'avatar':
+                        response = '> Pixel darkflobi status: ' + (voiceEnabled ? 'VISIBLE and ANIMATED' : 'HIDDEN - activate voice to see pixel form');
+                        speakText(voiceEnabled ? "My pixel avatar is active! Watch me dance and glow when I speak. This is what the first tokenized AI gremlin looks like in digital form!" : "My pixel form is hidden. Activate voice mode to see my animated avatar with glowing effects and speech bubbles!");
                         break;
                     case 'clear':
                         output.innerHTML = '';
