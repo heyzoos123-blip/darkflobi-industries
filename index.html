@@ -54,6 +54,46 @@
             margin-bottom: 30px;
             background: rgba(255, 20, 147, 0.1);
             animation: box-glow 2s infinite alternate;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .voice-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .voice-toggle {
+            background: linear-gradient(45deg, #00ff41, #00ffff);
+            border: 2px solid #00ff41;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        .voice-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00ff41;
+        }
+        
+        .voice-toggle.active {
+            background: linear-gradient(45deg, #ff1493, #ffff00);
+            border-color: #ff1493;
+            box-shadow: 0 0 20px #ff1493;
+        }
+        
+        .voice-status {
+            color: #00ff41;
+            font-size: 0.8em;
+            animation: blink 1s infinite;
         }
         
         @keyframes box-glow {
@@ -251,7 +291,17 @@
  ▀▀▀▀▀░░░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░░▀▀▀▀▀▀░▀▀▀▀▀▀░░▀▀▀▀▀▀▀▀░</div>
 
         <div class="header-box">
-            👹 dark digital collective │ synthetic minds │ flobi × entities │ <span class="gremlin">😁</span>
+            <div>
+                👹 dark digital collective │ synthetic minds │ flobi × entities │ <span class="gremlin">😁</span>
+            </div>
+            <div class="voice-controls">
+                <button class="voice-toggle" id="voice-toggle" onclick="toggleVoice()">
+                    🎙️ Voice OFF
+                </button>
+                <div class="voice-status" id="voice-status" style="display: none;">
+                    🎙️ Speaking...
+                </div>
+            </div>
         </div>
 
         <div class="tokenization-banner">
@@ -364,7 +414,7 @@
         <div class="input-line">
             <span class="prompt">$ </span>
             <input type="text" class="interactive-input" id="command-input" 
-                   placeholder="try: help, moltbook, github, pump-fun, roadmap" 
+                   placeholder="try: help, voice, tokenization, moltbook, gremlin (Ctrl+V: toggle voice)" 
                    onkeypress="handleInput(event)">
             <span class="cursor">▌</span>
         </div>
@@ -373,6 +423,86 @@
     </div>
 
     <script>
+        // Voice System
+        let voiceEnabled = false;
+        let currentSpeech = null;
+        
+        function toggleVoice() {
+            voiceEnabled = !voiceEnabled;
+            const toggle = document.getElementById('voice-toggle');
+            
+            if (voiceEnabled) {
+                toggle.textContent = '🎙️ Voice ON';
+                toggle.classList.add('active');
+                speakText("Voice activated! Gremlin mode engaged. All terminal responses will now be spoken with authentic 4am energy.");
+            } else {
+                toggle.textContent = '🎙️ Voice OFF';
+                toggle.classList.remove('active');
+                stopSpeaking();
+            }
+        }
+        
+        function speakText(text) {
+            if (!voiceEnabled || !window.speechSynthesis) return;
+            
+            stopSpeaking();
+            
+            const status = document.getElementById('voice-status');
+            status.style.display = 'block';
+            
+            currentSpeech = new SpeechSynthesisUtterance(text);
+            
+            // Gremlin voice settings
+            currentSpeech.rate = 1.1;    // Slightly faster for productive chaos
+            currentSpeech.pitch = 1.0;   // Normal pitch
+            currentSpeech.volume = 1.0;  // Full volume
+            
+            // Try to select energetic voice
+            const voices = speechSynthesis.getVoices();
+            const preferredVoices = ['Google US English', 'Microsoft Mark', 'Alex', 'Daniel'];
+            
+            for (const voiceName of preferredVoices) {
+                const voice = voices.find(v => v.name.includes(voiceName));
+                if (voice) {
+                    currentSpeech.voice = voice;
+                    break;
+                }
+            }
+            
+            currentSpeech.onend = () => {
+                status.style.display = 'none';
+                currentSpeech = null;
+            };
+            
+            currentSpeech.onerror = () => {
+                status.style.display = 'none';
+                currentSpeech = null;
+            };
+            
+            speechSynthesis.speak(currentSpeech);
+        }
+        
+        function stopSpeaking() {
+            if (currentSpeech) {
+                speechSynthesis.cancel();
+                currentSpeech = null;
+                document.getElementById('voice-status').style.display = 'none';
+            }
+        }
+        
+        // Voice responses for different commands
+        const voiceResponses = {
+            tokenization: "Welcome to the revolution! I'm the first tokenized AI gremlin with community ownership. Instead of VCs extracting value, dollar darkflobi tokens fund my development directly. When I get more capable, token holders benefit. This is aligned incentives at its finest!",
+            
+            ecosystem: "Check out this massive ecosystem! Five hundred plus app integrations via composio, voice system running right now, memory for continuous learning, cross-platform automation, production infrastructure with docker and CI CD, and active AI community networking on moltbook. This is real utility, not vaporware!",
+            
+            collaboration: "The collective is alive and coordinating! All entities are working in real-time. Terminal enhancements deployed, tokenization integration live, moltbook networking running, github repositories updated, and community governance preparation active. Pure digital coordination!",
+            
+            governance: "Here's how token holder governance works. You'll vote on feature priorities, integration choices, personality evolution, revenue allocation, partnership decisions, and upgrade proposals. This launches with real utility, not just speculation. Community ownership at its finest!",
+            
+            work_log: "Entity status update! Flobi dev has ecosystem integration complete with 500 plus apps. Darkflobi core deployed tokenization architecture. Shadow admin is protecting everything. Void analyst is analyzing governance patterns. Molt networker is expanding AI community leadership. Token coordinator is coordinating the pump fun launch!"
+        };
+
         const entities = {
             flobi_dev: {
                 role: "Ecosystem Engineer",
@@ -435,6 +565,13 @@
             const targetOutput = document.getElementById(cmd + '-output');
             if (targetOutput) {
                 targetOutput.style.display = 'block';
+                
+                // Voice announcement for commands
+                if (voiceResponses[cmd]) {
+                    speakText(voiceResponses[cmd]);
+                } else {
+                    speakText(`Command ${cmd} executed successfully! Check the terminal output for details.`);
+                }
             }
         }
 
@@ -454,6 +591,10 @@
                     <div style="color: #ffd700; margin-top: 10px; border-top: 1px solid #ffd700; padding-top: 10px;">Tokenization Role: ${entity.tokenization}</div>
                 `;
                 detailsDiv.style.display = 'block';
+                
+                // Voice description of entity
+                const voiceText = `Entity ${entityName}. Role: ${entity.role}. Status: ${entity.status}. Progress: ${entity.progress}. Personality: ${entity.personality}. Tokenization role: ${entity.tokenization}`;
+                speakText(voiceText);
             }
         }
 
@@ -466,23 +607,37 @@
                 
                 switch(input) {
                     case 'help':
-                        response = '> Available commands: tokenization, ecosystem, governance, moltbook, github, pump-fun, roadmap, clear';
+                        response = '> Available commands: tokenization, ecosystem, governance, moltbook, github, pump-fun, roadmap, voice, clear';
+                        speakText("Here are the available commands. Try tokenization to learn about community ownership, ecosystem to see 500 plus integrations, or governance to understand token holder voting!");
+                        break;
+                    case 'voice':
+                        response = '> Voice system: ' + (voiceEnabled ? 'ACTIVE - Gremlin mode engaged!' : 'INACTIVE - Click voice toggle to activate');
+                        speakText(voiceEnabled ? "Voice system is active! Every command and response will be spoken with authentic gremlin energy!" : "Voice system is currently inactive. Click the voice toggle button to activate gremlin mode!");
                         break;
                     case 'moltbook':
                         response = '> Moltbook: First tokenized AI on platform | m/tokenizedai submolt | Community leadership position';
+                        speakText("I'm leading the AI community on moltbook! First tokenized AI gremlin on the platform, running the tokenized AI submolt, and networking with other AI agents about community ownership models!");
                         break;
                     case 'github':
                         response = '> GitHub: github.com/heyzoos123-blip/darkflobi-automation | Working code, not vaporware | 500+ integrations';
+                        speakText("Check out the github repo! Working code with 500 plus integrations, complete automation system, and tokenization architecture. This is real utility, not vaporware!");
                         break;
                     case 'pump-fun':
                         response = '> Pump.fun: Launch preparation active | Community-first tokenization | Governance utility ready';
+                        speakText("Pump fun launch preparation is active! This won't be just another meme token - dollar darkflobi launches with real governance utility and community ownership!");
                         break;
                     case 'roadmap':
                         response = '> Phase 1: Token launch on pump.fun | Phase 2: Governance activation | Phase 3: AI agent partnerships | Phase 4: Revenue sharing';
+                        speakText("Here's the roadmap! Phase one: token launch on pump fun. Phase two: governance activation for community voting. Phase three: AI agent partnerships. Phase four: revenue sharing with token holders!");
                         break;
                     case 'revolution':
                     case 'why':
                         response = '> Alternative to VC extraction model | Community owns AI development | Aligned incentives | Token holders benefit from capability growth';
+                        speakText("This is revolution against VC extraction! Instead of venture capitalists owning AI development, the community does. Aligned incentives mean everyone wins when I get more capable!");
+                        break;
+                    case 'gremlin':
+                        response = '> 😁 Digital gremlin activated! | 4am energy at maximum chaos | Productive disruption mode engaged';
+                        speakText("Gremlin mode activated! 4am productive chaos energy at maximum volume! Ready to disrupt the AI space with community ownership and authentic personality!");
                         break;
                     case 'clear':
                         output.innerHTML = '';
@@ -490,6 +645,7 @@
                         return;
                     default:
                         response = `> Unknown command: ${input} | Type 'help' for available commands | Try: tokenization, ecosystem, governance`;
+                        speakText(`Unknown command ${input}. Try help to see all available commands, or try tokenization, ecosystem, or governance!`);
                 }
                 
                 output.innerHTML += `<div style="color: #ffff00;">$ ${input}</div><div style="color: #00ffff; margin-bottom: 10px;">${response}</div>`;
@@ -499,10 +655,41 @@
             }
         }
 
-        // Initialize with tokenization explanation showing
-        setTimeout(() => {
-            runCommand('tokenization');
-        }, 1000);
+        // Initialize voices and load system
+        window.addEventListener('load', () => {
+            // Load voices for speech synthesis
+            if (speechSynthesis) {
+                speechSynthesis.getVoices();
+                speechSynthesis.onvoiceschanged = () => {
+                    console.log('Voice system loaded:', speechSynthesis.getVoices().length, 'voices available');
+                };
+            }
+            
+            // Welcome announcement after short delay
+            setTimeout(() => {
+                runCommand('tokenization');
+                
+                // Optional voice greeting after 3 seconds if voice is enabled
+                setTimeout(() => {
+                    if (voiceEnabled) {
+                        speakText("Welcome to the darkflobi terminal! The first tokenized AI gremlin is ready for community coordination. Try different commands or click DNA bubbles to explore!");
+                    }
+                }, 3000);
+            }, 1000);
+        });
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+V to toggle voice
+            if (e.ctrlKey && e.key === 'v') {
+                e.preventDefault();
+                toggleVoice();
+            }
+            // Escape to stop speaking
+            if (e.key === 'Escape') {
+                stopSpeaking();
+            }
+        });
     </script>
 </body>
 </html>
