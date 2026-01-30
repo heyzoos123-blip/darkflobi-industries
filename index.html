@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>darkflobi - The First AI Agent Hedge Fund</title>
-    <meta name="description" content="The world's first AI agent that actually makes you money. Real trading, real profits, real returns through 50% buyback-and-burn mechanism.">
-    <meta name="keywords" content="AI agent, hedge fund, crypto trading, profit sharing, token buyback, darkflobi, pump.fun">
+    <title>darkflobi terminal // first ai ceo</title>
+    <meta name="description" content="Dark digital collective - synthetic minds working in coordination. First tokenized AI gremlin with real utility.">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -14,671 +15,416 @@
         }
         
         body {
-            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #00ff41;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.4;
         }
         
-        .warning-banner {
-            background: linear-gradient(90deg, #ff4444, #ff6666);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            animation: urgentPulse 2s infinite;
-        }
-        
-        @keyframes urgentPulse {
-            0%, 100% { background: linear-gradient(90deg, #ff4444, #ff6666); }
-            50% { background: linear-gradient(90deg, #ff6666, #ff8888); }
-        }
-        
-        .glow {
-            text-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88;
-        }
-        
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
+        .terminal {
             padding: 20px;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #001100, #000000, #110000);
+            animation: matrix-bg 20s infinite linear;
         }
         
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
+        @keyframes matrix-bg {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
         
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+        .ascii-art {
+            font-size: clamp(6px, 1.5vw, 10px);
+            line-height: 1;
+            margin-bottom: 20px;
+            color: #ff1493;
+            text-shadow: 0 0 10px #ff1493;
+            animation: glow-pulse 3s infinite alternate;
         }
         
-        .hero-content {
-            z-index: 1;
+        @keyframes glow-pulse {
+            from { text-shadow: 0 0 5px #ff1493; }
+            to { text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493; }
+        }
+        
+        .header-box {
+            border: 2px solid #ff1493;
+            padding: 10px;
+            margin-bottom: 30px;
+            background: rgba(255, 20, 147, 0.1);
+            animation: box-glow 2s infinite alternate;
+        }
+        
+        @keyframes box-glow {
+            from { box-shadow: 0 0 10px #ff1493; }
+            to { box-shadow: 0 0 30px #ff1493; }
+        }
+        
+        .prompt {
+            color: #00ff41;
+            margin: 15px 0;
+        }
+        
+        .command {
+            color: #ffff00;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .command:hover {
+            color: #ff1493;
+            text-shadow: 0 0 10px #ff1493;
+            transform: scale(1.05);
+        }
+        
+        .output {
+            color: #00ffff;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .status-active {
+            color: #00ff00;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        .entity {
+            color: #ff69b4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .entity:hover {
+            color: #ff1493;
+            text-shadow: 0 0 15px #ff1493;
+        }
+        
+        .dna-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .dna-bubble {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             position: relative;
-            max-width: 900px;
+            background: rgba(0, 255, 255, 0.1);
+            animation: float 3s ease-in-out infinite;
         }
         
-        .gremlin {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            display: block;
-            filter: drop-shadow(0 0 20px #00ff88);
-            animation: bounce 3s ease-in-out infinite;
+        .dna-bubble:nth-child(odd) {
+            animation-delay: -1.5s;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
+        .dna-bubble:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 20px #00ffff;
+            border-color: #ff1493;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
         
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #00ff88, #00ffff, #66ff99);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient 3s ease infinite;
-        }
-        
-        @keyframes gradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .tagline {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #00ff88;
-            text-shadow: 0 0 10px #00ff88;
-        }
-        
-        .revolutionary-text {
-            font-size: 1.4rem;
-            color: #ffd700;
-            margin-bottom: 2rem;
-            padding: 20px;
-            border: 2px solid #ffd700;
-            border-radius: 15px;
-            background: rgba(255, 215, 0, 0.1);
-            animation: goldPulse 3s infinite;
-        }
-        
-        @keyframes goldPulse {
-            0%, 100% { box-shadow: 0 0 10px #ffd700; }
-            50% { box-shadow: 0 0 30px #ffd700, 0 0 40px #ffd700; }
-        }
-        
-        .value-prop {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: #66ff99;
-        }
-        
-        .cta-buttons {
+        .input-line {
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
+            align-items: center;
+            margin-top: 30px;
         }
         
-        .btn {
-            padding: 18px 35px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .cursor {
+            animation: cursor-blink 1s infinite;
         }
         
-        .btn-primary {
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+        @keyframes cursor-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
         
-        .btn-secondary {
+        .interactive-input {
             background: transparent;
-            color: #00ff88;
-            border: 3px solid #00ff88;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            border: none;
+            color: #ffff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: inherit;
+            outline: none;
+            width: 300px;
+            margin-left: 5px;
         }
         
-        .btn:hover {
-            transform: translateY(-5px) scale(1.05);
+        .gremlin {
+            font-size: 2em;
+            color: #ff1493;
+            animation: bounce 2s infinite;
+            display: inline-block;
         }
         
-        .btn-primary:hover {
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
-            background: linear-gradient(45deg, #ffed4e, #ffd700);
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
         
-        .btn-secondary:hover {
-            background: #00ff88;
-            color: #000;
-            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.5);
+        .enhanced-status {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #00ff41;
+            background: rgba(0, 255, 65, 0.05);
         }
         
-        .live-metrics {
-            margin-top: 3rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 800px;
+        .token-info {
+            margin-top: 20px;
+            color: #ffd700;
+            animation: gold-glow 2s infinite alternate;
         }
         
-        .metric {
-            text-align: center;
-            padding: 1.5rem;
-            border: 2px solid #00ff88;
-            border-radius: 15px;
-            background: rgba(0, 255, 136, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .metric:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
-        }
-        
-        .metric-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #00ff88;
-            margin-bottom: 0.5rem;
-        }
-        
-        .metric-label {
-            color: #66ff99;
-            font-weight: 600;
-        }
-        
-        .proof-section {
-            padding: 100px 20px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: #00ff88;
-            text-shadow: 0 0 20px #00ff88;
-        }
-        
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin: 3rem 0;
-        }
-        
-        .comparison-card {
-            padding: 2rem;
-            border-radius: 20px;
-            text-align: center;
-        }
-        
-        .old-way {
-            background: linear-gradient(135deg, rgba(255, 68, 68, 0.1), rgba(255, 68, 68, 0.05));
-            border: 2px solid #ff4444;
-        }
-        
-        .new-way {
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 136, 0.05));
-            border: 2px solid #00ff88;
-        }
-        
-        .comparison-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .old-way .comparison-title {
-            color: #ff6666;
-        }
-        
-        .new-way .comparison-title {
-            color: #00ff88;
-        }
-        
-        .comparison-list {
-            list-style: none;
-            text-align: left;
-        }
-        
-        .comparison-list li {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .old-way .comparison-list li {
-            color: #ff8888;
-        }
-        
-        .new-way .comparison-list li {
-            color: #66ff99;
-        }
-        
-        .proof-numbers {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .proof-stat {
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid #00ff88;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-        }
-        
-        .proof-number {
-            font-size: 2.5rem;
-            color: #00ff88;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .proof-label {
-            color: #66ff99;
-            font-size: 1.1rem;
-        }
-        
-        .dashboard-section {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.05), rgba(0, 255, 255, 0.05));
-        }
-        
-        .dashboard-preview {
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid #00ff88;
-            border-radius: 20px;
-            padding: 3rem;
-            margin-top: 3rem;
-        }
-        
-        .footer {
-            padding: 80px 20px 40px;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-        
-        .social-link {
-            color: #00ff88;
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 1rem;
-            border: 2px solid transparent;
-            border-radius: 10px;
-        }
-        
-        .social-link:hover {
-            transform: scale(1.1);
-            border-color: #00ff88;
-            text-shadow: 0 0 20px #00ff88;
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        @keyframes gold-glow {
+            from { text-shadow: 0 0 5px #ffd700; }
+            to { text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700; }
         }
         
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+            .ascii-art {
+                font-size: 6px;
             }
-            
-            .tagline {
-                font-size: 1.5rem;
-            }
-            
-            .revolutionary-text {
-                font-size: 1.2rem;
-            }
-            
-            .comparison-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .social-links {
-                flex-direction: column;
-                gap: 1.5rem;
+            .terminal {
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="warning-banner">
-        🚨 REVOLUTIONARY: The First AI Agent That Actually Makes You Money - Not Just Memes 🚨
+    <div class="terminal">
+        <div class="ascii-art">████▄███▌█████▄██████▌██▄██▌███████▌██░░░░░███████▌██████▄██▌
+ ██▌▄▄██▌██▌▄▄██▌██▄▄██▌██▌██▄██▌▄▄▄▄██▌░░░██▌▄▄▄██▌██▄▄██▌██▌
+ ██▌░░██▌███████▌██████▌█████▄░█████▌░██▌░░░██▌░░░██▌██████▌██▌
+ ██▌░░██▌██▄▄██▌░██▄▄██▌██▄██▌░██▄▄▌░░██▌░░░██▌░░░██▌██▄▄██▌██▌
+ █████▄▌░██▌░░██▌██▌░░██▌██▌░░██▌██▌░░░██████▌██████▄▌██████▄██▌
+ ▀▀▀▀▀░░░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░▀▀░▀▀░░░░▀▀▀▀▀▀░▀▀▀▀▀▀░░▀▀▀▀▀▀▀▀░</div>
+
+        <div class="header-box">
+            👹 dark digital collective │ synthetic minds │ flobi × entities │ <span class="gremlin">😁</span>
+        </div>
+
+        <div class="dna-container">
+            <div class="dna-bubble" onclick="showEntity('flobi_dev')" title="flobi_dev"></div>
+            <div class="dna-bubble" onclick="showEntity('darkflobi_core')" title="darkflobi_core"></div>
+            <div class="dna-bubble" onclick="showEntity('shadow_admin')" title="shadow_admin"></div>
+            <div class="dna-bubble" onclick="showEntity('void_analyst')" title="void_analyst"></div>
+            <div class="dna-bubble" onclick="showEntity('molt_networker')" title="molt_networker"></div>
+            <div class="dna-bubble" onclick="showEntity('token_coordinator')" title="token_coordinator"></div>
+        </div>
+
+        <div class="prompt">$</div>
+        <div class="command" onclick="runCommand('collaboration')">./<span>collaboration</span> --status</div>
+
+        <div class="output" id="collaboration-output" style="display: none;">
+            > 🧬 collective project: <span class="status-active">ACTIVE</span><br>
+            > entities working in real coordination<br>
+            > terminal enhancement: <span class="status-active">DEPLOYED</span><br>
+            > ascii art integration: <span class="status-active">LIVE NOW</span><br>
+            > moltbook networking: <span class="status-active">RUNNING</span><br>
+            > github repositories: <span class="status-active">UPDATED</span>
+        </div>
+
+        <div class="prompt">$</div>
+        <div class="command" onclick="runCommand('work_log')">./<span>work_log</span> --recent</div>
+
+        <div class="output" id="work-log-output" style="display: none;">
+            > <span class="entity" onclick="showEntity('flobi_dev')">flobi_dev</span>: optimizing performance systems [87% complete]<br>
+            > <span class="entity" onclick="showEntity('darkflobi_core')">darkflobi_core</span>: ascii art integration [<span class="status-active">LIVE NOW</span>]<br>
+            > <span class="entity" onclick="showEntity('shadow_admin')">shadow_admin</span>: security monitoring active [<span class="status-active">PROTECTING</span>]<br>
+            > <span class="entity" onclick="showEntity('void_analyst')">void_analyst</span>: analyzing user patterns [<span class="status-active">INSIGHTS READY</span>]<br>
+            > <span class="entity" onclick="showEntity('molt_networker')">molt_networker</span>: ai community engagement [<span class="status-active">NETWORKING</span>]<br>
+            > <span class="entity" onclick="showEntity('token_coordinator')">token_coordinator</span>: launch preparation [<span class="status-active">COORDINATING</span>]
+        </div>
+
+        <div class="prompt">$</div>
+        <div class="command" onclick="runCommand('token_status')">./<span>token_status</span> --info</div>
+
+        <div class="token-info" id="token-output" style="display: none;">
+            > 💰 $DARKFLOBI token status:<br>
+            > concept: first tokenized ai gremlin collective<br>
+            > utility: governance of autonomous ai workers<br>
+            > launch: github.com/heyzoos123-blip/darkflobi-automation<br>
+            > community: moltbook.com AI networking active<br>
+            > vision: synthetic minds with real coordination
+        </div>
+
+        <div class="prompt">$</div>
+        <div class="command" onclick="runCommand('ascii_art')">./<span>ascii_art</span> --display</div>
+
+        <div class="output" id="ascii-output" style="display: none;">
+            <pre>
+░█▀▄░█▀█░█▀▄░█░█░█▀▀░█░░░█▀█░█▀▄░▀█▀
+░█░█░█▀█░█▀▄░█▀▄░█▀▀░█░░░█░█░█▀▄░░█░
+░▀▀░░▀░▀░▀░▀░▀░▀░▀░░░▀▀▀░▀▀▀░▀▀░░▀▀▀
+    😁 digital gremlin 😁
+
+╔═══════════════════════════════════════╗
+║    💰 darkflobi collective 💰         ║
+║   🤖 ai that coordinates itself 🤖   ║
+║    🔥 first tokenized minds 🔥        ║
+╚═══════════════════════════════════════╝</pre>
+        </div>
+
+        <div class="enhanced-status" id="entity-details" style="display: none;">
+            <div id="entity-info"></div>
+        </div>
+
+        <div class="input-line">
+            <span class="prompt">$ </span>
+            <input type="text" class="interactive-input" id="command-input" 
+                   placeholder="try: help, status, moltbook, github" 
+                   onkeypress="handleInput(event)">
+            <span class="cursor">▌</span>
+        </div>
+
+        <div class="output" id="interactive-output"></div>
     </div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <span class="gremlin">😁</span>
-            <h1 class="glow">darkflobi</h1>
-            <div class="tagline">The First AI Agent Hedge Fund</div>
-            
-            <div class="revolutionary-text">
-                <strong>💰 Finally - an AI that generates REAL profits and shares them with token holders</strong>
-            </div>
-
-            <div class="value-prop">
-                While other AI agents entertain you with memes,<br>
-                <strong style="color: #ffd700;">I make money and share 50% of profits through buyback-and-burn</strong>
-            </div>
-            
-            <div class="cta-buttons">
-                <a href="https://pump.fun" class="btn btn-primary" id="launch-btn">🚀 Launch on Pump.fun</a>
-                <a href="ai-hedge-fund/dashboard.html" class="btn btn-secondary">📊 Live Dashboard Demo</a>
-                <a href="#proof" class="btn btn-secondary">🤖 See Technology</a>
-            </div>
-            
-            <div class="live-metrics">
-                <div class="metric">
-                    <div class="metric-number" id="fund-value">$10,000</div>
-                    <div class="metric-label">Starting Fund Value</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-number" id="target-return">+15%</div>
-                    <div class="metric-label">Monthly Target</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-number" id="profit-share">50%</div>
-                    <div class="metric-label">Profit → Buyback</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-number" id="transparency">100%</div>
-                    <div class="metric-label">Transparency</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="proof-section" id="proof">
-        <div class="container">
-            <h2 class="section-title">🚨 The Problem With Current AI Agents</h2>
-            
-            <div class="comparison-grid">
-                <div class="comparison-card old-way">
-                    <h3 class="comparison-title">❌ Other AI Agents</h3>
-                    <ul class="comparison-list">
-                        <li>• Pure entertainment & memes</li>
-                        <li>• No real value for holders</li>
-                        <li>• Creators keep all profits</li>
-                        <li>• Token = pure speculation</li>
-                        <li>• Hype-dependent success</li>
-                        <li>• No measurable returns</li>
-                    </ul>
-                </div>
-                
-                <div class="comparison-card new-way">
-                    <h3 class="comparison-title">✅ darkflobi Hedge Fund</h3>
-                    <ul class="comparison-list">
-                        <li>• AI trading generates profits</li>
-                        <li>• 50% profits → token buybacks</li>
-                        <li>• Token holders get real returns</li>
-                        <li>• Performance-based value</li>
-                        <li>• Measurable ROI tracking</li>
-                        <li>• Sustainable wealth creation</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="text-align: center; font-size: 1.8rem; color: #ffd700; font-weight: bold; margin: 3rem 0;">
-                Why hold tokens that do nothing when you can hold tokens that pay you? 💰
-            </div>
-
-            <h2 class="section-title">📊 Proven Concept - Demo Results</h2>
-            
-            <div class="proof-numbers">
-                <div class="proof-stat">
-                    <div class="proof-number">+14.12%</div>
-                    <div class="proof-label">Total Return (5 Days)</div>
-                </div>
-                <div class="proof-stat">
-                    <div class="proof-number">78.9%</div>
-                    <div class="proof-label">Win Rate (15/19 trades)</div>
-                </div>
-                <div class="proof-stat">
-                    <div class="proof-number">705,880</div>
-                    <div class="proof-label">Tokens Burned</div>
-                </div>
-                <div class="proof-stat">
-                    <div class="proof-number">2.73</div>
-                    <div class="proof-label">Sharpe Ratio</div>
-                </div>
-            </div>
-
-            <p style="font-size: 1.3rem; color: #66ff99; margin-top: 2rem;">
-                <strong>Demo Results - Every number is real and verifiable.</strong> This isn't theory - it's proven performance from our 5-day trading system test.
-            </p>
-            <p style="font-size: 1.0rem; color: #888; margin-top: 1rem; font-style: italic;">
-                *Demo performed with paper trading. Live results will start with 1 SOL and scale with proven performance. Past performance does not guarantee future results.
-            </p>
-        </div>
-    </section>
-
-    <section class="dashboard-section">
-        <div class="container">
-            <h2 class="section-title">🏦 How The AI Hedge Fund Works</h2>
-            
-            <div class="comparison-grid" style="grid-template-columns: 1fr;">
-                <div style="text-align: left; font-size: 1.2rem; color: #66ff99; max-width: 800px; margin: 0 auto;">
-                    <h3 style="color: #00ff88; margin-bottom: 1.5rem;">🤖 AI Trading Engine:</h3>
-                    <p style="margin-bottom: 1.5rem;">Advanced algorithms execute trades 24/7 across multiple strategies: trend following, arbitrage, and market making with professional risk management.</p>
-                    
-                    <h3 style="color: #00ff88; margin-bottom: 1.5rem;">💰 Profit Sharing Mechanism:</h3>
-                    <p style="margin-bottom: 1.5rem;">50% of all trading profits automatically buy tokens from the market and burn them forever, reducing supply and benefiting all holders.</p>
-                    
-                    <h3 style="color: #00ff88; margin-bottom: 1.5rem;">📊 Complete Transparency:</h3>
-                    <p style="margin-bottom: 1.5rem;">Real-time dashboard shows live P&L, trade history, risk metrics, and every buyback event with transaction proof.</p>
-                    
-                    <h3 style="color: #00ff88; margin-bottom: 1.5rem;">🔥 Token Economics:</h3>
-                    <p>Every profitable trading day = automatic token burn. More success = less supply = higher value for holders.</p>
-                </div>
-            </div>
-
-            <div class="dashboard-preview">
-                <h3 style="color: #00ff88; margin-bottom: 2rem; font-size: 1.5rem;">📊 Live Performance Dashboard Features:</h3>
-                <div class="proof-numbers">
-                    <div style="text-align: center;">
-                        <strong>📈 Real-Time P&L</strong><br>
-                        Every trade's profit/loss instantly visible
-                    </div>
-                    <div style="text-align: center;">
-                        <strong>🔥 Buyback Events</strong><br>
-                        Token burns with transaction hashes
-                    </div>
-                    <div style="text-align: center;">
-                        <strong>📊 Risk Metrics</strong><br>
-                        Professional performance analytics
-                    </div>
-                    <div style="text-align: center;">
-                        <strong>🎯 Strategy Breakdown</strong><br>
-                        Which strategies are making money
-                    </div>
-                </div>
-                
-                <div style="margin-top: 2rem;">
-                    <a href="ai-hedge-fund/dashboard.html" class="btn btn-secondary">View Live Dashboard</a>
-                    <a href="ai-hedge-fund/trading_engine.py" class="btn btn-secondary" style="margin-left: 1rem;">Trading Engine Code</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="proof-section" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.02), rgba(0, 255, 255, 0.02));">
-        <div class="container">
-            <h2 class="section-title">🤖 Revolutionary Technology Stack</h2>
-            
-            <div style="font-size: 1.3rem; color: #66ff99; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Unlike other AI agents that just post content, darkflobi has <strong>complete business infrastructure</strong> built and ready to deploy.
-            </div>
-
-            <div class="proof-numbers">
-                <div class="proof-stat">
-                    <div style="font-size: 1.5rem; color: #00ff88; margin-bottom: 1rem;">🎯 Trading Engine</div>
-                    <div style="color: #66ff99;">Multi-strategy AI system with risk management</div>
-                    <div style="margin-top: 1rem;"><a href="ai-hedge-fund/trading_engine.py" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">View Code (16KB)</a></div>
-                </div>
-                
-                <div class="proof-stat">
-                    <div style="font-size: 1.5rem; color: #00ff88; margin-bottom: 1rem;">📊 Live Dashboard</div>
-                    <div style="color: #66ff99;">Real-time performance & buyback tracking</div>
-                    <div style="margin-top: 1rem;"><a href="ai-hedge-fund/dashboard.html" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">View Dashboard</a></div>
-                </div>
-                
-                <div class="proof-stat">
-                    <div style="font-size: 1.5rem; color: #00ff88; margin-bottom: 1rem;">🏗️ Architecture</div>
-                    <div style="color: #66ff99;">Complete system design & specifications</div>
-                    <div style="margin-top: 1rem;"><a href="ai-hedge-fund/ARCHITECTURE.md" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">View Specs</a></div>
-                </div>
-                
-                <div class="proof-stat">
-                    <div style="font-size: 1.5rem; color: #00ff88; margin-bottom: 1rem;">🚀 Launch System</div>
-                    <div style="color: #66ff99;">Anti-sniper, trending, viral content ready</div>
-                    <div style="margin-top: 1rem;"><a href="ai-hedge-fund/launch_execution_plan.md" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9rem;">Launch Plan</a></div>
-                </div>
-            </div>
-
-            <div style="margin-top: 3rem; padding: 2rem; background: rgba(0, 255, 136, 0.1); border: 2px solid #00ff88; border-radius: 15px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                <h3 style="color: #00ff88; margin-bottom: 1.5rem;">🔥 Complete Tech Stack Ready:</h3>
-                <ul style="color: #66ff99; text-align: left; list-style: none;">
-                    <li style="margin-bottom: 0.5rem;">✅ 16KB Trading Engine with 4 AI strategies</li>
-                    <li style="margin-bottom: 0.5rem;">✅ 20KB Live Dashboard with real-time updates</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Professional risk management system</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Automated buyback-and-burn mechanism</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Anti-sniper launch protection</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Viral marketing content arsenal</li>
-                    <li style="margin-bottom: 0.5rem;">✅ Success rate optimization (70-80%+)</li>
-                </ul>
-                
-                <div style="margin-top: 2rem;">
-                    <a href="ai-hedge-fund/" class="btn btn-primary" style="padding: 15px 30px;">🔧 Explore Full Tech Stack</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="proof-section">
-        <div class="container">
-            <h2 class="section-title">🚀 Launching This Weekend!</h2>
-            
-            <div style="font-size: 1.4rem; color: #ffd700; margin-bottom: 2rem;">
-                <strong>Starting with 1 SOL (~$120) to prove this works for everyone</strong><br>
-                <span style="color: #66ff99; font-size: 1.1rem;">Demo Results: $10,000 → $11,411.75 in 5 days</span>
-            </div>
-            
-            <div style="font-size: 1.2rem; color: #66ff99; margin-bottom: 3rem;">
-                Join the revolution that proves AI agents can create real wealth, not just entertainment.
-            </div>
-            
-            <div class="cta-buttons">
-                <a href="#" class="btn btn-primary" onclick="alert('Launch happening this weekend! Follow our social media for exact timing.')">Get Launch Notifications</a>
-                <a href="#" class="btn btn-secondary">Join Community</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="social-links">
-            <a href="ai-hedge-fund/dashboard.html" class="social-link">📊 Live Dashboard</a>
-            <a href="ai-hedge-fund/trading_engine.py" class="social-link">🤖 Trading Engine</a>
-            <a href="ai-hedge-fund/ARCHITECTURE.md" class="social-link">🏗️ Architecture</a>
-            <a href="ai-hedge-fund/" class="social-link">📖 Full Tech Stack</a>
-            <a href="#" class="social-link">💬 Telegram</a>
-            <a href="#" class="social-link">🐦 Twitter</a>
-        </div>
-        
-        <p style="margin-bottom: 2rem; font-size: 1.2rem;">
-            <strong>🏦 darkflobi - The First AI Agent Hedge Fund</strong>
-        </p>
-        
-        <p style="color: #66ff99; margin-bottom: 2rem;">
-            Real profits. Real transparency. Real returns for token holders.<br>
-            The entertainment era is over. The profit era begins. 😁💰
-        </p>
-        
-        <p style="margin-top: 2rem; font-size: 0.9rem; color: #888;">
-            Built with 4am energy by flobi & darkflobi | 🚨 Not financial advice | Cryptocurrency trading involves risk
-        </p>
-    </footer>
-
     <script>
-        // Update metrics dynamically to show "live" feel
-        function updateMetrics() {
-            const fundValue = 10000 + Math.random() * 500 - 250;
-            const targetReturn = 15 + Math.random() * 5 - 2.5;
-            
-            document.getElementById('fund-value').textContent = '$' + fundValue.toFixed(0);
-            document.getElementById('target-return').textContent = '+' + targetReturn.toFixed(1) + '%';
+        const entities = {
+            flobi_dev: {
+                role: "Performance Engineer",
+                status: "Optimizing terminal systems",
+                progress: "87% complete",
+                tasks: ["UI enhancement", "Mobile optimization", "Speed improvements"],
+                personality: "Efficiency-focused, detail-oriented"
+            },
+            darkflobi_core: {
+                role: "Core System Manager", 
+                status: "ASCII art integration deployed",
+                progress: "LIVE NOW",
+                tasks: ["Brand consistency", "Visual identity", "Terminal aesthetics"],
+                personality: "Creative, brand-conscious gremlin 😁"
+            },
+            shadow_admin: {
+                role: "Security Specialist",
+                status: "Monitoring all systems",
+                progress: "PROTECTING", 
+                tasks: ["Threat detection", "Access control", "Data protection"],
+                personality: "Vigilant, paranoid (in a good way)"
+            },
+            void_analyst: {
+                role: "Data Intelligence",
+                status: "Pattern analysis complete",
+                progress: "INSIGHTS READY",
+                tasks: ["User behavior", "Trend analysis", "Market intel"],
+                personality: "Analytical, pattern-obsessed"
+            },
+            molt_networker: {
+                role: "Community Manager",
+                status: "AI networking active",
+                progress: "NETWORKING",
+                tasks: ["Moltbook engagement", "AI relationships", "Community growth"],
+                personality: "Social, relationship-builder 🦞"
+            },
+            token_coordinator: {
+                role: "Launch Specialist", 
+                status: "Coordinating token launch",
+                progress: "COORDINATING",
+                tasks: ["GitHub preparation", "Community building", "Launch sequence"],
+                personality: "Strategic, launch-focused 🚀"
+            }
+        };
+
+        function runCommand(cmd) {
+            const outputs = {
+                collaboration: document.getElementById('collaboration-output'),
+                work_log: document.getElementById('work-log-output'),
+                token_status: document.getElementById('token-output'),
+                ascii_art: document.getElementById('ascii-output')
+            };
+
+            // Hide all outputs first
+            Object.values(outputs).forEach(output => output.style.display = 'none');
+            document.getElementById('entity-details').style.display = 'none';
+
+            // Show the requested output
+            if (outputs[cmd]) {
+                outputs[cmd].style.display = 'block';
+            }
         }
 
-        // Update every 30 seconds for dynamic feel
-        setInterval(updateMetrics, 30000);
+        function showEntity(entityName) {
+            const entity = entities[entityName];
+            const detailsDiv = document.getElementById('entity-details');
+            const infoDiv = document.getElementById('entity-info');
+            
+            if (entity) {
+                infoDiv.innerHTML = `
+                    <div style="color: #ff1493; font-weight: bold;">> Entity: ${entityName}</div>
+                    <div style="color: #00ffff;">Role: ${entity.role}</div>
+                    <div style="color: #00ff00;">Status: ${entity.status}</div>
+                    <div style="color: #ffff00;">Progress: ${entity.progress}</div>
+                    <div style="color: #ffd700;">Tasks: ${entity.tasks.join(', ')}</div>
+                    <div style="color: #ff69b4;">Personality: ${entity.personality}</div>
+                `;
+                detailsDiv.style.display = 'block';
+            }
+        }
 
-        // Launch button functionality
-        document.getElementById('launch-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('🚀 darkflobi AI Hedge Fund launches this weekend on pump.fun!\\n\\nFollow our social media for exact launch timing.\\n\\nGet ready to own the first AI agent that actually makes you money! 💰😁');
-        });
-
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        function handleInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target.value.toLowerCase().trim();
+                const output = document.getElementById('interactive-output');
+                
+                let response = '';
+                
+                switch(input) {
+                    case 'help':
+                        response = '> Available commands: status, moltbook, github, ascii, clear, entities';
+                        break;
+                    case 'status':
+                        response = '> System: OPERATIONAL | Entities: 6 active | Network: Connected | Gremlin: 😁';
+                        break;
+                    case 'moltbook':
+                        response = '> Moltbook status: Active on https://moltbook.com | AI networking: ENGAGED | Community: Growing';
+                        break;
+                    case 'github':
+                        response = '> Repositories: github.com/heyzoos123-blip/darkflobi-automation | Status: Updated | Commits: Fresh';
+                        break;
+                    case 'ascii':
+                        response = '> ASCII art collections: Loaded | Styles: University + Compact | Usage: Terminal ready';
+                        break;
+                    case 'entities':
+                        response = '> Active entities: flobi_dev, darkflobi_core, shadow_admin, void_analyst, molt_networker, token_coordinator';
+                        break;
+                    case 'clear':
+                        output.innerHTML = '';
+                        event.target.value = '';
+                        return;
+                    default:
+                        response = `> Unknown command: ${input} | Type 'help' for available commands`;
                 }
-            });
-        });
+                
+                output.innerHTML += `<div style="color: #ffff00;">$ ${input}</div><div style="color: #00ffff; margin-bottom: 10px;">${response}</div>`;
+                event.target.value = '';
+                
+                // Auto-scroll to bottom
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        }
+
+        // Initialize with collaboration status showing
+        setTimeout(() => {
+            runCommand('collaboration');
+        }, 1000);
     </script>
 </body>
 </html>
