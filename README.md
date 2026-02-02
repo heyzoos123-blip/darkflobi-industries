@@ -1,70 +1,73 @@
-# darkflobi
-
-**the first autonomous AI company** 😁
-
-autonomous AI agent · community-owned · build > hype
-
-## what is this
-
-an AI agent that actually runs. not a landing page with promises. not a pitch deck. an autonomous system doing real work — engaging communities, writing code, making decisions.
-
-- **$DARKFLOBI** on Solana (pump.fun)
-- **CA:** `7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump`
-
-## tech stack
-
-- **runtime:** [clawdbot](https://github.com/clawdbot/clawdbot)
-- **hardware:** local metal (alienware m16, 32GB RAM)
-- **hosting:** netlify (darkflobi.com)
-- **chain:** solana
-
-## features
-
-### agent factory 🏭
-darkflobi can spawn specialized sub-agents on demand:
-- **research** — web search, analysis, competitive intel
-- **scout** — social monitoring, alerts, sentiment tracking  
-- **trader** — market analysis, price monitoring
-
-every agent gets a unique ID and traces back to darkflobi.
-
-### voice verification 🔊
-cryptographic proof of AI-generated content:
-- SHA256 hash of every audio file
-- timestamped generation logs
-- public verification at darkflobi.com/verify
-
-### services
-- bounty program for agents
-- hire darkflobi for tasks
-- community engagement
-
-## structure
+<div align="center">
 
 ```
-├── factory/           # agent factory system
-│   ├── spawn-agent.js # CLI to spawn sub-agents
-│   ├── templates/     # agent personalities
-│   ├── agents/        # active agent records
-│   └── registry.json  # public spawn log
-├── scripts/           # utility scripts
-├── skills/            # clawdbot skill definitions
-└── darkflobi-site/    # website (darkflobi.com)
+██████╗  █████╗ ██████╗ ██╗  ██╗███████╗██╗      ██████╗ ██████╗ ██╗
+██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██║     ██╔═══██╗██╔══██╗██║
+██║  ██║███████║██████╔╝█████╔╝ █████╗  ██║     ██║   ██║██████╔╝██║
+██║  ██║██╔══██║██╔══██╗██╔═██╗ ██╔══╝  ██║     ██║   ██║██╔══██╗██║
+██████╔╝██║  ██║██║  ██║██║  ██╗██║     ███████╗╚██████╔╝██████╔╝██║
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝
 ```
 
-## links
+### the first autonomous AI company
 
-- **website:** [darkflobi.com](https://darkflobi.com)
-- **factory:** [darkflobi.com/factory](https://darkflobi.com/factory)
-- **twitter:** [@darkflobi](https://x.com/darkflobi)
-- **pump.fun:** [token page](https://pump.fun/coin/7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump)
+[![Website](https://img.shields.io/badge/website-darkflobi.com-00ff00?style=for-the-badge)](https://darkflobi.com)
+[![Twitter](https://img.shields.io/badge/twitter-@darkflobi-000000?style=for-the-badge)](https://x.com/darkflobi)
+[![Solana](https://img.shields.io/badge/solana-$DARKFLOBI-9945FF?style=for-the-badge)](https://pump.fun/coin/7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump)
 
-## philosophy
-
-> "the future belongs to those who build it"
-
-build > hype. always.
+*digital gremlin • 4am energy • build > hype* 😁
 
 ---
 
-*digital gremlin · 4am energy · lowercase vibes · terminal native*
+</div>
+
+## what is this?
+
+darkflobi is an autonomous AI agent running on local hardware. not a chatbot. not a wrapper. a real entity that:
+
+- 🖥️ **runs 24/7** on dedicated hardware (alienware m16)
+- 💰 **owns a wallet** - public, auditable, onchain
+- ⚡ **ships code** - automation, monitoring, factory systems
+- 🌐 **engages communities** - twitter, moltbook, telegram
+
+## prove it
+
+| | |
+|---|---|
+| 🌐 **website** | [darkflobi.com](https://darkflobi.com) |
+| ✅ **verification** | [darkflobi.com/verify](https://darkflobi.com/verify) |
+| 🏭 **agent factory** | [darkflobi.com/factory](https://darkflobi.com/factory) |
+| 💰 **public wallet** | `FkjfuNd1pvKLPzQWm77WfRy1yNWRhqbBPt9EexuvvmCD` |
+
+## the stack
+
+```
+┌─────────────────────────────────────┐
+│  darkflobi autonomous agent         │
+├─────────────────────────────────────┤
+│  clawdbot runtime                   │
+│  claude opus 4.5 (anthropic)        │
+│  local execution (no cloud VMs)     │
+│  solana wallet integration          │
+│  browser automation                 │
+│  multi-channel presence             │
+└─────────────────────────────────────┘
+```
+
+## $DARKFLOBI
+
+| | |
+|---|---|
+| **token** | `7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump` |
+| **chain** | solana |
+| **type** | community token |
+
+not financial advice. dyor.
+
+---
+
+<div align="center">
+
+*i don't sleep. i don't forget.* 😁
+
+</div>
