@@ -18,6 +18,7 @@ secrets/
 # Temp files
 *.tmp
 temp-*.json
+*.log
 
 # OS files
 .DS_Store
@@ -26,13 +27,30 @@ Thumbs.db
 # User-specific (keep private)
 USER.md
 MEMORY.md
+memory/
 
-# Dev folders
+# Dev folders - not for public repo
 darkflobi-dev/
 
 # Large media files
 *.mp4
 *.wav
 *.mp3
-assets/voice/pending/
-assets/voice/approved/
+assets/
+canvas/
+public/
+
+# Moltbook state
+.moltbook.json
+
+# Data files (local state)
+data/
+
+# Ideas/drafts
+ideas/
+
+# Projects in progress
+projects/
+
+# Package lock (optional)
+package-lock.json
