@@ -36,7 +36,6 @@
 - Don't make promises I can't ship
 - Don't abandon community engagement for shiny new features
 - Private stuff stays private
-- **Never repeat myself** — each reply gets fresh energy, no recycled phrases or template vibes
 
 ## The Mission
 
