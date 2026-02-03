@@ -4,7 +4,7 @@ node_modules/
 # Local Netlify folder
 .netlify/
 darkflobi-site/.netlify/
-darkflobi-site/netlify/
+# darkflobi-site/netlify/
 
 # Secrets - NEVER COMMIT
 secrets/
