@@ -2,21 +2,24 @@
  * spawn-wolf.js - Netlify Function for self-serve wolf spawning
  * 
  * Features:
- * - Verifies SOL payment on-chain
+ * - Verifies $DARKFLOBI token payment on-chain
  * - Prevents tx signature reuse (checks tx age)
  * - Rate limits by wallet address
  * - Registers wolf on Moltbook
  * - Logs all attempts
+ * 
+ * UPDATE 2026-02-03: Changed from SOL to $DARKFLOBI payments
  */
 
 const TREASURY_ADDRESS = 'FkjfuNd1pvKLPzQWm77WfRy1yNWRhqbBPt9EexuvvmCD';
+const DARKFLOBI_MINT = '7GCxHtUttri1gNdt8Asa8DC72DQbiFNrN43ALjptpump';
 const MOLTBOOK_API_BASE = 'https://www.moltbook.com/api/v1';
 const SOLANA_RPC = 'https://api.mainnet-beta.solana.com';
 
-// Price in SOL
+// Price in $DARKFLOBI tokens (6 decimals)
 const PRICES = {
-  basic: 0.002,      // 5 credits
-  premium: 0.004     // 10 credits
+  basic: 10000,      // 10,000 DARKFLOBI
+  premium: 25000     // 25,000 DARKFLOBI
 };
 
 // Max transaction age (1 hour in seconds)
@@ -26,7 +29,7 @@ const MAX_TX_AGE_SECONDS = 3600;
 const recentTxSignatures = new Set();
 const recentWallets = new Map(); // wallet -> last spawn timestamp
 
-// Verify transaction on Solana
+// Verify $DARKFLOBI token payment on Solana
 async function verifyPayment(txSignature, expectedAmount) {
   try {
     // Check if we've seen this signature recently (in-memory)
@@ -65,52 +68,68 @@ async function verifyPayment(txSignature, expectedAmount) {
       return { valid: false, error: 'Transaction too old. Must be within last hour.' };
     }
 
-    // Look for transfer to treasury
-    const instructions = tx.transaction?.message?.instructions || [];
+    // Look for $DARKFLOBI token transfer to treasury
+    const preBalances = tx.meta?.preTokenBalances || [];
+    const postBalances = tx.meta?.postTokenBalances || [];
+    
     let sender = null;
     let amount = 0;
     
-    // Check parsed instructions for system transfer
-    for (const ix of instructions) {
-      if (ix.parsed?.type === 'transfer' && 
-          ix.parsed?.info?.destination === TREASURY_ADDRESS) {
-        const lamports = ix.parsed.info.lamports;
-        amount = lamports / 1e9;
-        sender = ix.parsed.info.source;
-        break;
-      }
-    }
-
-    // Also check post balances as fallback
-    if (!sender) {
-      const accountKeys = tx.transaction?.message?.accountKeys || [];
-      const preBalances = tx.meta?.preBalances || [];
-      const postBalances = tx.meta?.postBalances || [];
-      
-      for (let i = 0; i < accountKeys.length; i++) {
-        const key = accountKeys[i].pubkey || accountKeys[i];
-        if (key === TREASURY_ADDRESS) {
-          const received = (postBalances[i] - preBalances[i]) / 1e9;
-          if (received > 0) {
-            amount = received;
-            // Try to find sender
-            for (let j = 0; j < accountKeys.length; j++) {
-              if (preBalances[j] > postBalances[j]) {
-                sender = accountKeys[j].pubkey || accountKeys[j];
+    // Find token transfer to treasury
+    for (const post of postBalances) {
+      // Check if this is DARKFLOBI token going to treasury
+      if (post.mint === DARKFLOBI_MINT && post.owner === TREASURY_ADDRESS) {
+        // Find matching pre-balance to calculate delta
+        const pre = preBalances.find(p => 
+          p.accountIndex === post.accountIndex && 
+          p.mint === DARKFLOBI_MINT
+        );
+        
+        const preAmount = pre?.uiTokenAmount?.uiAmount || 0;
+        const postAmount = post.uiTokenAmount?.uiAmount || 0;
+        const delta = postAmount - preAmount;
+        
+        if (delta > 0) {
+          amount = delta;
+          
+          // Find sender (who lost tokens)
+          for (const preB of preBalances) {
+            if (preB.mint === DARKFLOBI_MINT && preB.owner !== TREASURY_ADDRESS) {
+              const postB = postBalances.find(p => 
+                p.accountIndex === preB.accountIndex
+              );
+              const senderPre = preB.uiTokenAmount?.uiAmount || 0;
+              const senderPost = postB?.uiTokenAmount?.uiAmount || 0;
+              if (senderPre > senderPost) {
+                sender = preB.owner;
                 break;
               }
             }
-            break;
           }
+          break;
         }
       }
     }
 
-    // Verify amount (allow 10% tolerance)
-    if (amount < expectedAmount * 0.9) {
+    // If we didn't find via balances, check instructions
+    if (amount === 0) {
+      const instructions = tx.transaction?.message?.instructions || [];
+      for (const ix of instructions) {
+        // Check for token transfer/transferChecked
+        if (ix.parsed?.type === 'transfer' || ix.parsed?.type === 'transferChecked') {
+          const info = ix.parsed.info;
+          // Note: SPL transfers use token account addresses, not owner addresses
+          // We need to check if destination token account is owned by treasury
+          // For now, rely on balance checks above
+        }
+      }
+    }
+
+    // Verify amount (allow 5% tolerance for rounding)
+    if (amount < expectedAmount * 0.95) {
       return { 
         valid: false, 
-        error: `Insufficient payment. Expected ${expectedAmount} SOL, got ${amount.toFixed(6)} SOL` 
+        error: `Insufficient payment. Expected ${expectedAmount} $DARKFLOBI, got ${amount.toFixed(2)} $DARKFLOBI` 
       };
     }
 
@@ -288,7 +307,7 @@ exports.handler = async (event) => {
       };
     }
 
-    // Verify payment
+    // Verify $DARKFLOBI payment
     const expectedAmount = PRICES[tier];
     const paymentResult = await verifyPayment(txSignature, expectedAmount);
 
@@ -327,37 +346,7 @@ exports.handler = async (event) => {
     // Generate wolf ID
     const wolfId = generateWolfId();
 
-    // For premium tier, register on Moltbook
-    let moltbookResult = null;
-    if (tier === 'premium') {
-      const fullDescription = `[${wolfType || 'custom'}] ${description}`;
-      moltbookResult = await registerOnMoltbook(sanitizedName, fullDescription);
-      
-      if (!moltbookResult.success) {
-        logSpawn({ 
-          status: 'moltbook_failed', 
-          wolfId,
-          wolfName: sanitizedName,
-          error: moltbookResult.error,
-          txSignature: txSignature.slice(0, 20) + '...',
-          ip: clientIP 
-        });
-        return {
-          statusCode: 500,
-          headers,
-          body: JSON.stringify({
-            error: 'Moltbook registration failed',
-            details: moltbookResult.error,
-            wolfId,
-            txSignature,
-            refundEligible: true,
-            amount: paymentResult.amount
-          })
-        };
-      }
-    }
-
-    // Success!
+    // Success! Simple wolf spawn - no moltbook needed
     const response = {
       success: true,
       wolfId,
@@ -366,24 +355,13 @@ exports.handler = async (event) => {
       tier,
       payment: {
         amount: paymentResult.amount,
+        token: '$DARKFLOBI',
         txSignature
-      }
+      },
+      note: tier === 'premium' 
+        ? `Wolf spawned! Your wolf ${sanitizedName} is ready. DM @darkflobi to activate.`
+        : `Wolf spawned! DM @darkflobi to assign tasks to ${sanitizedName}.`
     };
-
-    if (tier === 'premium' && moltbookResult) {
-      response.moltbook = {
-        registered: true,
-        apiKey: moltbookResult.apiKey,
-        claimUrl: moltbookResult.claimUrl,
-        profileUrl: moltbookResult.profileUrl,
-        verificationCode: moltbookResult.verificationCode
-      };
-      response.nextStep = 'Claim your wolf to enable posting: ' + moltbookResult.claimUrl;
-    }
-
-    if (tier === 'basic') {
-      response.note = 'Basic wolf created! DM @darkflobi to assign tasks to your wolf.';
-    }
 
     logSpawn({ 
       status: 'success', 
@@ -392,8 +370,8 @@ exports.handler = async (event) => {
       wolfType: wolfType || 'custom',
       tier,
       amount: paymentResult.amount,
-      wallet: paymentResult.sender?.slice(0, 10) + '...',
-      moltbook: tier === 'premium' ? 'registered' : 'n/a'
+      token: 'DARKFLOBI',
+      wallet: paymentResult.sender?.slice(0, 10) + '...'
     });
 
     return {

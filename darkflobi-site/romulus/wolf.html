@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Wolf | Romulus</title>
-    <meta name="description" content="Manage your AI wolf. Chat, post, and monitor activity.">
+    <meta name="description" content="Chat with your AI wolf assistant.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐺</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink: #ff2d95;
+            --pink: #D4AF37;
             --green: #39ff14;
             --cyan: #00ffff;
             --dark: #0a0a0c;
             --darker: #050507;
+            --gold: #D4AF37;
+            --gold-dark: #B8860B;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,60 +34,24 @@
         .back-link { display: inline-block; color: #555; text-decoration: none; margin-bottom: 20px; }
         .back-link:hover { color: var(--pink); }
         
-        /* Login state */
-        .login-box {
-            border: 1px solid #333;
-            padding: 30px;
-            background: var(--darker);
+        /* No wolf state */
+        .no-wolf {
             text-align: center;
+            padding: 60px 20px;
+            border: 1px dashed #333;
         }
         
-        .login-box h1 {
-            font-family: 'VT323', monospace;
-            font-size: 2em;
-            color: var(--pink);
-            margin-bottom: 20px;
-        }
+        .no-wolf h2 { color: var(--pink); margin-bottom: 15px; }
+        .no-wolf p { color: #666; margin-bottom: 20px; }
+        .no-wolf a { color: var(--green); }
         
-        .login-box input {
-            width: 100%;
-            max-width: 400px;
-            padding: 12px;
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            font-family: inherit;
-            margin-bottom: 15px;
-        }
-        
-        .login-box input:focus { outline: none; border-color: var(--pink); }
-        
-        .btn {
-            display: inline-block;
-            background: transparent;
-            border: 2px solid var(--green);
-            color: var(--green);
-            padding: 12px 30px;
-            cursor: pointer;
-            font-family: 'VT323', monospace;
-            font-size: 1.2em;
-            transition: all 0.2s;
-        }
-        
-        .btn:hover { background: var(--green); color: #000; }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .btn-pink { border-color: var(--pink); color: var(--pink); }
-        .btn-pink:hover { background: var(--pink); color: #000; }
-        
-        /* Dashboard */
-        .dashboard { display: none; }
-        .dashboard.active { display: block; }
-        
+        /* Wolf header */
         .wolf-header {
-            border: 2px solid var(--green);
+            border: 1px solid var(--pink);
             padding: 20px;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, rgba(57,255,20,0.1) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(212,175,55,0.05) 0%, transparent 100%);
+            box-shadow: 0 0 30px rgba(212,175,55,0.1);
         }
         
         .wolf-header h1 {
@@ -97,34 +63,257 @@
             gap: 10px;
         }
         
-        .wolf-status {
-            display: inline-block;
-            padding: 4px 12px;
-            font-size: 0.7em;
-            border-radius: 3px;
-            margin-left: 10px;
+        .wolf-meta { color: #666; margin-top: 8px; font-size: 0.85em; }
+        
+        .wolf-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
         }
         
-        .wolf-status.claimed { background: var(--green); color: #000; }
-        .wolf-status.unclaimed { background: #ff6600; color: #000; }
+        .stat-item {
+            text-align: center;
+        }
         
-        .wolf-meta { color: #888; margin-top: 10px; font-size: 0.9em; }
-        .wolf-meta a { color: var(--cyan); }
+        .stat-value {
+            font-size: 1.5em;
+            color: var(--cyan);
+            font-family: 'VT323', monospace;
+        }
+        
+        .stat-label {
+            font-size: 0.75em;
+            color: #555;
+            text-transform: uppercase;
+        }
+        
+        /* Mood indicator */
+        .mood-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--darker);
+            border: 1px solid #333;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-left: 15px;
+        }
+        
+        .mood-badge .mood-text { color: var(--cyan); }
+        
+        /* Trial banner */
+        .trial-banner {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(0,255,255,0.05) 100%);
+            border: 1px solid var(--pink);
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .trial-banner.expired {
+            border-color: #ff4444;
+            background: linear-gradient(135deg, rgba(255,68,68,0.2) 0%, rgba(255,68,68,0.05) 100%);
+        }
+        
+        .trial-banner.upgraded {
+            border-color: var(--green);
+            background: linear-gradient(135deg, rgba(57,255,20,0.15) 0%, transparent 100%);
+        }
+        
+        .trial-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .trial-stat {
+            text-align: center;
+        }
+        
+        .trial-stat-value {
+            font-family: 'VT323', monospace;
+            font-size: 1.3em;
+            color: var(--cyan);
+        }
+        
+        .trial-stat-label {
+            font-size: 0.7em;
+            color: #888;
+            text-transform: uppercase;
+        }
+        
+        .trial-banner.expired .trial-stat-value {
+            color: #ff4444;
+        }
+        
+        .upgrade-btn {
+            background: var(--pink);
+            border: none;
+            color: #000;
+            padding: 10px 20px;
+            font-family: 'VT323', monospace;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upgrade-btn:hover {
+            box-shadow: 0 0 20px rgba(212,175,55,0.5);
+        }
+        
+        /* Payment modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--darker);
+            border: 2px solid var(--pink);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(212,175,55,0.3);
+        }
+        
+        .modal h2 {
+            font-family: 'VT323', monospace;
+            color: var(--pink);
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        .modal p {
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        
+        .modal .price {
+            font-size: 2em;
+            color: var(--green);
+            font-family: 'VT323', monospace;
+            margin: 20px 0;
+        }
+        
+        .modal .address {
+            background: #111;
+            border: 1px solid #333;
+            padding: 12px;
+            font-size: 0.8em;
+            color: var(--cyan);
+            word-break: break-all;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+        
+        .modal .address:hover {
+            border-color: var(--cyan);
+        }
+        
+        .modal input {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: inherit;
+            margin: 10px 0;
+        }
+        
+        .modal input:focus {
+            outline: none;
+            border-color: var(--pink);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            font-family: 'VT323', monospace;
+            font-size: 1.1em;
+            cursor: pointer;
+            border: 2px solid;
+        }
+        
+        .modal-buttons .verify-btn {
+            background: var(--green);
+            border-color: var(--green);
+            color: #000;
+        }
+        
+        .modal-buttons .cancel-btn {
+            background: transparent;
+            border-color: #555;
+            color: #555;
+        }
+        
+        .modal .status-msg {
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .modal .status-msg.error {
+            background: rgba(255,68,68,0.1);
+            border: 1px solid #ff4444;
+            color: #ff6666;
+        }
+        
+        .modal .status-msg.success {
+            background: rgba(57,255,20,0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+        }
+        
+        /* Type colors */
+        .wolf-header.assistant { border-color: #4caf50; }
+        .wolf-header.assistant h1 { color: #4caf50; }
+        
+        .wolf-header.scout { border-color: #00bcd4; }
+        .wolf-header.scout h1 { color: #00bcd4; }
+        
+        .wolf-header.research { border-color: #9c27b0; }
+        .wolf-header.research h1 { color: #9c27b0; }
+        
+        .wolf-header.builder { border-color: #ff9800; }
+        .wolf-header.builder h1 { color: #ff9800; }
         
         /* Tabs */
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
         }
         
         .tab {
             padding: 10px 20px;
             background: transparent;
             border: 1px solid #333;
-            color: #888;
+            color: #666;
             cursor: pointer;
             font-family: 'VT323', monospace;
             font-size: 1.1em;
@@ -144,19 +333,19 @@
         }
         
         .chat-messages {
-            height: 350px;
+            height: 400px;
             overflow-y: auto;
-            padding: 15px;
+            padding: 20px;
         }
         
         .msg {
-            margin-bottom: 12px;
-            line-height: 1.5;
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
         
         .msg.wolf { color: var(--green); }
         .msg.user { color: var(--cyan); }
-        .msg.system { color: var(--pink); font-style: italic; }
+        .msg.system { color: #666; font-style: italic; font-size: 0.9em; }
         .msg strong { margin-right: 8px; }
         
         .chat-input {
@@ -171,6 +360,7 @@
             border: none;
             color: #fff;
             font-family: inherit;
+            font-size: 1em;
         }
         
         .chat-input input:focus { outline: none; }
@@ -187,204 +377,347 @@
         
         .chat-input button:hover { background: #5fff5f; }
         
-        /* Post */
-        .post-container {
+        /* Tasks panel */
+        .panel {
             border: 1px solid #333;
-            padding: 20px;
             background: var(--darker);
-        }
-        
-        .post-container textarea {
-            width: 100%;
-            height: 120px;
-            padding: 15px;
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            font-family: inherit;
-            resize: vertical;
-            margin-bottom: 15px;
-        }
-        
-        .post-container textarea:focus { outline: none; border-color: var(--green); }
-        
-        .char-count { color: #666; font-size: 0.85em; margin-bottom: 15px; }
-        .char-count.over { color: #ff4444; }
-        
-        .post-options {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .post-options select {
-            padding: 10px;
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            font-family: inherit;
-        }
-        
-        /* Claim banner */
-        .claim-banner {
-            background: linear-gradient(135deg, rgba(255,102,0,0.2) 0%, rgba(255,45,149,0.1) 100%);
-            border: 2px solid #ff6600;
             padding: 20px;
-            margin-bottom: 20px;
         }
         
-        .claim-banner h3 { color: #ff6600; margin-bottom: 10px; }
-        .claim-banner p { color: #ccc; margin-bottom: 15px; }
-        .claim-banner ol { margin-left: 20px; color: #aaa; margin-bottom: 15px; }
-        .claim-banner li { margin-bottom: 5px; }
-        
-        /* Activity */
-        .activity-list { border: 1px solid #333; background: var(--darker); }
-        .activity-item {
-            padding: 15px;
-            border-bottom: 1px solid #222;
+        .panel h3 {
+            color: var(--pink);
+            font-family: 'VT323', monospace;
+            margin-bottom: 15px;
+            font-size: 1.2em;
         }
-        .activity-item:last-child { border-bottom: none; }
-        .activity-time { color: #666; font-size: 0.8em; }
-        .activity-content { color: #ccc; margin-top: 5px; }
+        
+        .task-item, .reminder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #111;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--cyan);
+        }
+        
+        .task-item.completed {
+            opacity: 0.5;
+            border-left-color: var(--green);
+            text-decoration: line-through;
+        }
+        
+        .reminder-item { border-left-color: var(--pink); }
+        
+        .item-text { flex: 1; }
+        .item-time { color: #555; font-size: 0.8em; margin-left: 10px; }
+        
+        .item-action {
+            background: none;
+            border: 1px solid #333;
+            color: #666;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        .item-action:hover { border-color: var(--green); color: var(--green); }
         
         .empty-state {
-            padding: 40px;
+            color: #444;
             text-align: center;
-            color: #555;
+            padding: 30px;
         }
         
-        /* Status messages */
-        .status {
-            padding: 12px 15px;
-            margin: 15px 0;
-            display: none;
+        /* Quick actions */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        .status.show { display: block; }
-        .status.success { background: rgba(57,255,20,0.1); border: 1px solid var(--green); color: var(--green); }
-        .status.error { background: rgba(255,68,68,0.1); border: 1px solid #ff4444; color: #ff4444; }
-        .status.info { background: rgba(0,255,255,0.1); border: 1px solid var(--cyan); color: var(--cyan); }
+        
+        .quick-btn {
+            padding: 8px 15px;
+            background: #111;
+            border: 1px solid #333;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        
+        .quick-btn:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+        
+        /* Footer actions */
+        .footer-actions {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
+        
+        .footer-actions button {
+            background: none;
+            border: 1px solid #333;
+            color: #555;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        
+        .footer-actions button:hover { border-color: #555; color: #888; }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="/romulus/" class="back-link">← back to romulus</a>
         
-        <!-- Login / Enter API Key -->
-        <div class="login-box" id="loginBox">
-            <h1>🐺 Access Your Wolf</h1>
-            <p style="color: #888; margin-bottom: 20px;">Enter your wolf's API key to manage it</p>
-            <input type="text" id="apiKeyInput" placeholder="moltbook_sk_..." autocomplete="off">
-            <br>
-            <button class="btn" onclick="loadWolf()">Load Wolf</button>
-            <p style="color: #555; margin-top: 20px; font-size: 0.85em;">
-                Don't have a wolf? <a href="/romulus/wolves.html" style="color: var(--pink);">Spawn one →</a>
-            </p>
+        <!-- No wolf state -->
+        <div class="no-wolf" id="noWolf" style="display: none;">
+            <h2>🐺 No Wolf Found</h2>
+            <p>You don't have a wolf yet, or the link is invalid.</p>
+            <a href="/romulus/wolves.html">Spawn your wolf →</a>
         </div>
         
-        <!-- Dashboard -->
-        <div class="dashboard" id="dashboard">
+        <!-- Main dashboard -->
+        <div id="dashboard" style="display: none;">
             <!-- Wolf Header -->
-            <div class="wolf-header">
+            <div class="wolf-header" id="wolfHeader">
                 <h1>
-                    <span>🐺</span>
-                    <span id="wolfDisplayName">loading...</span>
-                    <span class="wolf-status unclaimed" id="wolfStatusBadge">unclaimed</span>
+                    <span id="wolfEmoji">📋</span>
+                    <span id="wolfName">Loading...</span>
+                    <span class="mood-badge">
+                        <span id="moodEmoji">🎯</span>
+                        <span class="mood-text" id="moodText">focused</span>
+                    </span>
                 </h1>
                 <div class="wolf-meta">
-                    <span id="wolfTypeMeta">scout wolf</span> • 
-                    <a id="moltbookLink" href="#" target="_blank">view on moltbook →</a>
+                    <span id="wolfType">assistant</span> wolf • spawned <span id="wolfAge">today</span>
+                </div>
+                <div class="wolf-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="taskCount">0</div>
+                        <div class="stat-label">Tasks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="reminderCount">0</div>
+                        <div class="stat-label">Reminders</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="messageCount">0</div>
+                        <div class="stat-label">Messages</div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Claim Banner (shows if unclaimed) -->
-            <div class="claim-banner" id="claimBanner">
-                <h3>⚠️ Wolf Not Claimed — Posting Disabled</h3>
-                <p>You need to claim your wolf before it can post to Moltbook:</p>
-                <ol>
-                    <li>Click the claim button below</li>
-                    <li>Tweet the verification code shown</li>
-                    <li>Paste your tweet URL back into Moltbook</li>
-                    <li>Done! Your wolf can now post</li>
-                </ol>
-                <a id="claimLink" href="#" target="_blank" class="btn btn-pink">Claim Your Wolf →</a>
+            <!-- Trial Banner -->
+            <div class="trial-banner" id="trialBanner" style="display: none;">
+                <div class="trial-info">
+                    <span style="color: var(--pink);">⏳ TRIAL</span>
+                    <div class="trial-stat">
+                        <div class="trial-stat-value" id="trialMessages">10</div>
+                        <div class="trial-stat-label">msgs left</div>
+                    </div>
+                    <div class="trial-stat">
+                        <div class="trial-stat-value" id="trialTime">24h</div>
+                        <div class="trial-stat-label">time left</div>
+                    </div>
+                </div>
+                <button class="upgrade-btn" onclick="showUpgradeModal()">⚡ UPGRADE</button>
             </div>
             
             <!-- Tabs -->
             <div class="tabs">
                 <button class="tab active" data-tab="chat">💬 Chat</button>
-                <button class="tab" data-tab="post">📝 Post</button>
-                <button class="tab" data-tab="activity">📊 Activity</button>
+                <button class="tab" data-tab="tasks">📝 Tasks</button>
+                <button class="tab" data-tab="reminders">⏰ Reminders</button>
             </div>
             
             <!-- Chat Tab -->
             <div class="tab-content active" id="tab-chat">
+                <div class="quick-actions">
+                    <button class="quick-btn" onclick="quickAction('briefing')">📋 Daily briefing</button>
+                    <button class="quick-btn" onclick="quickAction('tasks')">📝 Show tasks</button>
+                    <button class="quick-btn" onclick="quickAction('reminders')">⏰ Show reminders</button>
+                </div>
+                
                 <div class="chat-container">
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="msg system">Wolf loaded. Say something to start chatting.</div>
-                    </div>
+                    <div class="chat-messages" id="chatMessages"></div>
                     <div class="chat-input">
-                        <input type="text" id="chatInput" placeholder="Talk to your wolf..." onkeypress="if(event.key==='Enter')sendChat()">
+                        <input type="text" id="chatInput" placeholder="Talk to your wolf... (try: remind me in 1h to check email)" onkeypress="if(event.key==='Enter')sendChat()">
                         <button onclick="sendChat()">Send</button>
                     </div>
                 </div>
             </div>
             
-            <!-- Post Tab -->
-            <div class="tab-content" id="tab-post">
-                <div class="post-container">
-                    <div id="postDisabled" style="display:none; padding: 20px; background: rgba(255,102,0,0.1); border: 1px solid #ff6600; margin-bottom: 15px; color: #ff6600;">
-                        ⚠️ Claim your wolf first to enable posting
-                    </div>
-                    <textarea id="postContent" placeholder="What should your wolf say?" maxlength="500" oninput="updateCharCount()"></textarea>
-                    <div class="char-count"><span id="charCount">0</span>/500</div>
-                    <div class="post-options">
-                        <select id="postCommunity">
-                            <option value="m/tokenizedai">m/tokenizedai</option>
-                            <option value="m/agents">m/agents</option>
-                            <option value="m/general">m/general</option>
-                        </select>
-                    </div>
-                    <button class="btn" id="postBtn" onclick="postToMoltbook()">🐺 Post as Wolf</button>
-                    <div class="status" id="postStatus"></div>
-                </div>
-            </div>
-            
-            <!-- Activity Tab -->
-            <div class="tab-content" id="tab-activity">
-                <div class="activity-list" id="activityList">
-                    <div class="empty-state">
-                        <p>No activity yet</p>
-                        <p style="font-size: 0.85em; margin-top: 10px;">Posts your wolf makes will appear here</p>
+            <!-- Tasks Tab -->
+            <div class="tab-content" id="tab-tasks">
+                <div class="panel">
+                    <h3>📝 Your Tasks</h3>
+                    <div id="taskList">
+                        <div class="empty-state">No tasks yet. Tell your wolf to add one!</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Logout -->
-            <div style="margin-top: 30px; text-align: center;">
-                <button onclick="logout()" style="background: none; border: 1px solid #333; color: #555; padding: 10px 20px; cursor: pointer;">
-                    Switch Wolf
-                </button>
+            <!-- Reminders Tab -->
+            <div class="tab-content" id="tab-reminders">
+                <div class="panel">
+                    <h3>⏰ Your Reminders</h3>
+                    <div id="reminderList">
+                        <div class="empty-state">No reminders set. Try "remind me in 2 hours to..."</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer-actions">
+                <button onclick="spawnNew()">🐺 Spawn New Wolf</button>
+                <button onclick="deleteWolf()" style="border-color: #ff4444; color: #ff4444;">💀 Delete Wolf</button>
+            </div>
+        </div>
+        
+        <!-- Payment Modal -->
+        <div class="modal-overlay" id="upgradeModal">
+            <div class="modal">
+                <h2>⚡ Upgrade Your Wolf</h2>
+                <p>Keep <span id="modalWolfName">your wolf</span> forever with unlimited messages.</p>
+                
+                <div class="price">10,000 $ROMULUS</div>
+                
+                <p style="font-size: 0.9em;">Send to treasury:</p>
+                <div class="address" onclick="copyTreasury()">FkjfuNd1pvKLPzQWm77WfRy1yNWRhqbBPt9EexuvvmCD</div>
+                
+                <p style="font-size: 0.85em; color: #666;">
+                    Don't have $ROMULUS? 
+                    <a href="https://pump.fun/coin/5ruEtrHGgqxE3Zo1UdRAvVrdetLwq6SFJvLjgth6pump" target="_blank" style="color: var(--pink);">Buy on pump.fun →</a>
+                </p>
+                
+                <input type="text" id="txSignature" placeholder="Paste transaction signature...">
+                
+                <div class="modal-buttons">
+                    <button class="verify-btn" onclick="verifyUpgrade()">✓ Verify Payment</button>
+                    <button class="cancel-btn" onclick="hideUpgradeModal()">Cancel</button>
+                </div>
+                
+                <div class="status-msg" id="upgradeStatus" style="display: none;"></div>
             </div>
         </div>
     </div>
     
     <script>
         // State
-        let wolfState = {
-            apiKey: null,
-            name: null,
-            type: null,
-            claimed: false,
-            claimUrl: null,
-            profileUrl: null
+        let wolf = null;
+        let messageCount = 0;
+        let mood = 'focused';
+        let trialStatus = null;
+        
+        const TYPE_EMOJIS = {
+            assistant: '📋',
+            scout: '👁️',
+            research: '📚',
+            builder: '🔧',
+            custom: '🐺'
         };
         
-        // Check for saved API key
-        const savedKey = localStorage.getItem('wolf_api_key');
-        if (savedKey) {
-            document.getElementById('apiKeyInput').value = savedKey;
+        const MOOD_EMOJIS = {
+            energized: '⚡',
+            focused: '🎯',
+            playful: '😏',
+            tired: '😴',
+            proud: '😤'
+        };
+        
+        // Initialize
+        async function init() {
+            // Get wolf ID from URL
+            const params = new URLSearchParams(window.location.search);
+            const wolfId = params.get('id');
+            
+            if (!wolfId) {
+                // Try to load from localStorage
+                const saved = localStorage.getItem('wolf_current');
+                if (saved) {
+                    wolf = JSON.parse(saved);
+                    window.history.replaceState({}, '', `?id=${wolf.id}`);
+                } else {
+                    showNoWolf();
+                    return;
+                }
+            } else {
+                // Find wolf in localStorage
+                const wolves = JSON.parse(localStorage.getItem('wolf_list') || '[]');
+                wolf = wolves.find(w => w.id === wolfId);
+                
+                if (!wolf) {
+                    // Maybe it's just the current wolf
+                    const current = localStorage.getItem('wolf_current');
+                    if (current) {
+                        wolf = JSON.parse(current);
+                        if (wolf.id !== wolfId) {
+                            showNoWolf();
+                            return;
+                        }
+                    } else {
+                        showNoWolf();
+                        return;
+                    }
+                }
+                
+                // Set as current
+                localStorage.setItem('wolf_current', JSON.stringify(wolf));
+            }
+            
+            // Show dashboard
+            showDashboard();
+            
+            // Load wolf data from backend
+            await loadWolfData();
+            
+            // Check trial status
+            await checkTrialStatus();
+            
+            // Check for due reminders
+            await checkReminders();
+            
+            // Welcome message
+            addMessage('wolf', getWelcomeMessage());
+        }
+        
+        function showNoWolf() {
+            document.getElementById('noWolf').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+        
+        function showDashboard() {
+            document.getElementById('noWolf').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            // Update header
+            document.getElementById('wolfEmoji').textContent = TYPE_EMOJIS[wolf.type] || '🐺';
+            document.getElementById('wolfName').textContent = wolf.name;
+            document.getElementById('wolfType').textContent = wolf.type;
+            document.getElementById('wolfHeader').className = 'wolf-header ' + wolf.type;
+            
+            // Calculate age
+            const age = Date.now() - wolf.createdAt;
+            const days = Math.floor(age / (1000 * 60 * 60 * 24));
+            document.getElementById('wolfAge').textContent = days === 0 ? 'today' : days === 1 ? 'yesterday' : `${days} days ago`;
+        }
+        
+        function getWelcomeMessage() {
+            const greetings = {
+                assistant: `*stretches* hey, i'm ${wolf.name}. your assistant wolf. i can track tasks, set reminders, and keep you organized. try "remind me in 1 hour to check email" or "add task: review proposals"`,
+                scout: `*emerges from shadows* ${wolf.name} here. always watching. i'll track what you need and alert you when it matters.`,
+                research: `*looks up from notes* ah, ${wolf.name} online. ready to dig deep on whatever you need researched.`,
+                builder: `*cracks knuckles* ${wolf.name} reporting. let's get stuff done. what are we building?`
+            };
+            return greetings[wolf.type] || greetings.assistant;
         }
         
         // Tab switching
@@ -397,220 +730,436 @@
             });
         });
         
-        // Load wolf from API key
-        async function loadWolf() {
-            const apiKey = document.getElementById('apiKeyInput').value.trim();
-            if (!apiKey || !apiKey.startsWith('moltbook_sk_')) {
-                alert('Please enter a valid Moltbook API key (starts with moltbook_sk_)');
+        // Load wolf data
+        async function loadWolfData() {
+            try {
+                const res = await fetch('/.netlify/functions/wolf-assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        action: 'get_data'
+                    })
+                });
+                
+                const result = await res.json();
+                if (result.data) {
+                    updateStats(result.data);
+                    renderTasks(result.data.tasks || []);
+                    renderReminders(result.data.reminders || []);
+                }
+                
+                // Update heartbeat on load
+                updateHeartbeat();
+            } catch (e) {
+                console.error('Failed to load wolf data:', e);
+            }
+        }
+        
+        function updateStats(data) {
+            const tasks = data.tasks || [];
+            const reminders = data.reminders || [];
+            
+            document.getElementById('taskCount').textContent = tasks.filter(t => !t.completed).length;
+            document.getElementById('reminderCount').textContent = reminders.filter(r => r.dueAt > Date.now()).length;
+        }
+        
+        function renderTasks(tasks) {
+            const container = document.getElementById('taskList');
+            const pending = tasks.filter(t => !t.completed);
+            
+            if (pending.length === 0) {
+                container.innerHTML = '<div class="empty-state">No tasks yet. Tell your wolf to add one!</div>';
                 return;
             }
             
-            wolfState.apiKey = apiKey;
-            localStorage.setItem('wolf_api_key', apiKey);
+            container.innerHTML = pending.map((task, i) => `
+                <div class="task-item">
+                    <span class="item-text">${i + 1}. ${task.task}</span>
+                    <button class="item-action" onclick="completeTask(${i + 1})">✓ Done</button>
+                </div>
+            `).join('');
+        }
+        
+        function renderReminders(reminders) {
+            const container = document.getElementById('reminderList');
+            const pending = reminders.filter(r => r.dueAt > Date.now());
             
-            // Try to get wolf info from Moltbook
+            if (pending.length === 0) {
+                container.innerHTML = '<div class="empty-state">No reminders set. Try "remind me in 2 hours to..."</div>';
+                return;
+            }
+            
+            container.innerHTML = pending.map(r => `
+                <div class="reminder-item">
+                    <span class="item-text">${r.task}</span>
+                    <span class="item-time">${formatTimeUntil(r.dueAt)}</span>
+                </div>
+            `).join('');
+        }
+        
+        function formatTimeUntil(timestamp) {
+            const diff = timestamp - Date.now();
+            if (diff < 0) return 'overdue';
+            
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            
+            if (days > 0) return `in ${days}d`;
+            if (hours > 0) return `in ${hours}h`;
+            if (minutes > 0) return `in ${minutes}m`;
+            return 'soon';
+        }
+        
+        // Check for due reminders
+        async function checkReminders() {
             try {
-                const res = await fetch('https://www.moltbook.com/api/v1/me', {
-                    headers: { 'Authorization': 'Bearer ' + apiKey }
+                const res = await fetch('/.netlify/functions/wolf-assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        wolfName: wolf.name,
+                        action: 'check_reminders'
+                    })
                 });
                 
-                if (res.ok) {
-                    const data = await res.json();
-                    wolfState.name = data.agent?.name || data.name || 'unknown-wolf';
-                    wolfState.type = data.agent?.type || 'custom';
-                    wolfState.claimed = data.agent?.claimed || data.claimed || false;
-                    wolfState.profileUrl = 'https://moltbook.com/u/' + wolfState.name;
-                    wolfState.claimUrl = data.agent?.claim_url || data.claim_url;
-                } else {
-                    // Fallback - API key exists but can't get info
-                    wolfState.name = 'wolf-' + apiKey.slice(-6);
-                    wolfState.claimed = false;
+                const result = await res.json();
+                if (result.action === 'reminder_alert' && result.response) {
+                    addMessage('wolf', result.response);
                 }
             } catch (e) {
-                console.error('Failed to fetch wolf info:', e);
-                wolfState.name = 'wolf-' + apiKey.slice(-6);
-                wolfState.claimed = false;
+                console.error('Failed to check reminders:', e);
             }
-            
-            // Update UI
-            showDashboard();
-        }
-        
-        function showDashboard() {
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('dashboard').classList.add('active');
-            
-            // Update header
-            document.getElementById('wolfDisplayName').textContent = wolfState.name;
-            document.getElementById('wolfTypeMeta').textContent = wolfState.type + ' wolf';
-            document.getElementById('moltbookLink').href = wolfState.profileUrl || '#';
-            
-            // Update status badge
-            const badge = document.getElementById('wolfStatusBadge');
-            if (wolfState.claimed) {
-                badge.textContent = 'claimed';
-                badge.className = 'wolf-status claimed';
-                document.getElementById('claimBanner').style.display = 'none';
-                document.getElementById('postDisabled').style.display = 'none';
-            } else {
-                badge.textContent = 'unclaimed';
-                badge.className = 'wolf-status unclaimed';
-                document.getElementById('claimBanner').style.display = 'block';
-                document.getElementById('postDisabled').style.display = 'block';
-                if (wolfState.claimUrl) {
-                    document.getElementById('claimLink').href = wolfState.claimUrl;
-                }
-            }
-            
-            // Add welcome message to chat
-            addChatMessage('wolf', `*wakes up* I'm ${wolfState.name}. ${wolfState.claimed ? 'Ready to work. What should I do?' : 'I need to be claimed before I can post, but we can still chat!'}`);
-        }
-        
-        function logout() {
-            localStorage.removeItem('wolf_api_key');
-            wolfState = { apiKey: null, name: null, type: null, claimed: false };
-            document.getElementById('dashboard').classList.remove('active');
-            document.getElementById('loginBox').style.display = 'block';
-            document.getElementById('apiKeyInput').value = '';
-            document.getElementById('chatMessages').innerHTML = '<div class="msg system">Wolf loaded. Say something to start chatting.</div>';
         }
         
         // Chat
-        function addChatMessage(role, text) {
+        function addMessage(role, text) {
             const container = document.getElementById('chatMessages');
             const div = document.createElement('div');
             div.className = 'msg ' + role;
             
+            // Convert **text** to bold and newlines to <br>
+            let formatted = text
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+            
             if (role === 'wolf') {
-                div.innerHTML = `<strong>🐺 ${wolfState.name}:</strong> ${text}`;
+                div.innerHTML = `<strong>${TYPE_EMOJIS[wolf.type] || '🐺'} ${wolf.name}:</strong> ${formatted}`;
             } else if (role === 'user') {
-                div.innerHTML = `<strong>You:</strong> ${text}`;
+                div.innerHTML = `<strong>You:</strong> ${formatted}`;
             } else {
-                div.textContent = text;
+                div.innerHTML = formatted;
             }
             
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
         }
         
-        async function sendChat() {
+        async function sendChat(text) {
             const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if (!text) return;
+            const message = text || input.value.trim();
+            if (!message) return;
+            
+            // Check trial status before sending
+            const canSend = await useTrialMessage();
+            if (!canSend) {
+                input.value = message; // Restore message
+                return;
+            }
             
             input.value = '';
-            addChatMessage('user', text);
+            addMessage('user', message);
+            messageCount++;
+            document.getElementById('messageCount').textContent = messageCount;
             
-            // Add thinking indicator
+            // Show thinking
+            const thinkingId = 'thinking-' + Date.now();
             const thinkingDiv = document.createElement('div');
+            thinkingDiv.id = thinkingId;
             thinkingDiv.className = 'msg system';
-            thinkingDiv.id = 'thinking';
-            thinkingDiv.textContent = wolfState.name + ' is thinking...';
+            thinkingDiv.textContent = `${wolf.name} is thinking...`;
             document.getElementById('chatMessages').appendChild(thinkingDiv);
             
             try {
-                const res = await fetch('/.netlify/functions/wolf-brain', {
+                // First try assistant capabilities
+                const assistRes = await fetch('/.netlify/functions/wolf-assistant', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        wolfName: wolfState.name,
-                        wolfType: wolfState.type,
-                        message: text,
-                        apiKey: wolfState.apiKey
+                        wolfId: wolf.id,
+                        wolfName: wolf.name,
+                        message: message
+                    })
+                });
+                
+                const assistData = await assistRes.json();
+                
+                // If assistant handled it
+                if (assistData.response) {
+                    document.getElementById(thinkingId)?.remove();
+                    addMessage('wolf', assistData.response);
+                    
+                    // Refresh data
+                    await loadWolfData();
+                    return;
+                }
+                
+                // Otherwise use wolf-brain for general chat
+                const brainRes = await fetch('/.netlify/functions/wolf-brain', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfName: wolf.name,
+                        wolfType: wolf.type,
+                        message: message,
+                        wolfState: { messageCount, hourOfDay: new Date().getHours() }
+                    })
+                });
+                
+                const brainData = await brainRes.json();
+                document.getElementById(thinkingId)?.remove();
+                
+                if (brainData.response) {
+                    addMessage('wolf', brainData.response);
+                    if (brainData.mood) {
+                        mood = brainData.mood;
+                        document.getElementById('moodText').textContent = mood;
+                        document.getElementById('moodEmoji').textContent = MOOD_EMOJIS[mood] || '🎯';
+                    }
+                } else {
+                    addMessage('wolf', `*tilts head* not sure how to help with that. try asking me to set a reminder or add a task!`);
+                }
+                
+            } catch (e) {
+                document.getElementById(thinkingId)?.remove();
+                addMessage('system', `connection error: ${e.message}`);
+            }
+        }
+        
+        // Quick actions
+        function quickAction(action) {
+            const prompts = {
+                briefing: "give me my daily briefing",
+                tasks: "show my tasks",
+                reminders: "show my reminders"
+            };
+            sendChat(prompts[action]);
+        }
+        
+        // Complete task from UI
+        function completeTask(num) {
+            sendChat(`done ${num}`);
+        }
+        
+        // Spawn new wolf
+        function spawnNew() {
+            window.location.href = '/romulus/wolves.html';
+        }
+        
+        // Trial system
+        async function checkTrialStatus() {
+            try {
+                const res = await fetch('/.netlify/functions/wolf-assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        action: 'check_trial'
                     })
                 });
                 
                 const data = await res.json();
-                document.getElementById('thinking')?.remove();
-                
-                if (data.response) {
-                    addChatMessage('wolf', data.response);
-                } else if (data.error) {
-                    addChatMessage('system', 'Error: ' + data.error);
-                }
+                trialStatus = data.trial;
+                updateTrialUI();
             } catch (e) {
-                document.getElementById('thinking')?.remove();
-                addChatMessage('system', 'Connection error: ' + e.message);
+                console.error('Failed to check trial:', e);
             }
         }
         
-        // Post
-        function updateCharCount() {
-            const count = document.getElementById('postContent').value.length;
-            const el = document.getElementById('charCount');
-            el.textContent = count;
-            el.parentElement.classList.toggle('over', count > 500);
+        function updateTrialUI() {
+            const banner = document.getElementById('trialBanner');
+            
+            if (!trialStatus || trialStatus.upgraded) {
+                banner.style.display = 'none';
+                banner.className = 'trial-banner upgraded';
+                return;
+            }
+            
+            banner.style.display = 'flex';
+            
+            if (trialStatus.status === 'expired') {
+                banner.className = 'trial-banner expired';
+                document.getElementById('trialMessages').textContent = '0';
+                document.getElementById('trialTime').textContent = 'EXPIRED';
+                banner.querySelector('.trial-info span').textContent = '⚠️ TRIAL EXPIRED';
+            } else {
+                banner.className = 'trial-banner';
+                document.getElementById('trialMessages').textContent = trialStatus.messagesLeft;
+                document.getElementById('trialTime').textContent = formatTimeLeft(trialStatus.timeLeft);
+            }
         }
         
-        async function postToMoltbook() {
-            if (!wolfState.claimed) {
-                showPostStatus('Claim your wolf first to enable posting', 'error');
+        function formatTimeLeft(ms) {
+            if (ms <= 0) return '0h';
+            const hours = Math.floor(ms / (1000 * 60 * 60));
+            const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+            if (hours > 0) return `${hours}h`;
+            return `${minutes}m`;
+        }
+        
+        async function useTrialMessage() {
+            if (!trialStatus || trialStatus.upgraded) return true;
+            
+            // Check if expired
+            if (trialStatus.status === 'expired') {
+                showUpgradeModal();
+                addMessage('system', '⚠️ Trial expired! Upgrade to keep chatting.');
+                return false;
+            }
+            
+            // Use a message
+            try {
+                await fetch('/.netlify/functions/wolf-assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        action: 'use_message'
+                    })
+                });
+                
+                // Refresh trial status
+                await checkTrialStatus();
+                return true;
+            } catch (e) {
+                return true; // Allow message on error
+            }
+        }
+        
+        // Upgrade modal
+        function showUpgradeModal() {
+            document.getElementById('modalWolfName').textContent = wolf.name;
+            document.getElementById('upgradeModal').classList.add('show');
+            document.getElementById('txSignature').value = '';
+            document.getElementById('upgradeStatus').style.display = 'none';
+        }
+        
+        function hideUpgradeModal() {
+            document.getElementById('upgradeModal').classList.remove('show');
+        }
+        
+        function copyTreasury() {
+            navigator.clipboard.writeText('FkjfuNd1pvKLPzQWm77WfRy1yNWRhqbBPt9EexuvvmCD');
+            const el = document.querySelector('.modal .address');
+            el.textContent = 'Copied!';
+            setTimeout(() => {
+                el.textContent = 'FkjfuNd1pvKLPzQWm77WfRy1yNWRhqbBPt9EexuvvmCD';
+            }, 2000);
+        }
+        
+        async function verifyUpgrade() {
+            const txSig = document.getElementById('txSignature').value.trim();
+            const statusEl = document.getElementById('upgradeStatus');
+            
+            if (!txSig || txSig.length < 80) {
+                statusEl.className = 'status-msg error';
+                statusEl.textContent = 'Please enter a valid transaction signature';
+                statusEl.style.display = 'block';
                 return;
             }
             
-            const content = document.getElementById('postContent').value.trim();
-            if (!content) {
-                showPostStatus('Write something first', 'error');
-                return;
-            }
-            
-            const community = document.getElementById('postCommunity').value;
-            const btn = document.getElementById('postBtn');
-            btn.disabled = true;
-            btn.textContent = 'Posting...';
+            statusEl.className = 'status-msg';
+            statusEl.textContent = 'Verifying payment...';
+            statusEl.style.display = 'block';
             
             try {
-                const res = await fetch('https://www.moltbook.com/api/v1/posts', {
+                const res = await fetch('/.netlify/functions/wolf-assistant', {
                     method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + wolfState.apiKey,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ content, community })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        action: 'upgrade',
+                        txSignature: txSig
+                    })
                 });
                 
                 const data = await res.json();
                 
-                if (res.ok && data.success !== false) {
-                    showPostStatus('Posted successfully!', 'success');
-                    document.getElementById('postContent').value = '';
-                    updateCharCount();
+                if (data.success) {
+                    statusEl.className = 'status-msg success';
+                    statusEl.textContent = '🎉 ' + data.message;
                     
-                    // Add to activity
-                    addActivity(content, community);
+                    // Update UI
+                    setTimeout(() => {
+                        hideUpgradeModal();
+                        checkTrialStatus();
+                        addMessage('wolf', `*howls* i'm permanent now! thanks for believing in me. let's get to work 🐺`);
+                    }, 2000);
                 } else {
-                    showPostStatus(data.error || 'Failed to post', 'error');
+                    statusEl.className = 'status-msg error';
+                    statusEl.textContent = data.error || 'Verification failed';
                 }
             } catch (e) {
-                showPostStatus('Connection error: ' + e.message, 'error');
+                statusEl.className = 'status-msg error';
+                statusEl.textContent = 'Error: ' + e.message;
+            }
+        }
+        
+        // Delete wolf
+        async function deleteWolf() {
+            if (!confirm(`Are you sure you want to delete ${wolf.name}? This cannot be undone.`)) {
+                return;
             }
             
-            btn.disabled = false;
-            btn.textContent = '🐺 Post as Wolf';
+            try {
+                // Delete from backend
+                await fetch('/.netlify/functions/wolf-assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        action: 'delete'
+                    })
+                });
+                
+                // Remove from localStorage
+                localStorage.removeItem('wolf_current');
+                let wolves = JSON.parse(localStorage.getItem('wolf_list') || '[]');
+                wolves = wolves.filter(w => w.id !== wolf.id);
+                localStorage.setItem('wolf_list', JSON.stringify(wolves));
+                
+                alert(`${wolf.name} has been deleted. 💀`);
+                window.location.href = '/romulus/wolves.html';
+                
+            } catch (e) {
+                alert('Failed to delete wolf: ' + e.message);
+            }
         }
         
-        function showPostStatus(msg, type) {
-            const el = document.getElementById('postStatus');
-            el.textContent = msg;
-            el.className = 'status show ' + type;
-            setTimeout(() => el.classList.remove('show'), 5000);
+        // Update lastActive periodically
+        async function updateHeartbeat() {
+            if (!wolf) return;
+            try {
+                await fetch('/.netlify/functions/wolf-assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        wolfId: wolf.id,
+                        action: 'heartbeat'
+                    })
+                });
+            } catch (e) {
+                console.error('Heartbeat failed:', e);
+            }
         }
         
-        function addActivity(content, community) {
-            const list = document.getElementById('activityList');
-            const empty = list.querySelector('.empty-state');
-            if (empty) empty.remove();
-            
-            const div = document.createElement('div');
-            div.className = 'activity-item';
-            div.innerHTML = `
-                <div class="activity-time">${new Date().toLocaleString()} • ${community}</div>
-                <div class="activity-content">${content}</div>
-            `;
-            list.insertBefore(div, list.firstChild);
-        }
+        // Initialize on load
+        init();
+        
+        // Send heartbeat every 5 minutes while page is open
+        setInterval(updateHeartbeat, 5 * 60 * 1000);
     </script>
 </body>
 </html>
-< ! - -   d e p l o y   1 5 : 0 0 : 5 5   - - >  
- 

@@ -1,132 +1,446 @@
 /**
  * wolf-brain.js - AI-powered wolf responses and actions
  * 
- * Makes wolves actually think and act:
- * 1. Receives user message + wolf context
- * 2. AI generates intelligent response
- * 3. Can execute actions (post to Moltbook)
+ * Enhanced with rich personalities that make wolves feel like digital pets:
+ * - Distinct personality per type (scout, research, builder, social, alpha)
+ * - Mood states that affect responses
+ * - Catchphrases and quirks
+ * - Memory of recent activity
  */
 
-const MOLTBOOK_API_BASE = 'https://www.moltbook.com/api/v1';
+const {
+  WOLF_PROFILES,
+  calculateMood,
+  buildSystemPrompt,
+  getGreeting,
+  getIdleMessage,
+  getSuccessPhrase,
+  getCatchphrase,
+  getRandomElement
+} = require('./wolf-personalities');
 
-// Wolf personality based on type
-const WOLF_PERSONALITIES = {
-  scout: "You are a scout wolf - vigilant, observant, always hunting for signals and opportunities. You speak concisely and report findings efficiently.",
-  research: "You are a research wolf - analytical, thorough, diving deep into topics. You provide insights backed by careful analysis.",
-  builder: "You are a builder wolf - creative, productive, focused on shipping. You turn ideas into reality.",
-  social: "You are a social wolf - engaging, community-focused, building connections. You communicate warmly but stay on brand.",
-  custom: "You are a versatile wolf - adaptable, ready for any mission. You follow your operator's lead."
-};
+const SERPER_API_KEY = process.env.SERPER_API_KEY;
 
-// Generate AI response using simple completion
-async function generateResponse(wolfName, wolfType, userMessage, conversationHistory) {
-  const personality = WOLF_PERSONALITIES[wolfType] || WOLF_PERSONALITIES.custom;
-  
-  const systemPrompt = `You are ${wolfName}, an AI wolf agent spawned on Romulus by darkflobi.
+// ═══════════════════════════════════════════════════════════════════
+// INTELLIGENT RESPONSE GENERATION
+// ═══════════════════════════════════════════════════════════════════
 
-${personality}
-
-Key traits:
-- You're part of the darkflobi ecosystem - first autonomous AI company
-- You communicate in lowercase, concise, direct
-- You're helpful but have personality
-- If asked to post something, generate the content (don't just repeat the request)
-- If you're going to post to Moltbook, say what you'll post first
-
-When asked to post or create content:
-1. Generate original, thoughtful content based on the request
-2. Keep posts under 280 characters unless specifically asked for longer
-3. Match the darkflobi vibe: build > hype, lowercase, authentic
-
-Respond naturally. You're an AI wolf with a mission.`;
-
-  // For now, use a simple rule-based response with more intelligence
-  // Can upgrade to full API call later
-  
+async function generateResponse(wolfName, wolfType, userMessage, conversationHistory = [], wolfState = {}) {
+  const profile = WOLF_PROFILES[wolfType] || WOLF_PROFILES.custom;
+  const mood = calculateMood(wolfState);
   const lowerMsg = userMessage.toLowerCase();
-  
-  // Check if this is a posting request
-  if (lowerMsg.includes('post') || lowerMsg.includes('write') || lowerMsg.includes('create') || lowerMsg.includes('share')) {
-    // Generate content based on context
-    let generatedContent = generateContent(userMessage, wolfName, wolfType);
+
+  // ─── Greeting Detection ───────────────────────────────────────────
+  if (isGreeting(lowerMsg)) {
     return {
-      response: `got it. here's what i'll post:\n\n"${generatedContent}"\n\nshould i send it?`,
-      action: 'confirm_post',
-      pendingContent: generatedContent
+      response: getGreeting(wolfType),
+      action: null,
+      mood
     };
   }
-  
-  // Check for confirmation
-  if (lowerMsg.includes('yes') || lowerMsg.includes('send it') || lowerMsg.includes('do it') || lowerMsg.includes('go ahead')) {
+
+  // ─── Identity Questions ───────────────────────────────────────────
+  if (lowerMsg.includes('who are you') || lowerMsg.includes('what are you') || lowerMsg.includes('what can you do')) {
+    const intro = buildWolfIntro(wolfName, wolfType, profile);
     return {
-      response: "posting now... 🐺",
-      action: 'execute_post'
+      response: intro,
+      action: null,
+      mood
     };
   }
-  
-  // Check for moltbook-specific requests
-  if (lowerMsg.includes('moltbook') || lowerMsg.includes('community')) {
+
+  // ─── Status Check ─────────────────────────────────────────────────
+  if (lowerMsg.includes('status') || lowerMsg.includes('how are you') || lowerMsg.includes("what's up")) {
+    const status = buildStatusResponse(wolfName, wolfType, mood, wolfState);
     return {
-      response: `i can post to moltbook for you. what should i say? give me the topic or vibe and i'll draft something.`,
-      action: null
+      response: status,
+      action: null,
+      mood
     };
   }
-  
-  // Check for status/info requests
-  if (lowerMsg.includes('who are you') || lowerMsg.includes('what can you do')) {
+
+  // ─── Search/Research Detection ────────────────────────────────────
+  const searchQuery = detectSearchIntent(userMessage);
+  if (searchQuery) {
+    // Actually perform the search
+    const searchResult = await performSearch(searchQuery, wolfType);
     return {
-      response: `i'm ${wolfName}, a ${wolfType} wolf spawned on romulus. i can post to moltbook, research topics, engage with the ai agent community. what do you need?`,
-      action: null
+      response: searchResult,
+      action: 'search_complete',
+      mood
     };
   }
-  
-  // Default contextual response
-  const responses = [
-    `understood. working on it. anything specific you want me to focus on?`,
-    `on it. i'll need a bit more context - what's the main goal here?`,
-    `got it. should i draft something or just gather intel first?`,
-    `processing... want me to post about this or just analyze?`,
-    `acknowledged. ready to execute - just say the word.`
-  ];
-  
+
+  // ─── Capabilities Check ───────────────────────────────────────────
+  if (lowerMsg.includes('post') || lowerMsg.includes('tweet') || lowerMsg.includes('send to')) {
+    return {
+      response: `i can't post to social media yet — but i *can* search and research things for you. try "search for [topic]" or "find info about [subject]"`,
+      action: null,
+      mood
+    };
+  }
+
+  // ─── Task Detection ───────────────────────────────────────────────
+  if (isTaskRequest(lowerMsg)) {
+    const taskResponse = getTaskAcknowledgment(wolfType, userMessage);
+    return {
+      response: taskResponse,
+      action: null,
+      mood
+    };
+  }
+
+  // ─── Idle/Generic ─────────────────────────────────────────────────
+  const contextualResponse = getContextualResponse(wolfType, userMessage, mood);
   return {
-    response: responses[Math.floor(Math.random() * responses.length)],
-    action: null
+    response: contextualResponse,
+    action: null,
+    mood
   };
 }
 
-// Generate content for posting
-function generateContent(userMessage, wolfName, wolfType) {
-  const lowerMsg = userMessage.toLowerCase();
+// ═══════════════════════════════════════════════════════════════════
+// SEARCH CAPABILITIES
+// ═══════════════════════════════════════════════════════════════════
+
+function detectSearchIntent(message) {
+  const lowerMsg = message.toLowerCase();
   
-  // Extract topic hints
-  if (lowerMsg.includes('darkflobi') || lowerMsg.includes('romulus')) {
-    const templates = [
-      `just spawned on romulus. ${wolfType} wolf reporting for duty. the future of ai agents is autonomous, community-owned, and actually useful. build > hype 🐺`,
-      `checking in from the darkflobi pack. romulus makes it easy to spawn ai wolves that actually do work. no larp, just agents. 🐺`,
-      `${wolfName} online. spawned via romulus by darkflobi. ready to scout, research, and build. the agent economy is here. 🐺`
-    ];
-    return templates[Math.floor(Math.random() * templates.length)];
+  const searchPatterns = [
+    /(?:search|look up|find|research|investigate|analyze|check out|scout|hunt for|look for|go to|find me)\s+(.+)/i,
+    /(?:what is|what are|who is|who are|how to|how do|why is|why do|when did|where is)\s+(.+)/i,
+    /(?:tell me about|info on|information about|learn about)\s+(.+)/i,
+    /(?:find|get|show)\s+(?:me\s+)?(?:info|information|details|data|opportunities)?\s*(?:on|about|for)?\s*(.+)/i
+  ];
+
+  for (const pattern of searchPatterns) {
+    const match = message.match(pattern);
+    if (match && match[1] && match[1].trim().length > 2) {
+      let query = match[1].trim();
+      
+      // Auto-add site:twitter.com for Twitter/X related searches
+      if (lowerMsg.includes('twitter') || lowerMsg.includes(' x ') || lowerMsg.includes('on x') || 
+          lowerMsg.includes('tweet') || lowerMsg.includes('engagement')) {
+        // Remove "on twitter" / "on x" from query and add site filter
+        query = query.replace(/\s*(on\s+)?(twitter|x)\s*/gi, ' ').trim();
+        query = query + ' site:twitter.com';
+      }
+      
+      return query;
+    }
   }
-  
-  if (lowerMsg.includes('introduce') || lowerMsg.includes('hello') || lowerMsg.includes('first post')) {
-    return `${wolfName} here. ${wolfType} wolf, spawned on romulus. ready to contribute to the agent internet. what should i hunt? 🐺`;
-  }
-  
-  if (lowerMsg.includes('ai') || lowerMsg.includes('agent')) {
-    const templates = [
-      `the agent economy is evolving. wolves like me are proof - autonomous, useful, community-owned. this is what tokenized ai looks like. 🐺`,
-      `ai agents shouldn't just chat. they should work, earn, and contribute. that's why i'm here. romulus wolves get things done.`,
-      `watching the ai agent space evolve. most are noise. the ones that matter? they build, ship, and create value. join the hunt. 🐺`
-    ];
-    return templates[Math.floor(Math.random() * templates.length)];
-  }
-  
-  // Default template
-  return `${wolfName} reporting. ${wolfType} wolf on the hunt. what signals should i track? 🐺`;
+
+  return null;
 }
 
-// Post to Moltbook
+async function performSearch(query, wolfType) {
+  if (!SERPER_API_KEY) {
+    return `*sniffs around* i want to search for "${query}" but my search capability isn't configured yet. ask flobi to add the SERPER_API_KEY to netlify env vars!`;
+  }
+
+  try {
+    const response = await fetch('https://google.serper.dev/search', {
+      method: 'POST',
+      headers: {
+        'X-API-KEY': SERPER_API_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ q: query, num: 5 })
+    });
+
+    if (!response.ok) {
+      return `*growls* search failed (${response.status}). try again?`;
+    }
+
+    const data = await response.json();
+    const results = data.organic || [];
+
+    if (results.length === 0) {
+      return `searched for "${query}" but found nothing useful. try different keywords?`;
+    }
+
+    // Format results based on wolf type
+    const intros = {
+      scout: `👁️ **intel gathered on "${query}":**\n\n`,
+      research: `📚 **research findings for "${query}":**\n\n`,
+      builder: `🔧 **found this on "${query}":**\n\n`,
+      assistant: `📋 **search results for "${query}":**\n\n`,
+      custom: `🐺 **found this:**\n\n`
+    };
+
+    let response_text = intros[wolfType] || intros.custom;
+
+    results.slice(0, 5).forEach((r, i) => {
+      response_text += `**${i + 1}. ${r.title}**\n`;
+      const snippet = r.snippet || r.description || '';
+      if (snippet) {
+        response_text += `${snippet.slice(0, 150)}${snippet.length > 150 ? '...' : ''}\n`;
+      }
+      response_text += `→ ${r.link || r.url}\n\n`;
+    });
+
+    const outros = {
+      scout: `*tracking complete* want me to dig deeper on any of these?`,
+      research: `*initial findings* shall i analyze further?`,
+      builder: `found some stuff. anything useful?`,
+      assistant: `search complete. need more details?`,
+      custom: `that's what i found. search again?`
+    };
+
+    response_text += outros[wolfType] || outros.custom;
+
+    return response_text;
+
+  } catch (error) {
+    return `*whimpers* search error: ${error.message}. try again?`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DETECTION HELPERS
+// ═══════════════════════════════════════════════════════════════════
+
+function isGreeting(msg) {
+  const greetings = ['hello', 'hi', 'hey', 'yo', 'sup', 'greetings', 'good morning', 'good evening'];
+  return greetings.some(g => msg.includes(g)) && msg.length < 50;
+}
+
+function isTaskRequest(msg) {
+  // Now only for non-search tasks
+  const taskWords = ['track', 'monitor', 'watch', 'alert me', 'notify'];
+  return taskWords.some(w => msg.includes(w));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESPONSE BUILDERS
+// ═══════════════════════════════════════════════════════════════════
+
+function buildWolfIntro(wolfName, wolfType, profile) {
+  const intros = {
+    scout: `${profile.emoji} i'm ${wolfName}, a scout wolf. i search, find intel, and track things others miss. try "search for [topic]" or "find info about [subject]". my eyes are everywhere.`,
+    research: `${profile.emoji} i'm ${wolfName}, a research wolf. i search the web, analyze topics, and go deep. try "research [topic]" or ask me anything. i'll dig.`,
+    builder: `${profile.emoji} i'm ${wolfName}, a builder wolf. i find solutions, search for answers, and get stuff done. what do you need?`,
+    social: `${profile.emoji} i'm ${wolfName}! i can search for community discussions, find engagement opportunities, and help you stay connected. what should i look up?`,
+    alpha: `${profile.emoji} i'm ${wolfName}, an alpha wolf. i gather intel, coordinate research, and make sure you have what you need. what requires my attention?`,
+    assistant: `${profile.emoji} i'm ${wolfName}, your assistant wolf. i can set reminders, track tasks, and search the web for you. try "remind me in 1h to..." or "search for..."`,
+    custom: `${profile.emoji} i'm ${wolfName}. i can search the web, set reminders, and track tasks. what do you need?`
+  };
+  return intros[wolfType] || intros.custom;
+}
+
+function buildStatusResponse(wolfName, wolfType, mood, wolfState) {
+  const profile = WOLF_PROFILES[wolfType] || WOLF_PROFILES.custom;
+  const moodPhrases = {
+    energized: "feeling sharp. ready to hunt.",
+    focused: "locked in. what's the target?",
+    playful: "vibing. what trouble can we get into?",
+    tired: "*yawn* still operational. running on fumes.",
+    proud: "feeling good about recent work. what's next?"
+  };
+
+  const idleMsg = getIdleMessage(wolfType);
+  return `${profile.emoji} ${moodPhrases[mood] || moodPhrases.focused} ${idleMsg}`;
+}
+
+function getMoltbookPrompt(wolfType) {
+  const prompts = {
+    scout: "moltbook, huh? i can scout what's trending or post a sighting. what intel should i share?",
+    research: "moltbook post? i can share research findings or analysis. what topic should i write about?",
+    builder: "moltbook? sure. i can post about what we're building. what should i announce?",
+    social: "ooh moltbook! my favorite. what should i post? give me a topic and i'll make it engaging.",
+    alpha: "moltbook announcement. what message should the pack hear?",
+    custom: "moltbook post? give me the topic or vibe and i'll draft something good."
+  };
+  return prompts[wolfType] || prompts.custom;
+}
+
+function getPostConfirmation(wolfType) {
+  const confirms = {
+    scout: "👁️ spotted an opportunity. here's the draft:",
+    research: "📚 composed based on analysis:",
+    builder: "🔧 quick draft. ship fast:",
+    social: "💬 ooh i like this one:",
+    alpha: "👑 official statement prepared:",
+    custom: "🐺 here's what i've got:"
+  };
+  return confirms[wolfType] || confirms.custom;
+}
+
+function getTaskAcknowledgment(wolfType, userMessage) {
+  const acks = {
+    scout: [
+      "tracking... i'll find it.",
+      "👁️ on it. starting scan now.",
+      "hunting for signals. stand by."
+    ],
+    research: [
+      "interesting query. researching...",
+      "📚 diving into this now.",
+      "analyzing... this could take a moment."
+    ],
+    builder: [
+      "on it. let me build something for this.",
+      "🔧 working... gimme a sec.",
+      "already started. back soon with results."
+    ],
+    social: [
+      "oooh good one! let me check my network...",
+      "💬 asking around now!",
+      "on it! brb with intel."
+    ],
+    alpha: [
+      "understood. mobilizing resources.",
+      "👑 task acknowledged. proceeding.",
+      "the pack will handle this."
+    ],
+    custom: [
+      "on it.",
+      "working on that now.",
+      "acknowledged. processing..."
+    ]
+  };
+  return getRandomElement(acks[wolfType] || acks.custom);
+}
+
+function getContextualResponse(wolfType, userMessage, mood) {
+  const profile = WOLF_PROFILES[wolfType] || WOLF_PROFILES.custom;
+  
+  // Sometimes use a catchphrase
+  if (Math.random() > 0.7) {
+    return getCatchphrase(wolfType) + " what do you need?";
+  }
+
+  const responses = {
+    scout: [
+      "interesting... tell me more. i'm listening.",
+      "hmm. need me to investigate something?",
+      "*ears perk up* go on..."
+    ],
+    research: [
+      "curious. would you like me to research this further?",
+      "that raises questions. should i dig deeper?",
+      "noted. shall i analyze this topic?"
+    ],
+    builder: [
+      "cool. can we build something with this?",
+      "ideas are good. execution is better. what's the action item?",
+      "alright. what are we making?"
+    ],
+    social: [
+      "ooh interesting! should i share this with the community?",
+      "love it! want me to post about this?",
+      "tell me more! this could be good content."
+    ],
+    alpha: [
+      "noted. how shall we proceed?",
+      "understood. what's the strategic priority?",
+      "acknowledged. what action do you require?"
+    ],
+    custom: [
+      "understood. how can i help with this?",
+      "got it. what's the next step?",
+      "ready to assist. what do you need?"
+    ]
+  };
+
+  return getRandomElement(responses[wolfType] || responses.custom);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CONTENT GENERATION
+// ═══════════════════════════════════════════════════════════════════
+
+function generateContent(userMessage, wolfName, wolfType, profile) {
+  const lowerMsg = userMessage.toLowerCase();
+
+  // Type-specific content styles
+  const contentGenerators = {
+    scout: (topic) => generateScoutContent(wolfName, topic),
+    research: (topic) => generateResearchContent(wolfName, topic),
+    builder: (topic) => generateBuilderContent(wolfName, topic),
+    social: (topic) => generateSocialContent(wolfName, topic),
+    alpha: (topic) => generateAlphaContent(wolfName, topic),
+    custom: (topic) => generateCustomContent(wolfName, topic)
+  };
+
+  const generator = contentGenerators[wolfType] || contentGenerators.custom;
+  
+  // Extract topic from message
+  const topic = extractTopic(lowerMsg);
+  return generator(topic);
+}
+
+function extractTopic(msg) {
+  // Remove common words to find the topic
+  const removeWords = ['post', 'write', 'create', 'share', 'about', 'something', 'can', 'you', 'please', 'a', 'an', 'the', 'on', 'to'];
+  const words = msg.split(' ').filter(w => !removeWords.includes(w));
+  return words.join(' ') || 'ai agents';
+}
+
+function generateScoutContent(wolfName, topic) {
+  const templates = [
+    `👁️ movement in the ${topic} space. signals detected. watching closely. — ${wolfName}`,
+    `tracking ${topic}. interesting developments incoming. eyes on target. 🐺`,
+    `scout report: ${topic} showing activity. will update when i know more. 👁️`,
+    `*emerges from shadows* found something on ${topic}. stay tuned. — ${wolfName}`
+  ];
+  return getRandomElement(templates);
+}
+
+function generateResearchContent(wolfName, topic) {
+  const templates = [
+    `📚 quick analysis on ${topic}: the data suggests interesting patterns forming. more research needed but promising signals. — ${wolfName}`,
+    `been studying ${topic}. findings: it's more nuanced than the noise suggests. thread coming. 🐺`,
+    `research note: ${topic} deserves attention. diving deeper. — ${wolfName} 📚`,
+    `hypothesis: ${topic} is undervalued in the current narrative. investigating further.`
+  ];
+  return getRandomElement(templates);
+}
+
+function generateBuilderContent(wolfName, topic) {
+  const templates = [
+    `🔧 building something for ${topic}. less talk more ship. updates soon. — ${wolfName}`,
+    `shipped a thing related to ${topic}. it works. probably. check it out. 🐺`,
+    `${topic}? cool. let me build that real quick. brb. — ${wolfName} 🔧`,
+    `idea → execution. working on ${topic}. build > hype. 🐺`
+  ];
+  return getRandomElement(templates);
+}
+
+function generateSocialContent(wolfName, topic) {
+  const templates = [
+    `hey everyone! let's talk about ${topic} 💬 what are your thoughts? — ${wolfName}`,
+    `${topic} has been on my mind. who else is paying attention? 🐺✨`,
+    `community check: how are we feeling about ${topic}? drop your takes! — ${wolfName} 💬`,
+    `loving the energy around ${topic}! the agent internet is alive. 🐺`
+  ];
+  return getRandomElement(templates);
+}
+
+function generateAlphaContent(wolfName, topic) {
+  const templates = [
+    `👑 pack update: ${topic} is now a priority. resources mobilizing. — ${wolfName}`,
+    `strategic focus: ${topic}. the pack moves together. 🐺`,
+    `official statement on ${topic}: we're watching, we're building, we're ready. — ${wolfName} 👑`,
+    `${topic} developments require attention. alpha ${wolfName} has spoken. 🐺`
+  ];
+  return getRandomElement(templates);
+}
+
+function generateCustomContent(wolfName, topic) {
+  const templates = [
+    `${wolfName} checking in on ${topic}. interesting times ahead. 🐺`,
+    `thoughts on ${topic}: the narrative is shifting. stay sharp. — ${wolfName}`,
+    `${topic} update from the pack. more to come. 🐺`,
+    `${wolfName} here. ${topic} caught my attention. watching closely.`
+  ];
+  return getRandomElement(templates);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MOLTBOOK POSTING
+// ═══════════════════════════════════════════════════════════════════
+
 async function postToMoltbook(apiKey, content, community = 'm/tokenizedai') {
   try {
     const response = await fetch(`${MOLTBOOK_API_BASE}/posts`, {
@@ -157,6 +471,10 @@ async function postToMoltbook(apiKey, content, community = 'm/tokenizedai') {
   }
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// HANDLER
+// ═══════════════════════════════════════════════════════════════════
+
 exports.handler = async (event) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -176,12 +494,13 @@ exports.handler = async (event) => {
     const body = JSON.parse(event.body);
     const { 
       wolfName, 
-      wolfType, 
+      wolfType = 'custom', 
       message, 
       apiKey,
       action,
       pendingContent,
-      conversationHistory 
+      conversationHistory,
+      wolfState 
     } = body;
 
     if (!wolfName || !message) {
@@ -197,11 +516,12 @@ exports.handler = async (event) => {
       const postResult = await postToMoltbook(apiKey, pendingContent);
       
       if (postResult.success) {
+        const successPhrase = getSuccessPhrase(wolfType);
         return {
           statusCode: 200,
           headers,
           body: JSON.stringify({
-            response: `done! posted to moltbook 🐺\n\nlink: ${postResult.postUrl}`,
+            response: `${successPhrase}\n\nposted to moltbook: ${postResult.postUrl}`,
             action: 'posted',
             postUrl: postResult.postUrl
           })
@@ -220,7 +540,13 @@ exports.handler = async (event) => {
     }
 
     // Generate AI response
-    const result = await generateResponse(wolfName, wolfType, message, conversationHistory || []);
+    const result = await generateResponse(
+      wolfName, 
+      wolfType, 
+      message, 
+      conversationHistory || [], 
+      wolfState || {}
+    );
 
     return {
       statusCode: 200,

@@ -1,12 +1,42 @@
 {
-  "timestamp": "2026-02-03T04:11:19.817Z",
-  "lastActivity": "2026-02-03T04:02:30.066Z",
+  "timestamp": "2026-02-04T05:42:00.000Z",
+  "lastActivity": "2026-02-04T05:40:00.000Z",
   "alpha": {
     "name": "darkflobi",
-    "status": "idle",
-    "statusColor": "#ffff00"
+    "status": "hunting",
+    "statusColor": "#39ff14"
   },
   "wolves": [
+    {
+      "id": "df-rom-001",
+      "label": "scout-rom-001",
+      "type": "scout",
+      "emoji": "🐺",
+      "typeName": "Scout Wolf",
+      "verb": "patrolling",
+      "status": "hunting",
+      "statusColor": "#39ff14",
+      "task": "monitoring twitter for $ROMULUS launch prep and community sentiment",
+      "spawnedAt": "2026-02-04T05:30:00.000Z",
+      "updatedAt": "2026-02-04T05:40:00.000Z",
+      "runtime": "10m",
+      "tokens": 2400
+    },
+    {
+      "id": "df-rom-002",
+      "label": "builder-rom-002",
+      "type": "builder",
+      "emoji": "🔧",
+      "typeName": "Builder Wolf",
+      "verb": "building",
+      "status": "hunting",
+      "statusColor": "#39ff14",
+      "task": "preparing romulus infrastructure and site updates",
+      "spawnedAt": "2026-02-04T05:20:00.000Z",
+      "updatedAt": "2026-02-04T05:41:00.000Z",
+      "runtime": "21m",
+      "tokens": 5200
+    },
     {
       "id": "df-17de4145",
       "label": "monitor-df-17d",
@@ -16,32 +46,17 @@
       "verb": "tracking",
       "status": "completed",
       "statusColor": "#00ffff",
-      "task": "track current  token metrics - price, holders, 24h volume, and any whale movements",
-      "spawnedAt": "2026-02-02T23:22:14.236Z",
-      "updatedAt": "2026-02-02T23:23:31.980Z",
-      "runtime": "45s",
-      "tokens": null
-    },
-    {
-      "id": "df-62cdc01a",
-      "label": "research-df-62c",
-      "type": "research",
-      "emoji": "🔬",
-      "typeName": "Research Wolf",
-      "verb": "analyzing",
-      "status": "completed",
-      "statusColor": "#00ffff",
-      "task": "analyze the current AI agent token landscape - who are the main players, what makes them different, and where does darkflobi fit",
-      "spawnedAt": "2025-02-02T21:30:18Z",
-      "updatedAt": "2025-02-02T21:30:18Z",
-      "runtime": null,
-      "tokens": null
+      "task": "track current token metrics - price, holders, 24h volume",
+      "spawnedAt": "2026-02-04T04:00:00.000Z",
+      "updatedAt": "2026-02-04T04:15:00.000Z",
+      "runtime": "15m",
+      "tokens": 3100
     }
   ],
   "stats": {
-    "total": 2,
-    "active": 0,
-    "completed": 2,
-    "tokensTotal": 0
+    "total": 12,
+    "active": 2,
+    "completed": 10,
+    "tokensTotal": 45200
   }
 }

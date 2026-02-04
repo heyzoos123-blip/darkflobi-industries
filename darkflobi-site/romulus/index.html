@@ -9,12 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink: #ff2d95;
+            --pink: #D4AF37;
             --green: #39ff14;
             --cyan: #00ffff;
             --yellow: #ffff00;
             --dark: #0a0a0c;
             --darker: #050507;
+            --gold: #D4AF37;
+            --gold-dark: #B8860B;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,8 +46,8 @@
             padding: 30px;
             margin-bottom: 20px;
             text-align: center;
-            background: linear-gradient(180deg, rgba(255,45,149,0.05) 0%, transparent 100%);
-            box-shadow: 0 0 30px rgba(255,45,149,0.1);
+            background: linear-gradient(180deg, rgba(212,175,55,0.05) 0%, transparent 100%);
+            box-shadow: 0 0 30px rgba(212,175,55,0.1);
         }
         
         .logo {
@@ -55,7 +57,7 @@
             white-space: pre;
             line-height: 1.1;
             margin-bottom: 10px;
-            text-shadow: 0 0 10px var(--pink), 0 0 20px rgba(255,45,149,0.5);
+            text-shadow: 0 0 10px var(--pink), 0 0 20px rgba(212,175,55,0.5);
         }
         
         .tagline {
@@ -83,7 +85,7 @@
         
         .card:hover {
             border-color: var(--pink);
-            box-shadow: 0 0 20px rgba(255,45,149,0.1);
+            box-shadow: 0 0 20px rgba(212,175,55,0.1);
         }
         
         .card h2 {
@@ -145,6 +147,62 @@
             50% { opacity: 0.7; box-shadow: 0 0 20px var(--green); }
         }
         
+        @keyframes glitch {
+            0%, 100% { 
+                opacity: 1; 
+                transform: translate(0); 
+                filter: brightness(1) hue-rotate(0deg);
+            }
+            2% { 
+                opacity: 0.8; 
+                transform: translate(-2px, 1px); 
+                filter: brightness(1.2) hue-rotate(5deg);
+            }
+            4% { 
+                opacity: 1; 
+                transform: translate(2px, -1px); 
+                filter: brightness(0.9) hue-rotate(-5deg);
+            }
+            6% { 
+                opacity: 0.9; 
+                transform: translate(0); 
+                filter: brightness(1.1);
+            }
+            41%, 43% {
+                opacity: 0.85;
+                transform: translate(1px, 0);
+                filter: brightness(1.3) saturate(1.2);
+            }
+            45% {
+                opacity: 1;
+                transform: translate(0);
+            }
+            82% {
+                opacity: 1;
+                transform: translate(0);
+            }
+            84% {
+                opacity: 0.7;
+                transform: translate(-1px, 2px);
+                filter: brightness(1.4) hue-rotate(10deg);
+            }
+            86% {
+                opacity: 1;
+                transform: translate(0);
+                filter: brightness(1);
+            }
+        }
+        
+        .wolf-logo {
+            animation: glitch 4s infinite;
+            filter: drop-shadow(0 0 15px rgba(212,175,55,0.6)) drop-shadow(0 0 30px rgba(212,175,55,0.4)) drop-shadow(0 0 50px rgba(212,175,55,0.2));
+        }
+        
+        .wolf-logo:hover {
+            animation: glitch 0.5s infinite;
+            filter: drop-shadow(0 0 20px rgba(212,175,55,0.8)) drop-shadow(0 0 40px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.3));
+        }
+        
         .status-text {
             font-family: 'VT323', monospace;
             font-size: 1.2em;
@@ -201,7 +259,7 @@
         .wolf-card:hover {
             border-color: var(--pink);
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255,45,149,0.2);
+            box-shadow: 0 5px 20px rgba(212,175,55,0.2);
         }
         .wolf-card.hunting { border-color: var(--green); box-shadow: 0 0 15px rgba(57,255,20,0.15); }
         .wolf-card.prowling { border-color: var(--yellow); box-shadow: 0 0 15px rgba(255,255,0,0.1); }
@@ -270,7 +328,7 @@
             align-items: center;
             gap: 10px;
         }
-        .tx-item:hover { background: rgba(255,45,149,0.05); }
+        .tx-item:hover { background: rgba(212,175,55,0.05); }
         .tx-icon { font-size: 1.2em; }
         .tx-hash { color: var(--cyan); text-decoration: none; flex: 1; }
         .tx-hash:hover { color: var(--pink); text-decoration: underline; }
@@ -312,6 +370,7 @@
 ██╔══██╗██║   ██║██║╚██╔╝██║██║   ██║██║     ██║   ██║╚════██║
 ██║  ██║╚██████╔╝██║ ╚═╝ ██║╚██████╔╝███████╗╚██████╔╝███████║
 ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝</pre>
+            <img src="/romulus/romulus-logo.jpg" alt="ROMULUS Wolf" class="wolf-logo" style="max-width: 200px; width: 100%; margin: 20px 0;">
             <p class="tagline">autonomous wolf pack 🐺</p>
             <p class="subtitle">real agents • real data • no larp</p>
         </div>
@@ -345,7 +404,7 @@
                     <span class="stat-value" id="solBalance">loading...</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-label">$DARKFLOBI</span>
+                    <span class="stat-label">$ROMULUS</span>
                     <span class="stat-value" id="tokenBalance">holder</span>
                 </div>
                 <div class="stat">
@@ -353,6 +412,7 @@
                     <span class="stat-value" id="totalValue">--</span>
                 </div>
                 <a href="https://solscan.io/account/FkjfuNd1pvKLPzQWm77WfRy1yNWRhqbBPt9EexuvvmCD" target="_blank" class="btn">View on Solscan →</a>
+                <a href="https://pump.fun/coin/5ruEtrHGgqxE3Zo1UdRAvVrdetLwq6SFJvLjgth6pump" target="_blank" style="display: block; text-align: center; margin-top: 10px; color: #888; font-size: 0.8em; text-decoration: none;">buy $ROMULUS →</a>
             </div>
             
             <div class="card">
@@ -386,6 +446,28 @@
                     <span class="stat-value" id="lastVerified">--</span>
                 </div>
                 <a href="/verify" class="btn">Verify Content →</a>
+            </div>
+            
+            <div class="card">
+                <h2>⚡ Agent Infrastructure</h2>
+                <div class="stat">
+                    <span class="stat-label">Status</span>
+                    <span class="stat-value" style="color: var(--yellow);">LAUNCHING</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Access</span>
+                    <span class="stat-value">$ROMULUS holders</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Tech</span>
+                    <span class="stat-value">Hypercore microVMs</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Tiers</span>
+                    <span class="stat-value">100K → 5M</span>
+                </div>
+                <a href="/romulus/infra.html" class="btn" style="background: var(--pink); color: #000; border-color: var(--pink);">⚡ VIEW INFRA →</a>
+                <a href="https://github.com/heyzoos123-blip/romulus-infra" target="_blank" class="btn" style="margin-top: 10px;">📦 GITHUB</a>
             </div>
             
             <div class="card">
